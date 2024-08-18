@@ -5,37 +5,40 @@ import TodayWork from "./components/TodayWork";
 import FleetingThoughts from "./components/FleetingThoughs";
 import TimeBlock from "./components/TimeBlock";
 
-const FEATURES = ["Time Block", "Today's Work", "Fleeting Thoughts"];
+const FEATURES = ["Time Block", "Today's Works", "Fleeting Thoughts"]
 
 function App() {
-    const [isTimeBlockActive, setIsTimeBlockActive] = React.useState(false);
-    const [isTodayWork, setIsTodayWork] = React.useState(true);
-    const [isFleeting, setIsFleeting] = React.useState(false);
+    const [activeFeature, setActiveFeature] = React.useState(FEATURES[1])
+
+
+    function handleClick(e) {
+        const feature = e.target.textContent
+        setActiveFeature(feature)
+    }
 
     return (
         <>
-        <FeatureWrapper>
-            {FEATURES.map((feature) => {
-                return <Feature key={crypto.randomUUID()} title={feature} />;
-            })}
-        </FeatureWrapper>
-        <Main>
-            <Wrapper>
-
-            {isTimeBlockActive && <TimeBlock />}
-            {isTodayWork && <TodayWork />}
-            {isFleeting && <FleetingThoughts />}
-            </Wrapper>
-        </Main>
+            <FeatureWrapper onClick={(e) => handleClick(e)}>
+                {FEATURES.map((title) => {
+                    return <Feature key={crypto.randomUUID()} title={title} isActive={title === activeFeature}/>;
+                })}
+            </FeatureWrapper>
+            <Main>
+                <Wrapper>
+                    {activeFeature === FEATURES[0] && <TimeBlock />}
+                    {activeFeature === FEATURES[1] && <TodayWork />}
+                    {activeFeature === FEATURES[2] && <FleetingThoughts />}
+                </Wrapper>
+            </Main>
         </>
     );
 }
 const FeatureWrapper = styled.div`
     display: flex;
-    max-width: 1440px;
-    width: auto;
-    margin: 0 auto;
     justify-content: space-between;
+    max-width: 1440px;
+    width: 50%;
+    margin: 0 auto;
 `;
 
 

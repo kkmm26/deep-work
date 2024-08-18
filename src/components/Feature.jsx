@@ -1,25 +1,26 @@
 import React from "react";
 import styled from "styled-components";
 
-function Feature({ title }) {
+function Feature({ title, isActive }) {
 
     return (
         <>
-            <FeatureTitle>{title}</FeatureTitle>
+            <FeatureTitle isActive={isActive}>{title}</FeatureTitle>
         </>
     );
 }
 
 const FeatureTitle = styled.h1`
     width: 100%;
-    background-color: ${(p) => (p.isActive ? "#b1b1b1" : "#e3e3e3")};
+    background-color: ${(p) => (p.isActive ? "#000000" : "white")};
+    color: ${(p) => (p.isActive ? "white" : "#8b8b8b")};
     text-align: center;
     font-size: 20px;
-    border: 1px solid #b1b1b1b1;
 
     &:hover {
         cursor: pointer;
-        background-color: #b1b1b1;
+        background-color: ${(p) => (p.isActive ? "none" : "#e7e7e7")};
+        pointer-events: ${p => p.isActive ? "none" : "revert"};
     }
 `;
 
