@@ -13,9 +13,9 @@ function Feature({ title, isActive }) {
 const FeatureTitle = styled.h1`
     width: 100%;
     background-color: ${(p) => (p.isActive ? "#000000" : "white")};
-    color: ${(p) => (p.isActive ? "white" : "#8b8b8b")};
+    color: ${(p) => (p.isActive ? "white" : "#b1b1b1")};
     text-align: center;
-    font-size: 20px;
+    font-size: 18px;
 
     &:hover {
         cursor: pointer;

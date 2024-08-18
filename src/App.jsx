@@ -37,7 +37,7 @@ const FeatureWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     max-width: 1440px;
-    width: 50%;
+    width: 100%;
     margin: 0 auto;
 `;
 
@@ -56,5 +56,6 @@ const Wrapper = styled.div`
     margin: 0 auto;
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.375) 0px 2px 8px 0px;
+    padding: 10px;
 `;
 export default App;

@@ -1,5 +1,5 @@
 function TimeBlock() {
-    return <></>
+    return <h2></h2>
 }
 
 export default TimeBlock
