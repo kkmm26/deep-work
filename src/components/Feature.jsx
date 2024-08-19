@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { COLORS } from "./colors.constants";
 
 function Feature({ title, isActive }) {
 
@@ -12,15 +13,15 @@ function Feature({ title, isActive }) {
 
 const FeatureTitle = styled.h1`
     width: 100%;
-    background-color: ${(p) => (p.isActive ? "#000000" : "white")};
-    color: ${(p) => (p.isActive ? "white" : "#b1b1b1")};
+    background-color: ${(p) => (p.isActive ? COLORS.black : COLORS.white)};
+    color: ${(p) => (p.isActive ? COLORS.white: COLORS.inactiveBlack)};
     text-align: center;
     font-size: 18px;
 
     &:hover {
         cursor: pointer;
-        background-color: ${(p) => (p.isActive ? "none" : "#e7e7e7")};
-        pointer-events: ${p => p.isActive ? "none" : "revert"};
+        background-color: ${(p) => (!p.isActive && COLORS.hoverBlack)};
+        pointer-events: ${p => p.isActive && "none"};
     }
 `;
 

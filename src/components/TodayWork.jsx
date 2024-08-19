@@ -3,8 +3,9 @@ import styled from "styled-components";
 import Ritual from "./Ritual";
 import DeepWorks from "./DeepWorks";
 import ShallowWorks from "./ShallowWorks";
+import { WORK_TYPES, WORK_TYPES_STYLES } from "./work_types.constants";
 
-const WORK_TYPES = ["Ritual", "Deep Works", "Shallow Works"];
+import { COLORS } from "./colors.constants";
 
 function TodayWork() {
     const [workType, setWorkType] = React.useState(WORK_TYPES[1]);
@@ -42,11 +43,15 @@ const TitleWrapper = styled.div`
 
 const Work = styled.h2`
     cursor: pointer;
-    font-size: ${(p) => (p.isActive ? "18px" : "14px")};
-    border-bottom: ${(p) => (p.isActive ? "1px solid #b1b1b1" : "none")};
-    color: ${(p) => (p.isActive ? "#2d2d2d" : "#b1b1b1")};
-
+    font-size: ${(p) => (p.isActive ? WORK_TYPES_STYLES.fontSize.active : WORK_TYPES_STYLES.fontSize.inactive)};
+    border-bottom: ${(p) => (p.isActive && WORK_TYPES_STYLES.borderBottom.active)};
+    color: ${(p) => (p.isActive ? COLORS.black : COLORS.inactiveBlack)};
     padding: 0 10px 5px 10px;
+
+    &:hover {
+        color: ${p => !p.isActive && COLORS.hoverBlack};
+        pointer-events: ${p => p.isActive && "none"};
+    }
 `;
 
 export default TodayWork;
