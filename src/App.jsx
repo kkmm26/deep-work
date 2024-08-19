@@ -18,22 +18,22 @@ function App() {
 
     return (
         <>
-            <FeatureWrapper onClick={(e) => handleClick(e)}>
+            <TitleWrapper onClick={(e) => handleClick(e)}>
                 {FEATURES.map((title) => {
                     return <Feature key={crypto.randomUUID()} title={title} isActive={title === activeFeature}/>;
                 })}
-            </FeatureWrapper>
+            </TitleWrapper>
             <Main>
-                <Wrapper>
+                <FeatureWrapper>
                     {activeFeature === FEATURES[0] && <TimeBlock />}
                     {activeFeature === FEATURES[1] && <TodayWork />}
                     {activeFeature === FEATURES[2] && <FleetingThoughts />}
-                </Wrapper>
+                </FeatureWrapper>
             </Main>
         </>
     );
 }
-const FeatureWrapper = styled.div`
+const TitleWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     max-width: 1440px;
@@ -47,9 +47,10 @@ const Main = styled.main`
     height: 100vh;
     padding: 25px;
     margin: 0 auto;
-`;
+    `;
 
-const Wrapper = styled.div`
+const FeatureWrapper = styled.div`
+min-width: fit-content;
     width: 100%;
     height: 100%;
     background-color: #ffffff;
