@@ -7,17 +7,47 @@ import { WORK_TYPES, WORK_TYPES_STYLES } from "./work_types.constants";
 
 import { COLORS } from "./colors.constants";
 import PlusButton from "./PlusButton";
+import TaskForm from "./TaskForm";
 
 function TodayWork() {
     const [workType, setWorkType] = React.useState(WORK_TYPES[1]);
+    const scrollRef = React.useRef();
+    const titleRef = React.useRef();
+    const taskFormRef = React.useRef();
 
     function handleClick(e) {
+        scrollRef.current.scrollIntoView({ behavior: "smooth" });
         setWorkType(e.target.dataset.work);
+    }
+
+    function showForm(e) {
+        // if(e.target.dataset.work !== workType) {
+        //     return
+        // }
+       console.log(e.currentTarget);
+        if (
+            e.currentTarget === titleRef.current ||
+            e.currentTarget === taskFormRef.current
+        ) {
+            taskFormRef.current.style.visibility = "visible";
+        }
+    }
+    function hideForm(e) {
+        //  if (e.target.dataset.work !== workType) {
+        //      return
+        //  }
+        console.log(e.currentTarget);
+        if (
+            e.currentTarget === titleRef.current ||
+            e.currentTarget === taskFormRef.current
+        ) {
+            taskFormRef.current.style.visibility = "hidden";
+        }
     }
 
     return (
         <>
-            <TitleWrapper>
+            <TitleWrapper ref={titleRef} onMouseEnter={showForm} onMouseLeave={hideForm}>
                 {WORK_TYPES.map((work, index) => {
                     const isActive = work === workType;
                     return (
@@ -30,12 +60,18 @@ function TodayWork() {
                                 {work}
                             </WorkTitle>
                             {isActive && <HorizontalLine></HorizontalLine>}
-                            {isActive && <PlusButton />}
+                            {isActive && (
+                                <TaskForm
+                                    ref={taskFormRef}
+                                    showForm={showForm}
+                                    hideForm={hideForm}
+                                />
+                            )}
                         </Work>
                     );
                 })}
             </TitleWrapper>
-            <WorkTypeWrapper>
+            <WorkTypeWrapper ref={scrollRef}>
                 {workType === WORK_TYPES[0] && <Ritual />}
                 {workType === WORK_TYPES[1] && <DeepWorks />}
                 {workType === WORK_TYPES[2] && <ShallowWorks />}
@@ -56,13 +92,14 @@ const TitleWrapper = styled.div`
 const Work = styled.div`
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 5px;
-
-    &:hover button{
-        visibility: visible;
-    }
+    position: relative;
+    max-height: 30px;
 `;
 const WorkTitle = styled.h2`
+    letter-spacing: ${(p) => p.isActive && "1px"};
     cursor: pointer;
     margin: 0;
     padding: 0;

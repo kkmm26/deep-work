@@ -11,12 +11,12 @@ function PlusButton() {
 
 const Button = styled.button`
     width: 60px;
-    height: 25px;
+    height: 20px;
     border-radius: 3px;
     background-color: ${COLORS.plusButton};
     border: none;
     margin: 0 auto;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     display: flex;
     justify-content: center;
     align-items: center;
