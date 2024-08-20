@@ -4,7 +4,7 @@ import styled from "styled-components";
 import TodayWork from "./components/TodayWork";
 import FleetingThoughts from "./components/FleetingThoughs";
 import TimeBlock from "./components/TimeBlock";
-import { COLORS, STYLES } from "./constants";
+import { COLORS, STYLES } from "./constants.js";
 
 const FEATURES = ["Time Block", "Today's Works", "Fleeting Thoughts"]
 

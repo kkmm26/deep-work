@@ -22,3 +22,4 @@ export const WORK_TYPES_STYLES = {
 export const STYLES = {
     boxShadow: "rgba(0, 0, 0, 0.375) 0px 2px 8px 0px"
 }
+

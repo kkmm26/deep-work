@@ -4,7 +4,7 @@ import Ritual from "./Ritual";
 import DeepWorks from "./DeepWorks";
 import ShallowWorks from "./ShallowWorks";
 
-import { COLORS, WORK_TYPES, WORK_TYPES_STYLES } from "../constants";
+import { COLORS, WORK_TYPES, WORK_TYPES_STYLES } from "../constants.js";
 import PlusButton from "./PlusButton";
 import TaskForm from "./TaskForm";
 
@@ -59,7 +59,7 @@ const TitleWrapper = styled.div`
     justify-content: space-between;
     margin: 0 auto;
     min-width: fit-content;
-    max-width: 30%;
+    max-width: 40%;
     width: auto;
     text-align: center;
 `;
@@ -71,6 +71,7 @@ const Work = styled.div`
     align-items: center;
     gap: 5px;
     max-height: 30px;
+    width: 100%;
 `;
 const WorkTitle = styled.h2`
     cursor: pointer;
