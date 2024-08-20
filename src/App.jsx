@@ -4,6 +4,7 @@ import styled from "styled-components";
 import TodayWork from "./components/TodayWork";
 import FleetingThoughts from "./components/FleetingThoughs";
 import TimeBlock from "./components/TimeBlock";
+import { COLORS, STYLES } from "./constants";
 
 const FEATURES = ["Time Block", "Today's Works", "Fleeting Thoughts"]
 
@@ -45,7 +46,7 @@ const TitleWrapper = styled.div`
 const Main = styled.main`
     max-width: 1440px;
     height: 100vh;
-    padding: 25px;
+    padding: 15px;
     margin: 0 auto;
     `;
 
@@ -53,10 +54,10 @@ const FeatureWrapper = styled.div`
 min-width: fit-content;
     width: 100%;
     height: 100%;
-    background-color: #ffffff;
+    background-color: ${COLORS.white};
     margin: 0 auto;
     border-radius: 5px;
-    box-shadow: rgba(0, 0, 0, 0.375) 0px 2px 8px 0px;
+    box-shadow: ${STYLES.boxShadow};
     padding: 10px;
 `;
 export default App;

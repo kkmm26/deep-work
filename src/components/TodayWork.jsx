@@ -3,16 +3,14 @@ import styled from "styled-components";
 import Ritual from "./Ritual";
 import DeepWorks from "./DeepWorks";
 import ShallowWorks from "./ShallowWorks";
-import { WORK_TYPES, WORK_TYPES_STYLES } from "./work_types.constants";
 
-import { COLORS } from "./colors.constants";
+import { COLORS, WORK_TYPES, WORK_TYPES_STYLES } from "../constants";
 import PlusButton from "./PlusButton";
 import TaskForm from "./TaskForm";
 
 function TodayWork() {
     const [workType, setWorkType] = React.useState(WORK_TYPES[1]);
     const scrollRef = React.useRef();
-    const titleRef = React.useRef();
     const taskFormRef = React.useRef();
 
     function handleClick(e) {
@@ -20,34 +18,11 @@ function TodayWork() {
         setWorkType(e.target.dataset.work);
     }
 
-    function showForm(e) {
-        // if(e.target.dataset.work !== workType) {
-        //     return
-        // }
-       console.log(e.currentTarget);
-        if (
-            e.currentTarget === titleRef.current ||
-            e.currentTarget === taskFormRef.current
-        ) {
-            taskFormRef.current.style.visibility = "visible";
-        }
-    }
-    function hideForm(e) {
-        //  if (e.target.dataset.work !== workType) {
-        //      return
-        //  }
-        console.log(e.currentTarget);
-        if (
-            e.currentTarget === titleRef.current ||
-            e.currentTarget === taskFormRef.current
-        ) {
-            taskFormRef.current.style.visibility = "hidden";
-        }
-    }
+  
 
     return (
         <>
-            <TitleWrapper ref={titleRef} onMouseEnter={showForm} onMouseLeave={hideForm}>
+            <TitleWrapper  >
                 {WORK_TYPES.map((work, index) => {
                     const isActive = work === workType;
                     return (
@@ -63,8 +38,6 @@ function TodayWork() {
                             {isActive && (
                                 <TaskForm
                                     ref={taskFormRef}
-                                    showForm={showForm}
-                                    hideForm={hideForm}
                                 />
                             )}
                         </Work>
@@ -81,11 +54,13 @@ function TodayWork() {
 }
 
 const TitleWrapper = styled.div`
+    isolation: isolate;
     display: flex;
     justify-content: space-between;
     margin: 0 auto;
     min-width: fit-content;
-    max-width: 35%;
+    max-width: 30%;
+    width: auto;
     text-align: center;
 `;
 
@@ -95,11 +70,9 @@ const Work = styled.div`
     justify-content: center;
     align-items: center;
     gap: 5px;
-    position: relative;
     max-height: 30px;
 `;
 const WorkTitle = styled.h2`
-    letter-spacing: ${(p) => p.isActive && "1px"};
     cursor: pointer;
     margin: 0;
     padding: 0;
@@ -108,6 +81,7 @@ const WorkTitle = styled.h2`
         p.isActive
             ? WORK_TYPES_STYLES.fontSize.active + "px"
             : WORK_TYPES_STYLES.fontSize.inactive + "px"};
+            font-weight: ${p => p.isActive && 900};
     &:hover {
         color: ${(p) => !p.isActive && COLORS.hoverBlack};
     }

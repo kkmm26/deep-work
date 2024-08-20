@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { COLORS } from "./colors.constants";
+import { COLORS } from "../constants";
 
 function PlusButton() {
     function handleClick(e) {

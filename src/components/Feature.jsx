@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { COLORS } from "./colors.constants";
+import { COLORS } from "../constants";
 
 function Feature({ title, isActive }) {
 

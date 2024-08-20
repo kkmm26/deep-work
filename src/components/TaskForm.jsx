@@ -2,63 +2,63 @@ import * as Form from "@radix-ui/react-form";
 import { styled, keyframes } from "@stitches/react";
 import { blackA, violet, mauve } from "@radix-ui/colors";
 import React from "react";
+import { STYLES } from "../constants";
 
-function TaskForm({ showForm, hideForm }, ref) {
+function TaskForm({ }, ref) {
 
 
     return (
-        <FormRoot ref={ref} onMouseEnter={showForm} onMouseLeave={hideForm}>
-            <FormField name="email">
-                <Flex
-                    css={{
-                        alignItems: "baseline",
-                        justifyContent: "space-between",
-                    }}
-                >
-                    <FormLabel>Email</FormLabel>
-                    <FormMessage match="valueMissing">
-                        Please enter your email
-                    </FormMessage>
-                    <FormMessage match="typeMismatch">
-                        Please provide a valid email
-                    </FormMessage>
-                </Flex>
-                <Form.Control asChild>
-                    <Input type="email" required />
-                </Form.Control>
-            </FormField>
-            <FormField name="question">
-                <Flex
-                    css={{
-                        alignItems: "baseline",
-                        justifyContent: "space-between",
-                    }}
-                >
-                    <FormLabel>Question</FormLabel>
-                    <FormMessage match="valueMissing">
-                        Please enter a question
-                    </FormMessage>
-                </Flex>
-                <Form.Control asChild>
-                    <Textarea required />
-                </Form.Control>
-            </FormField>
-            <Form.Submit asChild>
-                <Button css={{ marginTop: 10 }}>Post question</Button>
-            </Form.Submit>
-        </FormRoot>
-    );
+  <FormRoot ref={ref} className="FormRoot">
+    <Form.Field className="FormField" name="email">
+      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
+        <Form.Label className="FormLabel">Email</Form.Label>
+        <Form.Message className="FormMessage" match="valueMissing">
+          Please enter your email
+        </Form.Message>
+        <Form.Message className="FormMessage" match="typeMismatch">
+          Please provide a valid email
+        </Form.Message>
+      </div>
+      <Form.Control asChild>
+        <input className="Input" type="email" required />
+      </Form.Control>
+    </Form.Field>
+    <Form.Field className="FormField" name="question">
+      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
+        <Form.Label className="FormLabel">Question</Form.Label>
+        <Form.Message className="FormMessage" match="valueMissing">
+          Please enter a question
+        </Form.Message>
+      </div>
+      <Form.Control asChild>
+        <textarea className="Textarea" required />
+      </Form.Control>
+    </Form.Field>
+    <Form.Submit asChild>
+      <button className="Button" style={{ marginTop: 10 }}>
+        Post question
+      </button>
+    </Form.Submit>
+  </FormRoot>
+);
+
+
 }
 
 
 const FormRoot = styled(Form.Root, {
-    width: 260,
-    visibility: "hidden",
+    maXwidth: 260,
+    // visibility: "hidden",
     position: "absolute",
     zIndex: 1,
-    top: 30,
+    top: "30%",
+    left: "50%",
+    transform: "translateX(-50%)",
     backgroundColor: "red",
-    margin: "0 auto"
+    boxShadow: `${STYLES.boxShadow}`,
+    borderRadius: "5px",
+    padding: "25px",
+    border: "10px solid deeppink",
 });
 
 const FormField = styled(Form.Field, {
