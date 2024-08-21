@@ -13,17 +13,20 @@ function TodayWork() {
     const [workType, setWorkType] = React.useState(WORK_TYPES[1]);
     const scrollRef = React.useRef();
     const taskFormRef = React.useRef();
+    const [isFormOpen, setIsFormOpen] = React.useState(true)
 
     function handleClick(e) {
         scrollRef.current.scrollIntoView({ behavior: "smooth" });
         setWorkType(e.target.dataset.work);
     }
-
-  
+    function handleFormClose(e) {
+        e.preventDefault()
+        setIsFormOpen(false)
+    }
 
     return (
         <>
-            <TitleWrapper  >
+            <TitleWrapper>
                 {WORK_TYPES.map((work, index) => {
                     const isActive = work === workType;
                     return (
@@ -37,12 +40,7 @@ function TodayWork() {
                             </WorkTitle>
                             {isActive && <HorizontalLine></HorizontalLine>}
                             <SubTaskProvider>
-                            
-                            {isActive && (
-                                <TaskForm
-                                    ref={taskFormRef}
-                                />
-                            )}
+                                {isFormOpen && <TaskForm ref={taskFormRef} handleFormClose={handleFormClose}/>}
                             </SubTaskProvider>
                         </Work>
                     );
@@ -86,7 +84,7 @@ const WorkTitle = styled.h2`
         p.isActive
             ? WORK_TYPES_STYLES.fontSize.active + "px"
             : WORK_TYPES_STYLES.fontSize.inactive + "px"};
-            font-weight: ${p => p.isActive && 900};
+    font-weight: ${(p) => p.isActive && 900};
     &:hover {
         color: ${(p) => !p.isActive && COLORS.hoverBlack};
     }

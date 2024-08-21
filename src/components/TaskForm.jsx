@@ -7,18 +7,26 @@ import { COLORS, STYLES, SUB_TASKS_ADDABLE } from "../constants.js";
 import PlusButton from "./PlusButton";
 import SubTaskCrossButton from "./SubTaskCrossButton.jsx";
 import { SubTaskContext } from "./SubTaskProvider.jsx";
+import { Cross1Icon } from "@radix-ui/react-icons";
+import CloseButton from "./CloseButton.jsx";
 
-function TaskForm({}, ref) {
+function TaskForm({handleFormClose}, ref) {
     const { subTaskInputs, addSubTaskInput, deleteSubTaskInput } =
         React.useContext(SubTaskContext);
 
+    
+
     return (
         <FormRoot ref={ref}>
+            <CloseButton onClick={handleFormClose} />
             <Form.Field style={{ width: "100%" }} name="mainTask">
                 <VisuallyHidden.Root>
                     <Form.Label>Main Task</Form.Label>
                 </VisuallyHidden.Root>
-                <Form.Message style={{ fontSize: "15px" }} match="valueMissing">
+                <Form.Message
+                    style={{ fontSize: "15px", color: `${COLORS.error}` }}
+                    match="valueMissing"
+                >
                     Please write at least one task
                 </Form.Message>
                 <Form.Control
@@ -59,17 +67,21 @@ function TaskForm({}, ref) {
                     );
                 })}
 
-                {subTaskInputs.length > 0 && subTaskInputs.length < SUB_TASKS_ADDABLE && (
-                    <div
-                        style={{
-                            width: "100%",
-                            minHeight: "20px",
-                            position: "relative",
-                        }}
-                    >
-                        <PlusButton onClick={addSubTaskInput} type="Sub Task" />
-                    </div>
-                )}
+                {subTaskInputs.length > 0 &&
+                    subTaskInputs.length < SUB_TASKS_ADDABLE && (
+                        <div
+                            style={{
+                                width: "100%",
+                                minHeight: "20px",
+                                position: "relative",
+                            }}
+                        >
+                            <PlusButton
+                                onClick={addSubTaskInput}
+                                type="Sub Task"
+                            />
+                        </div>
+                    )}
                 {subTaskInputs.length === 0 && (
                     <div
                         style={{
@@ -86,12 +98,14 @@ function TaskForm({}, ref) {
                 {subTaskInputs.length === SUB_TASKS_ADDABLE && (
                     <div
                         style={{
-                            width: "100%",
-                            minHeight: "20px",
-                            position: "relative",
+                            fontSize: "0.6rem",
+                            color: `${COLORS.inactiveBlack}`,
                         }}
                     >
-                        <p>Cannot add more than "{SUB_TASKS_ADDABLE}" sub tasks.</p>
+                        <p>
+                            "Cannot add more than {SUB_TASKS_ADDABLE} sub
+                            tasks."
+                        </p>
                     </div>
                 )}
             </SubTaskField>
@@ -131,15 +145,16 @@ const FormRoot = styled(Form.Root, {
     top: "20%",
     left: "50%",
     transform: "translateX(-50%)",
-    boxShadow: `${STYLES.boxShadow}`,
+    boxShadow: `${STYLES.boxShadow2}`,
     borderRadius: "5px",
     padding: "25px",
+    paddingTop: "35px",
     display: "flex",
     flexDirection: "column",
     alignItems: "end",
     gap: "10px",
     fontSize: "0.7rem",
-    backgroundColor: `${COLORS.white}`
+    backgroundColor: `${COLORS.white}`,
 });
 
 const FormSubmit = styled(Form.Submit, {
@@ -162,7 +177,7 @@ const SubTaskField = styled(Form.Field, {
     flexDirection: "column",
     gap: "5px",
     width: "90%",
-    position: "relative"
+    position: "relative",
 });
 
 export default React.forwardRef(TaskForm);
