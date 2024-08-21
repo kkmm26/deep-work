@@ -7,6 +7,7 @@ import ShallowWorks from "./ShallowWorks";
 import { COLORS, WORK_TYPES, WORK_TYPES_STYLES } from "../constants.js";
 import PlusButton from "./PlusButton";
 import TaskForm from "./TaskForm";
+import SubTaskProvider from "./SubTaskProvider.jsx";
 
 function TodayWork() {
     const [workType, setWorkType] = React.useState(WORK_TYPES[1]);
@@ -35,11 +36,14 @@ function TodayWork() {
                                 {work}
                             </WorkTitle>
                             {isActive && <HorizontalLine></HorizontalLine>}
+                            <SubTaskProvider>
+                            
                             {isActive && (
                                 <TaskForm
                                     ref={taskFormRef}
                                 />
                             )}
+                            </SubTaskProvider>
                         </Work>
                     );
                 })}

@@ -2,91 +2,82 @@ import * as Form from "@radix-ui/react-form";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 
 import { styled, keyframes } from "@stitches/react";
-import { blackA, violet, mauve } from "@radix-ui/colors";
 import React from "react";
-import { STYLES } from "../constants.js";
+import { COLORS, STYLES } from "../constants.js";
 import PlusButton from "./PlusButton";
+import SubTaskCrossButton from "./SubTaskCrossButton.jsx";
+import { SubTaskContext } from "./SubTaskProvider.jsx";
 
 function TaskForm({}, ref) {
+
+    const {subTasks, addSubTask, deleteSubTask} = React.useContext(SubTaskContext)
+
     return (
-        <FormRoot ref={ref} className="FormRoot">
-            <Form.Field className="FormField" name="mainTask">
+        <FormRoot ref={ref}>
+            <Form.Field name="mainTask">
                 <VisuallyHidden.Root>
-                    <Form.Label className="FormLabel">Main Task</Form.Label>
+                    <Form.Label>Main Task</Form.Label>
                 </VisuallyHidden.Root>
-                <Form.Message className="FormMessage" match="valueMissing">
+                <Form.Message match="valueMissing">
                     Please write at least one task before creating
                 </Form.Message>
                 <Form.Control
                     style={{ height: "34px", maxWidth: "100%" }}
                     asChild
                 >
-                    <input
-                        className="Input"
-                        type="text"
-                        required
-                        placeholder="Main Task"
-                    />
+                    <input type="text" required placeholder="Main Task" />
                 </Form.Control>
             </Form.Field>
 
-            <Form.Field
-                style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "end",
-                    gap: "5px",
-                }}
-                className="FormField"
-                name="subTask"
-            >
-                <VisuallyHidden.Root>
-                    <Form.Label className="FormLabel">Sub Task</Form.Label>
-                </VisuallyHidden.Root>
-                <Form.Control
-                    style={{ height: "26px", maxWidth: "80%" }}
-                    asChild
-                >
-                    <input type="text" placeholder="Sub Task" />
-                </Form.Control>
+            <SubTaskField name="subTask">
+                {subTasks.length === 0 && <p style={{textAlign: "start"}}>Add a Sub Task</p>}
+                {subTasks.map((_, index) => {
+                    return (
+                        <div key={index} style={{ position: "relative" }}>
+                            <VisuallyHidden.Root>
+                                <Form.Label>Sub Task</Form.Label>
+                            </VisuallyHidden.Root>
+                            {
+                                <SubTaskCrossButton
+                                    onClick={(e) => deleteSubTask(e, index)}
+                                    style={{ position: "absolute" }}
+                                />
+                            }
+                            <Form.Control
+                                style={{ height: "26px", width: "100%" }}
+                                asChild
+                            >
+                                <input type="text" placeholder="Sub Task" />
+                            </Form.Control>
+                        </div>
+                    );
+                })}
+
                 <div
                     style={{
-                        width: "80%",
+                        width: "100%",
                         minHeight: "20px",
                         position: "relative",
                     }}
                 >
-                    <PlusButton type="Sub Task" />
+                    <PlusButton onClick={addSubTask} type="Sub Task" />
                 </div>
-            </Form.Field>
-            <Form.Field className="FormField" name="mainTask">
+            </SubTaskField>
+            <Form.Field name="description">
                 <VisuallyHidden.Root>
-                    <Form.Label className="FormLabel">Main Task</Form.Label>
+                    <Form.Label>Main Task</Form.Label>
                 </VisuallyHidden.Root>
-                <Form.Message className="FormMessage" match="valueMissing">
-                    Please write at least one task before creating
-                </Form.Message>
                 <Form.Control
-                    style={{ resize: "none", height: "80px", maxWidth: "100%" }}
+                    style={{ resize: "none", height: "50px", maxWidth: "100%" }}
                     asChild
                 >
                     <textarea type="text" placeholder="Task Description" />
                 </Form.Control>
             </Form.Field>
             <div style={{ display: "flex", justifyContent: "end" }}>
-                <Form.Submit asChild>
-                    <button
-                        style={{
-                            marginTop: 10,
-                            width: "50%",
-                            border: "none",
-                            borderRadius: "3px",
-                            cursor: "pointer",
-                        }}
-                    >
-                        Create
-                    </button>
-                </Form.Submit>
+                <FormSubmit asChild>
+                    <button>Create</button>
+                </FormSubmit>
             </div>
         </FormRoot>
     );
@@ -94,7 +85,7 @@ function TaskForm({}, ref) {
 
 const FormRoot = styled(Form.Root, {
     minWidth: 260,
-    // visibility: "hidden",
+    maxWidth: "min-content", // prevent width from expanding when form submit error message shows
     position: "absolute",
     zIndex: 1,
     top: "30%",
@@ -105,7 +96,30 @@ const FormRoot = styled(Form.Root, {
     padding: "25px",
     display: "flex",
     flexDirection: "column",
+    alignItems: "end",
     gap: "10px",
+});
+
+const FormSubmit = styled(Form.Submit, {
+    marginTop: 10,
+    fontSize: "0.8rem",
+    border: "none",
+    padding: "5px 12px",
+    borderRadius: "3px",
+    cursor: "pointer",
+    color: `${COLORS.white}`,
+    backgroundColor: `${COLORS.black}`,
+
+    "&:hover": {
+        backgroundColor: `${COLORS.hoverBlack}`,
+    },
+});
+
+const SubTaskField = styled(Form.Field, {
+    display: "flex",
+    flexDirection: "column",
+    gap: "5px",
+    width: "90%",
 });
 
 export default React.forwardRef(TaskForm);
