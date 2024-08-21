@@ -3,35 +3,39 @@ import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 
 import { styled, keyframes } from "@stitches/react";
 import React from "react";
-import { COLORS, STYLES } from "../constants.js";
+import { COLORS, STYLES, SUB_TASKS_ADDABLE } from "../constants.js";
 import PlusButton from "./PlusButton";
 import SubTaskCrossButton from "./SubTaskCrossButton.jsx";
 import { SubTaskContext } from "./SubTaskProvider.jsx";
 
 function TaskForm({}, ref) {
-
-    const {subTasks, addSubTask, deleteSubTask} = React.useContext(SubTaskContext)
+    const { subTaskInputs, addSubTaskInput, deleteSubTaskInput } =
+        React.useContext(SubTaskContext);
 
     return (
         <FormRoot ref={ref}>
-            <Form.Field name="mainTask">
+            <Form.Field style={{ width: "100%" }} name="mainTask">
                 <VisuallyHidden.Root>
                     <Form.Label>Main Task</Form.Label>
                 </VisuallyHidden.Root>
-                <Form.Message match="valueMissing">
-                    Please write at least one task before creating
+                <Form.Message style={{ fontSize: "15px" }} match="valueMissing">
+                    Please write at least one task
                 </Form.Message>
                 <Form.Control
                     style={{ height: "34px", maxWidth: "100%" }}
                     asChild
                 >
-                    <input type="text" required placeholder="Main Task" />
+                    <input
+                        style={{ width: "100%" }}
+                        type="text"
+                        required
+                        placeholder="Main Task"
+                    />
                 </Form.Control>
             </Form.Field>
 
             <SubTaskField name="subTask">
-                {subTasks.length === 0 && <p style={{textAlign: "start"}}>Add a Sub Task</p>}
-                {subTasks.map((_, index) => {
+                {subTaskInputs.map((_, index) => {
                     return (
                         <div key={index} style={{ position: "relative" }}>
                             <VisuallyHidden.Root>
@@ -39,7 +43,9 @@ function TaskForm({}, ref) {
                             </VisuallyHidden.Root>
                             {
                                 <SubTaskCrossButton
-                                    onClick={(e) => deleteSubTask(e, index)}
+                                    onClick={(e) =>
+                                        deleteSubTaskInput(e, index)
+                                    }
                                     style={{ position: "absolute" }}
                                 />
                             }
@@ -53,22 +59,56 @@ function TaskForm({}, ref) {
                     );
                 })}
 
-                <div
-                    style={{
-                        width: "100%",
-                        minHeight: "20px",
-                        position: "relative",
-                    }}
-                >
-                    <PlusButton onClick={addSubTask} type="Sub Task" />
-                </div>
+                {subTaskInputs.length > 0 && subTaskInputs.length < SUB_TASKS_ADDABLE && (
+                    <div
+                        style={{
+                            width: "100%",
+                            minHeight: "20px",
+                            position: "relative",
+                        }}
+                    >
+                        <PlusButton onClick={addSubTaskInput} type="Sub Task" />
+                    </div>
+                )}
+                {subTaskInputs.length === 0 && (
+                    <div
+                        style={{
+                            width: "100%",
+                            minHeight: "20px",
+                            position: "relative",
+                        }}
+                    >
+                        <PlusButton onClick={addSubTaskInput} type="Sub Task">
+                            Add a Sub Task
+                        </PlusButton>
+                    </div>
+                )}
+                {subTaskInputs.length === SUB_TASKS_ADDABLE && (
+                    <div
+                        style={{
+                            width: "100%",
+                            minHeight: "20px",
+                            position: "relative",
+                        }}
+                    >
+                        <p>Cannot add more than "{SUB_TASKS_ADDABLE}" sub tasks.</p>
+                    </div>
+                )}
             </SubTaskField>
-            <Form.Field name="description">
+            <Form.Field
+                style={{ width: "100%", marginTop: "5px" }}
+                name="description"
+            >
                 <VisuallyHidden.Root>
                     <Form.Label>Main Task</Form.Label>
                 </VisuallyHidden.Root>
                 <Form.Control
-                    style={{ resize: "none", height: "50px", maxWidth: "100%" }}
+                    style={{
+                        resize: "none",
+                        height: "50px",
+                        maxWidth: "100%",
+                        width: "100%",
+                    }}
                     asChild
                 >
                     <textarea type="text" placeholder="Task Description" />
@@ -88,7 +128,7 @@ const FormRoot = styled(Form.Root, {
     maxWidth: "min-content", // prevent width from expanding when form submit error message shows
     position: "absolute",
     zIndex: 1,
-    top: "30%",
+    top: "20%",
     left: "50%",
     transform: "translateX(-50%)",
     boxShadow: `${STYLES.boxShadow}`,
@@ -98,6 +138,8 @@ const FormRoot = styled(Form.Root, {
     flexDirection: "column",
     alignItems: "end",
     gap: "10px",
+    fontSize: "0.7rem",
+    backgroundColor: `${COLORS.white}`
 });
 
 const FormSubmit = styled(Form.Submit, {
@@ -120,6 +162,7 @@ const SubTaskField = styled(Form.Field, {
     flexDirection: "column",
     gap: "5px",
     width: "90%",
+    position: "relative"
 });
 
 export default React.forwardRef(TaskForm);

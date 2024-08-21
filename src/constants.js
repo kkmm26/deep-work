@@ -1,3 +1,5 @@
+export const SUB_TASKS_ADDABLE = 5
+
 export const COLORS = {
     white: "hsl(0, 100%, 100%)",
     black: "hsl(0, 0%, 0%)",
@@ -7,6 +9,8 @@ export const COLORS = {
     plusButton: "hsl(0, 0%, 90%, 80%)",
     plusButtonHover: "hsl(0, 0%, 85%, 100%)",
 };
+
+
 
 export const WORK_TYPES = ["Ritual", "Deep Works", "Shallow Works"];
 

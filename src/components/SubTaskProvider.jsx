@@ -1,30 +1,36 @@
 import React from "react"
+import { SUB_TASKS_ADDABLE } from "../constants";
 
 export const SubTaskContext = React.createContext()
 
 function SubTaskProvider({children}) {
 
 
-    const [subTasks, setSubTasks] = React.useState([0]);
+    const [subTaskInputs, setSubTaskInputs] = React.useState([0]);
 
-    function addSubTask(e) {
+    function addSubTaskInput(e) {
         e.preventDefault();
-        if (subTasks.length >= 8) {
+        if (subTaskInputs.length >= SUB_TASKS_ADDABLE) {
             return;
         }
         const newTask = 0;
-        setSubTasks([...subTasks, newTask]);
+        setSubTaskInputs([...subTaskInputs, newTask]);
     }
 
-    function deleteSubTask(e, index) {
-        console.log(subTasks);
+    function deleteSubTaskInput(e, index) {
         e.preventDefault()        
-        setSubTasks(subTasks.filter((_, i) => i !== index))
+        setSubTaskInputs(subTaskInputs.filter((_, i) => i !== index));
     }
 
     
 
-    return <SubTaskContext.Provider value={{subTasks, deleteSubTask, addSubTask}}>{children}</SubTaskContext.Provider>
+    return (
+        <SubTaskContext.Provider
+            value={{ subTaskInputs, deleteSubTaskInput, addSubTaskInput }}
+        >
+            {children}
+        </SubTaskContext.Provider>
+    );
 }
 
 export default SubTaskProvider

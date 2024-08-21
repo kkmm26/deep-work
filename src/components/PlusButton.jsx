@@ -3,7 +3,7 @@ import { COLORS } from "../constants.js";
 import { PlusIcon } from "@radix-ui/react-icons";
 
 
-function PlusButton({onClick, type}) { 
+function PlusButton({onClick, type, children}) { 
 
     function defaultClick(e) {
         e.preventDefault()
@@ -11,10 +11,13 @@ function PlusButton({onClick, type}) {
     if (!onClick) {
         onClick = defaultClick
     }
-
+    if (type === "Sub Task" && children) {
+        return <SubTaskChildrenPlusButton type="button" onClick={onClick}>{children}<PlusIcon /></SubTaskChildrenPlusButton>
+    }
     if (type === "Sub Task") {
         return <SubTaskPlusButton type="button" onClick={onClick}><PlusIcon/></SubTaskPlusButton>
     }
+    
 
     return <Button type="button" onClick={onClick}><PlusIcon/></Button>;
 }
@@ -42,6 +45,13 @@ const Button = styled.button`
 const SubTaskPlusButton = styled(Button)`
     position: absolute;
     left: 0;
+`
+
+const SubTaskChildrenPlusButton = styled(SubTaskPlusButton)`
+    width: auto;
+    padding: 12px 10px;
+    display: flex;
+    gap: 8px
 `
 
 export default PlusButton;
