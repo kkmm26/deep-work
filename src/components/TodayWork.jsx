@@ -5,15 +5,15 @@ import DeepWorks from "./DeepWorks";
 import ShallowWorks from "./ShallowWorks";
 
 import { COLORS, WORK_TYPES, WORK_TYPES_STYLES } from "../constants.js";
-import PlusButton from "./PlusButton";
 import TaskForm from "./TaskForm";
 import SubTaskProvider from "./SubTaskProvider.jsx";
+import PlusButton from "./Buttons/PlusButton.jsx";
 
 function TodayWork() {
     const [workType, setWorkType] = React.useState(WORK_TYPES[1]);
+    const [isFormOpen, setIsFormOpen] = React.useState(true)
     const scrollRef = React.useRef();
     const taskFormRef = React.useRef();
-    const [isFormOpen, setIsFormOpen] = React.useState(true)
 
     function handleClick(e) {
         scrollRef.current.scrollIntoView({ behavior: "smooth" });
@@ -38,13 +38,20 @@ function TodayWork() {
                             >
                                 {work}
                             </WorkTitle>
-                            {isActive && <HorizontalLine></HorizontalLine>}
+                            {isActive && <PlusButton type="Work Type" />}
                             <SubTaskProvider>
-                                {isFormOpen && <TaskForm ref={taskFormRef} handleFormClose={handleFormClose}/>}
+                                {isFormOpen && (
+                                    <TaskForm
+                                        ref={taskFormRef}
+                                        handleFormClose={handleFormClose}
+                                    />
+                                )}
                             </SubTaskProvider>
                         </Work>
                     );
                 })}
+
+                
             </TitleWrapper>
             <WorkTypeWrapper ref={scrollRef}>
                 {workType === WORK_TYPES[0] && <Ritual />}
@@ -78,32 +85,30 @@ const Work = styled.div`
 const WorkTitle = styled.h2`
     cursor: pointer;
     margin: 0;
-    padding: 0;
     color: ${(p) => (p.isActive ? COLORS.black : COLORS.inactiveBlack)};
     font-size: ${(p) =>
         p.isActive
             ? WORK_TYPES_STYLES.fontSize.active + "px"
             : WORK_TYPES_STYLES.fontSize.inactive + "px"};
     font-weight: ${(p) => p.isActive && 900};
+    border-bottom: ${p => p.isActive && "1px solid black"};
+    padding-bottom: 5px;
+
     &:hover {
         color: ${(p) => !p.isActive && COLORS.hoverBlack};
     }
 `;
 
-const HorizontalLine = styled.div`
-    width: 100%;
-    height: 1px;
-    background-color: ${COLORS.hoverBlack};
-    padding: 0;
-    margin: 0;
-`;
+
 
 const WorkTypeWrapper = styled.div`
-    padding: 20px;
+    /* padding: 20px;
     border: 1px solid red;
     background-color: aliceblue;
     max-width: 100%;
-    min-width: fit-content;
+    min-width: fit-content; */
 `;
+
+
 
 export default TodayWork;

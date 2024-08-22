@@ -4,11 +4,11 @@ import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import { styled, keyframes } from "@stitches/react";
 import React from "react";
 import { COLORS, STYLES, SUB_TASKS_ADDABLE } from "../constants.js";
-import PlusButton from "./PlusButton";
+import PlusButton from "./Buttons/PlusButton.jsx";
 import SubTaskCrossButton from "./SubTaskCrossButton.jsx";
 import { SubTaskContext } from "./SubTaskProvider.jsx";
 import { Cross1Icon } from "@radix-ui/react-icons";
-import CloseButton from "./CloseButton.jsx";
+import CloseButton from "./Buttons/CloseButton.jsx";
 
 function TaskForm({handleFormClose}, ref) {
     const { subTaskInputs, addSubTaskInput, deleteSubTaskInput } =

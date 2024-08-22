@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { COLORS } from "../constants.js";
+import { COLORS } from "../../constants.js";
 import { PlusIcon } from "@radix-ui/react-icons";
 
 
@@ -13,6 +13,8 @@ function PlusButton({onClick, type, children}) {
     }
     if (type === "Sub Task" && children) {
         return <SubTaskChildrenPlusButton type="button" onClick={onClick}>{children}<PlusIcon /></SubTaskChildrenPlusButton>
+    } else if (type === "Work Type") {
+        return <WorkTypePlusButton type="button" onClick={onClick}><PlusIcon/></WorkTypePlusButton>
     }
     if (type === "Sub Task") {
         return <SubTaskPlusButton type="button" onClick={onClick}><PlusIcon/></SubTaskPlusButton>
@@ -52,6 +54,13 @@ const SubTaskChildrenPlusButton = styled(SubTaskPlusButton)`
     padding: 12px 10px;
     display: flex;
     gap: 8px
+`
+
+const WorkTypePlusButton = styled(Button)`
+    position: absolute;
+    top: 85px;
+    width: 60px;
+    height: 25px;
 `
 
 export default PlusButton;

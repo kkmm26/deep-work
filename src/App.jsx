@@ -58,6 +58,6 @@ min-width: fit-content;
     margin: 0 auto;
     border-radius: 5px;
     box-shadow: ${STYLES.boxShadow};
-    padding: 10px;
+    padding: 5px 40px;
 `;
 export default App;
