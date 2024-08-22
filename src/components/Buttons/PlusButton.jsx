@@ -4,7 +4,7 @@ import { PlusIcon } from "@radix-ui/react-icons";
 
 
 function PlusButton({onClick, type, children}) { 
-
+    
     function defaultClick(e) {
         e.preventDefault()
     }
@@ -13,7 +13,8 @@ function PlusButton({onClick, type, children}) {
     }
     if (type === "Sub Task" && children) {
         return <SubTaskChildrenPlusButton type="button" onClick={onClick}>{children}<PlusIcon /></SubTaskChildrenPlusButton>
-    } else if (type === "Work Type") {
+    } 
+     if (type === "Work Type") {
         return <WorkTypePlusButton type="button" onClick={onClick}><PlusIcon/></WorkTypePlusButton>
     }
     if (type === "Sub Task") {
@@ -58,9 +59,13 @@ const SubTaskChildrenPlusButton = styled(SubTaskPlusButton)`
 
 const WorkTypePlusButton = styled(Button)`
     position: absolute;
-    top: 85px;
+    bottom: -30px;
     width: 60px;
     height: 25px;
-`
+    margin: 0 auto;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.3s ease-in-out;
+`;
 
 export default PlusButton;

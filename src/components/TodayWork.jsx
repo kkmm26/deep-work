@@ -11,7 +11,7 @@ import PlusButton from "./Buttons/PlusButton.jsx";
 
 function TodayWork() {
     const [workType, setWorkType] = React.useState(WORK_TYPES[1]);
-    const [isFormOpen, setIsFormOpen] = React.useState(true)
+    const [isFormOpen, setIsFormOpen] = React.useState(false)
     const scrollRef = React.useRef();
     const taskFormRef = React.useRef();
 
@@ -23,6 +23,11 @@ function TodayWork() {
         e.preventDefault()
         setIsFormOpen(false)
     }
+    function handleFormOpen(e) {
+        e.preventDefault()
+        setIsFormOpen(true)
+    }
+    
 
     return (
         <>
@@ -37,22 +42,27 @@ function TodayWork() {
                                 isActive={isActive}
                             >
                                 {work}
-                            </WorkTitle>
-                            {isActive && <PlusButton type="Work Type" />}
-                            <SubTaskProvider>
-                                {isFormOpen && (
-                                    <TaskForm
-                                        ref={taskFormRef}
-                                        handleFormClose={handleFormClose}
+                                {isActive && (
+                                    <PlusButton
+                                        onClick={(e) =>
+                                            handleFormOpen(e)
+                                        }
+                                        type="Work Type"
                                     />
                                 )}
-                            </SubTaskProvider>
+                            </WorkTitle>
                         </Work>
                     );
                 })}
-
-                
             </TitleWrapper>
+            <SubTaskProvider>
+                {isFormOpen && (
+                    <TaskForm
+                        ref={taskFormRef}
+                        handleFormClose={handleFormClose}
+                    />
+                )}
+            </SubTaskProvider>
             <WorkTypeWrapper ref={scrollRef}>
                 {workType === WORK_TYPES[0] && <Ritual />}
                 {workType === WORK_TYPES[1] && <DeepWorks />}
@@ -79,8 +89,14 @@ const Work = styled.div`
     justify-content: center;
     align-items: center;
     gap: 5px;
-    max-height: 30px;
     width: 100%;
+
+    padding-bottom: 30px;
+
+    &:hover button {
+        visibility: visible;
+        opacity: 1;
+    }
 `;
 const WorkTitle = styled.h2`
     cursor: pointer;
@@ -91,12 +107,17 @@ const WorkTitle = styled.h2`
             ? WORK_TYPES_STYLES.fontSize.active + "px"
             : WORK_TYPES_STYLES.fontSize.inactive + "px"};
     font-weight: ${(p) => p.isActive && 900};
-    border-bottom: ${p => p.isActive && "1px solid black"};
+    border-bottom: ${(p) => p.isActive && "1px solid black"};
     padding-bottom: 5px;
+    position: relative;
+    display: flex;
+    justify-content: center;
 
     &:hover {
         color: ${(p) => !p.isActive && COLORS.hoverBlack};
     }
+
+   
 `;
 
 
