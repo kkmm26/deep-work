@@ -13,22 +13,20 @@ function TodayWork() {
     const [currentWork, setCurrentWork] = React.useState(WORK_TYPES[1]);
     const [isFormOpen, setIsFormOpen] = React.useState(false)
     const scrollRef = React.useRef();
-    const taskFormRef = React.useRef();
 
-    function handleClick(e) {
+    function scrollOnTitleClicked(e) {
         scrollRef.current.scrollIntoView({ behavior: "smooth" });
         setCurrentWork(e.currentTarget.dataset.work);
     }
-    function handleFormClose(e) {
-        console.log("close",currentWork);
+    function closeForm(e) {
         e.preventDefault()
         setIsFormOpen(false)
     }
-    function handleFormOpen(e) {
-        console.log(currentWork);
+    function openForm(e) {
         e.preventDefault()
         setIsFormOpen(true)
     }
+    
     
 
     return (
@@ -40,15 +38,13 @@ function TodayWork() {
                         <Work key={index}>
                             <WorkTitle
                                 data-work={work}
-                                onClick={(e) => handleClick(e)}
+                                onClick={(e) => scrollOnTitleClicked(e)}
                                 isActive={isActive}
                             >
                                 {work}
                                 {isActive && (
                                     <PlusButton
-                                        onClick={(e) =>
-                                            handleFormOpen(e)
-                                        }
+                                        onClick={(e) => openForm(e)}
                                         type="Work Type"
                                     />
                                 )}
@@ -60,8 +56,8 @@ function TodayWork() {
             <SubTaskProvider>
                 {isFormOpen && (
                     <TaskForm
-                        ref={taskFormRef}
-                        handleFormClose={handleFormClose}
+                        closeForm={closeForm}
+                        isFormOpen={isFormOpen}
                     />
                 )}
             </SubTaskProvider>
@@ -84,7 +80,6 @@ const TitleWrapper = styled.div`
     width: auto;
     text-align: center;
 `;
-
 const Work = styled.div`
     display: flex;
     flex-direction: column;

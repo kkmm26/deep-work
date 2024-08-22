@@ -10,15 +10,29 @@ import { SubTaskContext } from "./SubTaskProvider.jsx";
 import { Cross1Icon } from "@radix-ui/react-icons";
 import CloseButton from "./Buttons/CloseButton.jsx";
 
-function TaskForm({handleFormClose}, ref) {
+function TaskForm({ closeForm, isFormOpen, plusButtonRef }) {
     const { subTaskInputs, addSubTaskInput, deleteSubTaskInput } =
         React.useContext(SubTaskContext);
+    const taskFormRef = React.useRef();
 
-    
+    React.useEffect(() => {
+        function handleFormClose(e) {
+            if (!taskFormRef.current.contains(e.target)) {
+                closeForm(e);
+            }
+            console.log("taskform");
+        }
+
+        window.addEventListener("mousedown", handleFormClose);
+
+        return () => {
+            window.removeEventListener("mousedown", handleFormClose);
+        };
+    }, [isFormOpen]);
 
     return (
-        <FormRoot ref={ref}>
-            <CloseButton onClick={handleFormClose} />
+        <FormRoot ref={taskFormRef}>
+            <CloseButton onClick={closeForm} />
             <Form.Field style={{ width: "100%" }} name="mainTask">
                 <VisuallyHidden.Root>
                     <Form.Label>Main Task</Form.Label>
