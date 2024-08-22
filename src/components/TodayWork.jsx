@@ -10,20 +10,22 @@ import SubTaskProvider from "./SubTaskProvider.jsx";
 import PlusButton from "./Buttons/PlusButton.jsx";
 
 function TodayWork() {
-    const [workType, setWorkType] = React.useState(WORK_TYPES[1]);
+    const [currentWork, setCurrentWork] = React.useState(WORK_TYPES[1]);
     const [isFormOpen, setIsFormOpen] = React.useState(false)
     const scrollRef = React.useRef();
     const taskFormRef = React.useRef();
 
     function handleClick(e) {
         scrollRef.current.scrollIntoView({ behavior: "smooth" });
-        setWorkType(e.target.dataset.work);
+        setCurrentWork(e.currentTarget.dataset.work);
     }
     function handleFormClose(e) {
+        console.log("close",currentWork);
         e.preventDefault()
         setIsFormOpen(false)
     }
     function handleFormOpen(e) {
+        console.log(currentWork);
         e.preventDefault()
         setIsFormOpen(true)
     }
@@ -33,7 +35,7 @@ function TodayWork() {
         <>
             <TitleWrapper>
                 {WORK_TYPES.map((work, index) => {
-                    const isActive = work === workType;
+                    const isActive = work === currentWork;
                     return (
                         <Work key={index}>
                             <WorkTitle
@@ -64,9 +66,9 @@ function TodayWork() {
                 )}
             </SubTaskProvider>
             <WorkTypeWrapper ref={scrollRef}>
-                {workType === WORK_TYPES[0] && <Ritual />}
-                {workType === WORK_TYPES[1] && <DeepWorks />}
-                {workType === WORK_TYPES[2] && <ShallowWorks />}
+                {currentWork === WORK_TYPES[0] && <Ritual />}
+                {currentWork === WORK_TYPES[1] && <DeepWorks />}
+                {currentWork === WORK_TYPES[2] && <ShallowWorks />}
             </WorkTypeWrapper>
         </>
     );
