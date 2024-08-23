@@ -1,5 +1,5 @@
 import React from "react"
-import { SUB_TASKS_ADDABLE } from "../constants";
+import { SUB_TASKS_ADDABLE } from "../../constants";
 
 export const SubTaskContext = React.createContext()
 

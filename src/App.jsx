@@ -1,9 +1,9 @@
 import React from "react";
 import Feature from "./components/Feature";
 import styled from "styled-components";
-import TodayWork from "./components/TodayWork";
-import FleetingThoughts from "./components/FleetingThoughs";
-import TimeBlock from "./components/TimeBlock";
+import TodayWork from "./components/TodayWork/TodayWork.jsx";
+import FleetingThoughts from "./components/FleetingThoughts/FleetingThoughts.jsx";
+import TimeBlock from "./components/TimeBlock/TimeBlock.jsx";
 import { COLORS, STYLES } from "./constants.js";
 
 const FEATURES = ["Time Block", "Today's Works", "Fleeting Thoughts"]

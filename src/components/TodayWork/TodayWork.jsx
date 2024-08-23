@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import Ritual from "./Ritual";
-import DeepWorks from "./DeepWorks";
-import ShallowWorks from "./ShallowWorks";
+import Ritual from "./Ritual.jsx";
+import DeepWorks from "./DeepWorks.jsx";
+import ShallowWorks from "./ShallowWorks.jsx";
 
-import { COLORS, WORK_TYPES, WORK_TYPES_STYLES } from "../constants.js";
-import TaskForm from "./TaskForm";
-import SubTaskProvider from "./SubTaskProvider.jsx";
-import PlusButton from "./Buttons/PlusButton.jsx";
+import { COLORS, WORK_TYPES, WORK_TYPES_STYLES } from "../../constants.js";
+import TaskForm from "../TaskForm.jsx";
+import SubTaskProvider from "../Providers/SubTaskProvider.jsx";
+import PlusButton from "../Buttons/PlusButton.jsx";
 
 function TodayWork() {
     const [currentWork, setCurrentWork] = React.useState(WORK_TYPES[1]);

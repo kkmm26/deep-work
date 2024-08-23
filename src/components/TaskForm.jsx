@@ -5,8 +5,8 @@ import { styled, keyframes } from "@stitches/react";
 import React from "react";
 import { COLORS, STYLES, SUB_TASKS_ADDABLE } from "../constants.js";
 import PlusButton from "./Buttons/PlusButton.jsx";
-import SubTaskCrossButton from "./SubTaskCrossButton.jsx";
-import { SubTaskContext } from "./SubTaskProvider.jsx";
+import SubTaskCrossButton from "./Buttons/SubTaskCrossButton.jsx";
+import { SubTaskContext } from "./Providers/SubTaskProvider.jsx";
 import { Cross1Icon } from "@radix-ui/react-icons";
 import CloseButton from "./Buttons/CloseButton.jsx";
 
@@ -16,17 +16,23 @@ function TaskForm({ closeForm, isFormOpen, plusButtonRef }) {
     const taskFormRef = React.useRef();
 
     React.useEffect(() => {
-        function handleFormClose(e) {
+        function handleMouseDown(e) {
             if (!taskFormRef.current.contains(e.target)) {
                 closeForm(e);
             }
-            console.log("taskform");
         }
 
-        window.addEventListener("mousedown", handleFormClose);
+        function handleKeyDown(e) {
+            if(e.key === "Escape") {
+                closeForm(e)
+            }
+        }
 
+        window.addEventListener("mousedown", handleMouseDown);
+        window.addEventListener("keydown", handleKeyDown);
         return () => {
-            window.removeEventListener("mousedown", handleFormClose);
+            window.removeEventListener("mousedown", handleMouseDown);
+            window.removeEventListener("keydown", handleKeyDown);
         };
     }, [isFormOpen]);
 

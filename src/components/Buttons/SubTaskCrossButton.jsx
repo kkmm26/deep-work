@@ -1,6 +1,6 @@
 import { Cross1Icon } from "@radix-ui/react-icons";
 import styled from "styled-components";
-import { COLORS } from "../constants";
+import { COLORS } from "../../constants";
 
 function SubTaskCrossButton({onClick}) {
     function defaultClick(e) {
