@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Ritual from "./Ritual.jsx";
-import DeepWorks from "./DeepWorks.jsx";
+import DeepWorks from "./DeepWorks/DeepWorks.jsx";
 import ShallowWorks from "./ShallowWorks.jsx";
 
 import { COLORS, WORK_TYPES, WORK_TYPES_STYLES } from "../../constants.js";

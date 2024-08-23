@@ -9,7 +9,10 @@ export const COLORS = {
     plusButton: "hsl(0, 0%, 90%, 80%)",
     plusButtonHover: "hsl(0, 0%, 85%, 100%)",
 
+   
+
     error: "hsl(343, 100%, 65%)",
+
 };
 
 
