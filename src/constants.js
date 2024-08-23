@@ -17,13 +17,17 @@ export const COLORS = {
 export const WORK_TYPES = ["Ritual", "Deep Works", "Shallow Works"];
 
 export const WORK_TYPES_STYLES = {
-    fontSize: { active: 20, inactive: 14 },
+    fontSize: { active: "1.2rem", inactive: "1rem" },
     color: {
         active: COLORS.black,
         inactive: COLORS.inactiveBlack,
         hover: COLORS.hoverBlack,
     },
 };
+
+export const FEATURE_TITLES_STYLES = {
+    fontSize: "1.2rem"
+}
 
 export const STYLES = {
     boxShadow: "rgba(0, 0, 0, 0.375) 0px 2px 8px 0px",

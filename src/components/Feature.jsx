@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { COLORS } from "../constants.js";
+import { COLORS, FEATURE_TITLES_STYLES } from "../constants.js";
 
 function Feature({ title, isActive }) {
 
@@ -16,7 +16,7 @@ const FeatureTitle = styled.h1`
     background-color: ${(p) => (p.isActive ? COLORS.black : COLORS.white)};
     color: ${(p) => (p.isActive ? COLORS.white: COLORS.inactiveBlack)};
     text-align: center;
-    font-size: 18px;
+    font-size: ${FEATURE_TITLES_STYLES.fontSize};
 
     &:hover {
         cursor: pointer;

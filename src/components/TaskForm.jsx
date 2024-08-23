@@ -44,13 +44,13 @@ function TaskForm({ closeForm, isFormOpen, plusButtonRef }) {
                     <Form.Label>Main Task</Form.Label>
                 </VisuallyHidden.Root>
                 <Form.Message
-                    style={{ fontSize: "15px", color: `${COLORS.error}` }}
+                    style={{ fontSize: "0.7rem", color: `${COLORS.error}` }}
                     match="valueMissing"
                 >
                     Please write at least one task
                 </Form.Message>
                 <Form.Control
-                    style={{ height: "34px", maxWidth: "100%" }}
+                    style={{ height: "34px", maxWidth: "100%", paddingLeft: "5px" }}
                     asChild
                 >
                     <input
@@ -78,7 +78,7 @@ function TaskForm({ closeForm, isFormOpen, plusButtonRef }) {
                                 />
                             }
                             <Form.Control
-                                style={{ height: "26px", width: "100%" }}
+                                style={{ height: "26px", width: "100%", paddingLeft: "5px" }}
                                 asChild
                             >
                                 <input type="text" placeholder="Sub Task" />
@@ -142,6 +142,7 @@ function TaskForm({ closeForm, isFormOpen, plusButtonRef }) {
                         height: "50px",
                         maxWidth: "100%",
                         width: "100%",
+                        paddingLeft: "5px"
                     }}
                     asChild
                 >
@@ -173,7 +174,6 @@ const FormRoot = styled(Form.Root, {
     flexDirection: "column",
     alignItems: "end",
     gap: "10px",
-    fontSize: "0.7rem",
     backgroundColor: `${COLORS.white}`,
 });
 

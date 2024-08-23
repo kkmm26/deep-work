@@ -101,8 +101,8 @@ const WorkTitle = styled.h2`
     color: ${(p) => (p.isActive ? COLORS.black : COLORS.inactiveBlack)};
     font-size: ${(p) =>
         p.isActive
-            ? WORK_TYPES_STYLES.fontSize.active + "px"
-            : WORK_TYPES_STYLES.fontSize.inactive + "px"};
+            ? WORK_TYPES_STYLES.fontSize.active 
+            : WORK_TYPES_STYLES.fontSize.inactive };
     font-weight: ${(p) => p.isActive && 900};
     border-bottom: ${(p) => p.isActive && "1px solid black"};
     padding-bottom: 5px;
