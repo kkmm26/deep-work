@@ -54,13 +54,7 @@ function TodayWork() {
                 })}
             </TitleWrapper>
             <SubTaskProvider>
-                {/* {isFormOpen && (
-                    <TaskForm
-                        closeForm={closeForm}
-                        isFormOpen={isFormOpen}
-                    />
-                )} */}
-                {isFormOpen && <TaskEntryForm />}
+                {isFormOpen && <TaskEntryForm closeForm={closeForm} />}
             </SubTaskProvider>
             <WorkTypeWrapper ref={scrollRef}>
                 {currentWork === WORK_TYPES[0] && <Ritual />}

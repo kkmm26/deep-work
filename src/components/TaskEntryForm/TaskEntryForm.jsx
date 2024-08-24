@@ -3,30 +3,66 @@ import styled from "styled-components";
 import { COLORS, STYLES } from "../../constants";
 import SubTasksGroup from "./SubTasksGroup";
 import CrossButton from "../Buttons/CrossButton";
+import React from "react";
 
-function TaskEntryForm() {
+function TaskEntryForm({ closeForm }) {
+    const [errors, setErrors] = React.useState({});
+    const mainTaskRef = React.useRef();
+
     function handleSubmit(e) {
         e.preventDefault();
+        let validationErrors = {};
+        const formData = new FormData(e.target);
+
+        const mainTask = formData.get("main-task");
+        if (!mainTask) {
+            validationErrors.mainTask = "Please write at lease one main task!";
+            // e.target.children["main-task"].focus()
+        }
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
+        }
     }
-    function closeForm(e) {}
+
+    React.useEffect(() => {
+        mainTaskRef.current.focus();
+
+        function handleKeydown(e) {
+            if (e.key === "Escape") {
+                closeForm(e);
+            }
+        }
+
+        window.addEventListener("keydown", handleKeydown);
+
+        return () => {
+            window.removeEventListener("keydown", handleKeydown);
+        };
+    }, [closeForm]);
+
     return (
         <>
             <Overlay>
                 <Form onSubmit={handleSubmit}>
-                    <CrossButton onClick={closeForm} variant="Task Form" />
-
                     <VisuallyHidden>
                         <label htmlFor="main-task">Main Task</label>
                     </VisuallyHidden>
                     <MainTaskInput
+                        ref={mainTaskRef}
                         type="text"
                         placeholder="Main Task"
                         id="main-task"
                         name="main-task"
+                        hasError={errors.mainTask}
+                        required
                     />
+                    {errors.mainTask && (
+                        <ErrorMessage>{errors.mainTask}</ErrorMessage>
+                    )}
                     <SubTasksGroup />
-                    <DescriptionTextArea placeholder="Description" />
+                    <DescriptionTextArea placeholder="Description" maxLength={120}/>
                     <CreateButton>Create</CreateButton>
+                    <CrossButton onClick={closeForm} variant="Task Form" />
                 </Form>
             </Overlay>
         </>
@@ -42,11 +78,19 @@ const Form = styled.form`
     box-shadow: ${STYLES.boxShadow2};
     border-radius: 3px;
     padding: 30px 20px 20px 20px;
+    font-size: 0.9rem;
 
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 6px;
+
+    &:focus {
+        border-color: ${COLORS.black};
+        outline: ${(props) =>
+            props.hasError
+                ? `2px solid ${COLORS.error}`
+                : `2px solid ${COLORS.primary}`};
+    }
 `;
 
 const Overlay = styled.div`
@@ -60,6 +104,9 @@ const Overlay = styled.div`
 
 const MainTaskInput = styled.input`
     height: 32px;
+    border: ${p => p.hasError && "1px solid red"};
+
+ 
 `;
 
 const CreateButton = styled.button`
@@ -79,8 +126,16 @@ const CreateButton = styled.button`
 const DescriptionTextArea = styled.textarea`
     font-size: 0.9rem;
     width: 100%;
+    height: 70px;
     resize: none;
     padding-left: 6px;
+    margin-top: 20px;
+`;
+
+const ErrorMessage = styled.p`
+    color: ${COLORS.error};
+    font-size: 0.8rem;
+    margin-bottom: 5px;
 `;
 
 export default TaskEntryForm;

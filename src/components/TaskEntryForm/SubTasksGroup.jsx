@@ -27,7 +27,7 @@ function SubTasksGroup() {
                 return (
                     <SubTaskInputWrapper  key={index}>
                         <VisuallyHidden>
-                            <label htmlFor="sub-tasks">Sub Task</label>
+                            <label htmlFor="sub-task">Sub Task</label>
                         </VisuallyHidden>
                         <input
                             type="text"
@@ -65,7 +65,8 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    gap: 3px;
+    gap: 8px;
+    margin-top: 14px;
 
     width: 90%;
 `;
