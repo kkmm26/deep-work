@@ -3,18 +3,16 @@ import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { COLORS } from "../../../constants";
 import DescriptionIcon from "./DescriptionIcon";
 
-function Task() {
+function MainTask() {
     return (
         <Wrapper>
-            <MainTask>
+            <TaskName>
                 <ChevronDownIconWrapper>
                     <ChevronDownIcon />
                 </ChevronDownIconWrapper>
                 Chemistry
-            </MainTask>
-            <DescriptionIconWrapper>
+            </TaskName>
                 <DescriptionIcon />
-            </DescriptionIconWrapper>
         </Wrapper>
     );
 }
@@ -33,12 +31,11 @@ const Wrapper = styled.div`
     max-width: 30%;
     width: fit-content;
     border: 1px solid red;
-    position: relative;
     display: flex;
-    gap: 5px;
+    gap: 10px;
 `;
 
-const MainTask = styled.h3`
+const TaskName = styled.h3`
     display: flex;
     gap: 5px;
     align-items: center;
@@ -47,7 +44,6 @@ const MainTask = styled.h3`
     }
 `;
 
-const DescriptionIconWrapper = styled.div`
-`;
 
-export default Task;
+
+export default MainTask;

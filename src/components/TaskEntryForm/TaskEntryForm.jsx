@@ -70,11 +70,12 @@ function TaskEntryForm({ closeForm }) {
 }
 
 const Form = styled.form`
+    min-width: 300px;
+    max-width: 250px;
     position: absolute;
     top: 150px;
     left: 50%;
     transform: translateX(-50%);
-    max-width: 250px;
     box-shadow: ${STYLES.boxShadow2};
     border-radius: 3px;
     padding: 30px 20px 20px 20px;

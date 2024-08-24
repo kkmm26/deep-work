@@ -1,10 +1,10 @@
 import styled from "styled-components"
-import Task from "./Task"
+import MainTask from "./MainTask"
 
 
 function DeepWorks() {
     return <Wrapper>
-        <Task></Task>
+        <MainTask></MainTask>
     </Wrapper>
     
 }
