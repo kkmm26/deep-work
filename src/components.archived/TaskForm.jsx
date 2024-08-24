@@ -4,16 +4,16 @@ import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import { styled, keyframes } from "@stitches/react";
 import React from "react";
 import { COLORS, STYLES, SUB_TASKS_ADDABLE } from "../constants.js";
-import PlusButton from "./Buttons/PlusButton.jsx";
-import SubTaskCrossButton from "./Buttons/SubTaskCrossButton.jsx";
-import { SubTaskContext } from "./Providers/SubTaskProvider.jsx";
-import { Cross1Icon } from "@radix-ui/react-icons";
-import CloseButton from "./Buttons/CloseButton.jsx";
+import PlusButton from "../components/Buttons/PlusButton.jsx";
+import { SubTaskContext } from "../components/Providers/SubTaskProvider.jsx";
+// import SubTaskCrossButton from "../components/Buttons/SubTaskCrossButton.jsx";
+// import CloseButton from "../components/Buttons/CloseButton.jsx";
 
-function TaskForm({ closeForm, isFormOpen, plusButtonRef }) {
+function TaskForm({ closeForm, isFormOpen }) {
     const { subTaskInputs, addSubTaskInput, deleteSubTaskInput } =
         React.useContext(SubTaskContext);
     const taskFormRef = React.useRef();
+    console.log("rendered");
 
     React.useEffect(() => {
         function handleMouseDown(e) {
@@ -163,7 +163,7 @@ const FormRoot = styled(Form.Root, {
     maxWidth: "min-content", // prevent width from expanding when form submit error message shows
     position: "absolute",
     zIndex: 1,
-    top: "20%",
+    top: "140px",
     left: "50%",
     transform: "translateX(-50%)",
     boxShadow: `${STYLES.boxShadow2}`,

@@ -33,7 +33,9 @@ export const FEATURE_TITLES_STYLES = {
 }
 
 export const STYLES = {
-    boxShadow: "rgba(0, 0, 0, 0.375) 0px 2px 8px 0px",
-    boxShadow2: "rgba(0, 0, 0, 0.1) 0px 4px 12px;",
+    boxShadow:
+        "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
+    boxShadow2:
+        "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
 };
 

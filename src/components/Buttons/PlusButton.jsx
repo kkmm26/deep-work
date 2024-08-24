@@ -45,7 +45,6 @@ const Button = styled.button`
     border-radius: 3px;
     background-color: ${COLORS.plusButton};
     border: none;
-    margin: 0 auto;
     font-size: 0.7rem;
     display: flex;
     justify-content: center;
@@ -58,12 +57,10 @@ const Button = styled.button`
 `;
 
 const SubTaskPlusButton = styled(Button)`
-    position: absolute;
-    left: 0;
 `;
 
 const SubTaskChildrenPlusButton = styled(SubTaskPlusButton)`
-    width: auto;
+    width: fit-content;
     padding: 12px 10px;
     display: flex;
     gap: 8px;

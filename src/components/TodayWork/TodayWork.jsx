@@ -5,9 +5,9 @@ import DeepWorks from "./DeepWorks/DeepWorks.jsx";
 import ShallowWorks from "./ShallowWorks.jsx";
 
 import { COLORS, WORK_TYPES, WORK_TYPES_STYLES } from "../../constants.js";
-import TaskForm from "../TaskForm.jsx";
 import SubTaskProvider from "../Providers/SubTaskProvider.jsx";
 import PlusButton from "../Buttons/PlusButton.jsx";
+import TaskEntryForm from "../TaskEntryForm/TaskEntryForm.jsx";
 
 function TodayWork() {
     const [currentWork, setCurrentWork] = React.useState(WORK_TYPES[1]);
@@ -54,12 +54,13 @@ function TodayWork() {
                 })}
             </TitleWrapper>
             <SubTaskProvider>
-                {isFormOpen && (
+                {/* {isFormOpen && (
                     <TaskForm
                         closeForm={closeForm}
                         isFormOpen={isFormOpen}
                     />
-                )}
+                )} */}
+                {isFormOpen && <TaskEntryForm />}
             </SubTaskProvider>
             <WorkTypeWrapper ref={scrollRef}>
                 {currentWork === WORK_TYPES[0] && <Ritual />}
