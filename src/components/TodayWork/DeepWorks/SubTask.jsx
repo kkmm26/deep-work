@@ -17,8 +17,10 @@ function SubTask({ children }) {
 }
 
 const Wrapper = styled.div`
+    max-width: 85%;
     align-self: flex-end;
-    max-width: 88%;
+    padding-left: 0px;
+    padding-right: 40px;
     display: flex;
     flex-direction: column;
     gap: 5px;

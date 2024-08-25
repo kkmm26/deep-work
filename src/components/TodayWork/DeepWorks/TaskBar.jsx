@@ -28,14 +28,11 @@ function TaskBar({
                     <ChevronDownIcon />
                 </ChevronDownIconWrapper>
             )}
-            <Tag titleStyles={titleStyles}>
-                {children}
-
-                {variant !== "Sub Task" && (
-                    <PlusButton onClick={onClick} variant="Task Bar" />
-                )}
-            </Tag>
+            <Tag titleStyles={titleStyles}>{children}</Tag>
             {hasDesc && <DescriptionIcon />}
+            {variant !== "Sub Task" && (
+                <PlusButton onClick={onClick} variant="Task Bar" />
+            )}
         </Wrapper>
     );
 }
@@ -55,7 +52,7 @@ const ChevronDownIconWrapper = styled.div`
 const Wrapper = styled.div`
     width: 100%;
     display: flex;
-    gap: 6px;
+    gap: 5px;
 
     &:hover button,
     &:hover ${ChevronDownIconWrapper} {
@@ -64,7 +61,7 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.h3`
-    position: relative;
+    min-width: fit-content;
     cursor: pointer;
     display: flex;
     gap: 5px;
@@ -73,10 +70,10 @@ const Title = styled.h3`
 `;
 
 const MainTaskTitle = styled(Title)`
+    width: 100%;
     background-color: ${COLORS.mainTaskBackground};
     padding: 8px;
     padding-left: 18px;
-    width: 100%;
     border-radius: 3px;
 `;
 

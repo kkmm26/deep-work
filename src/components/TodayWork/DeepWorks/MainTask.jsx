@@ -9,7 +9,6 @@ function MainTask() {
     }
 
     return (
-        <Wrapper>
             <MainTaskTaskBar
                 hasDesc={false}
                 onClick={addSubTask}
@@ -17,7 +16,6 @@ function MainTask() {
             >
                 Organic Chemistry
             </MainTaskTaskBar>
-        </Wrapper>
     );
 }
 

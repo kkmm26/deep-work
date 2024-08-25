@@ -86,10 +86,7 @@ const WorkTypePlusButton = styled(Button)`
 `;
 
 const TaskBarPlusButton = styled(Button)`
-    position: absolute;
-    right: -40px;
-    top: 50%;
-    transform: translateY(-50%);
+align-self: center;
     min-width: 35px;
     max-width: 35px;
     height: 25px;
