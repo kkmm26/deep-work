@@ -3,10 +3,7 @@ import TaskBar from "./TaskBar";
 
 
 
-function MainTask() {
-    function addSubTask() {
-
-    }
+function MainTask({addSubTask}) {
 
     return (
             <MainTaskTaskBar

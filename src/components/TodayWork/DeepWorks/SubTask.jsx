@@ -1,23 +1,23 @@
 import styled from "styled-components";
 import TaskBar from "./TaskBar";
 
-function SubTask({ children }) {
+function SubTask({ subTasks }) {
     return (
         <Wrapper>
-            <SubTaskBar variant="Sub Task">
-                Conversion between different functional groups (e.g., alcohol to
-                ketone)
-            </SubTaskBar>
-            <SubTaskBar variant="Sub Task">
-                Conversion between different functional groups (e.g., alcohol to
-                ketone)
-            </SubTaskBar>
+            {subTasks.map((task, index) => {
+                return (
+                    <SubTaskBar key={index} variant="Sub Task">
+                        {task}
+                    </SubTaskBar>
+                );
+            })}
         </Wrapper>
     );
 }
 
 const Wrapper = styled.div`
     max-width: 85%;
+    width: 100%;
     align-self: flex-end;
     padding-left: 0px;
     padding-right: 40px;

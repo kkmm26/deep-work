@@ -5,13 +5,12 @@ import { COLORS } from "../../../constants";
 function DescriptionIcon() {
     return (
         <Wrapper>
-            <InfoCircledIcon style={{width: "75%", opacity: "0.5"}} />
+            <InfoCircledIcon style={{ width: "75%", opacity: "0.5" }} />
             <PositionAbsoluteFiller>
                 <Description>
-                    Task Description Lorem ipsum dolor sit amet consectetur
-                    adipisicing elit. Praesentium, totam. Laborum omnis, ipsam
-                    quisquam at autem labore magnam nam, fuga minima provident
-                    odio pariatur ut dolorem, iure ullam deleniti nisi.
+                    Complete the assigned chemistry homework, which focuses on
+                    reinforcing key concepts and practicing problem-solving
+                    skills.
                 </Description>
             </PositionAbsoluteFiller>
         </Wrapper>
@@ -39,11 +38,11 @@ const Description = styled.p`
     padding: 10px;
     top: 10px;
     left: 0;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     color: ${COLORS.white};
     background-color: ${COLORS.black};
     border-radius: 4px;
-    opacity: 0.7;
+    opacity: 0.85;
     visibility: hidden;
 `;
 

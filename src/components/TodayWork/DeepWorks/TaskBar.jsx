@@ -1,4 +1,6 @@
+import React from "react";
 import styled from "styled-components";
+
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { COLORS } from "../../../constants.js";
 import DescriptionIcon from "./DescriptionIcon.jsx";
@@ -12,6 +14,8 @@ function TaskBar({
     variant,
     onClick,
 }) {
+
+
     let Tag;
     if (variant === "Main Task") {
         Tag = MainTaskTitle;
@@ -21,6 +25,32 @@ function TaskBar({
         Tag = Title;
     }
 
+   function editTaskTitle(e) {
+       const titleElement = e.currentTarget;
+       titleElement.setAttribute("contenteditable", "true");
+       titleElement.focus();
+
+       function handleKeydown(e) {
+           if (e.key === "Escape" || e.key === "Enter") {
+               titleElement.blur();
+           }
+       }
+
+       function handleBlur() {
+           titleElement.removeAttribute("contenteditable");
+
+           window.getSelection().removeAllRanges();
+
+           titleElement.removeEventListener("keydown", handleKeydown);
+           titleElement.removeEventListener("blur", handleBlur);
+       }
+
+       titleElement.addEventListener("keydown", handleKeydown);
+       titleElement.addEventListener("blur", handleBlur);
+   }
+
+
+
     return (
         <Wrapper className={className}>
             {variant !== "Sub Task" && (
@@ -28,7 +58,7 @@ function TaskBar({
                     <ChevronDownIcon />
                 </ChevronDownIconWrapper>
             )}
-            <Tag titleStyles={titleStyles}>{children}</Tag>
+            <Tag onDoubleClick={editTaskTitle}>{children}</Tag>
             {hasDesc && <DescriptionIcon />}
             {variant !== "Sub Task" && (
                 <PlusButton onClick={onClick} variant="Task Bar" />
@@ -71,18 +101,21 @@ const Title = styled.h3`
 
 const MainTaskTitle = styled(Title)`
     width: 100%;
+    min-height: 40px;
     background-color: ${COLORS.mainTaskBackground};
-    padding: 8px;
-    padding-left: 18px;
+    padding: 0;
+    padding-left: 15px;
     border-radius: 3px;
 `;
 
 const SubTaskTitle = styled(Title)`
-    background-color: ${COLORS.background};
-    padding: 5px;
-    padding-left: 15px;
     width: 100%;
+    min-height: 30px;
+    background-color: ${COLORS.background};
+    padding: 0;
+    padding-left: 15px;
     border-radius: 2px;
 `;
+
 
 export default TaskBar;
