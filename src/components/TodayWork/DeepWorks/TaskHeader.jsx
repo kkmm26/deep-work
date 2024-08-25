@@ -7,12 +7,12 @@ import PlusButton from "../../Buttons/PlusButton.jsx";
 function TaskHeader({children, hasDesc}) {
     return (
         <Wrapper>
-            <SubjectTitle>
+            <Title>
                 <ChevronDownIconWrapper>
                     <ChevronDownIcon />
                 </ChevronDownIconWrapper>
                 {children}
-            </SubjectTitle>
+            </Title>
             {hasDesc && <DescriptionIcon />}
             <PlusButton variant="Task Header" />
         </Wrapper>
@@ -40,12 +40,11 @@ const Wrapper = styled.div`
     }
 `;
 
-const SubjectTitle = styled.h3`
+const Title = styled.h3`
     display: flex;
     gap: 5px;
     align-items: center;
-    font-size: 1.2rem;
-    font-weight: 700;
+
     &:hover ${ChevronDownIconWrapper} {
         visibility: visible;
     }

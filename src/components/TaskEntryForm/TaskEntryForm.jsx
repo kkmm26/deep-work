@@ -143,11 +143,8 @@ const CreateButton = styled.button`
 `;
 
 const DescriptionTextArea = styled.textarea`
-    font-size: 0.9rem;
-    width: 100%;
     height: 70px;
     resize: none;
-    padding-left: 6px;
     margin-top: 20px;
 `;
 
