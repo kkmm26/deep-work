@@ -98,7 +98,7 @@ function TaskForm({ closeForm, isFormOpen }) {
                         >
                             <PlusButton
                                 onClick={addSubTaskInput}
-                                type="Sub Task"
+                                variant="Sub Task"
                             />
                         </div>
                     )}
@@ -110,7 +110,7 @@ function TaskForm({ closeForm, isFormOpen }) {
                             position: "relative",
                         }}
                     >
-                        <PlusButton onClick={addSubTaskInput} type="Sub Task">
+                        <PlusButton onClick={addSubTaskInput} variant="Sub Task">
                             Add a Sub Task
                         </PlusButton>
                     </div>

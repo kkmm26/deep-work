@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { COLORS } from "../../../constants";
 import DescriptionIcon from "./DescriptionIcon";
+import PlusButton from "../../Buttons/PlusButton.jsx"
 
 function MainTask() {
     return (
@@ -13,6 +14,7 @@ function MainTask() {
                 Chemistry
             </TaskName>
                 <DescriptionIcon />
+                <PlusButton variant="Main Task"/>
         </Wrapper>
     );
 }
@@ -30,15 +32,20 @@ const ChevronDownIconWrapper = styled.div`
 const Wrapper = styled.div`
     max-width: 30%;
     width: fit-content;
-    border: 1px solid red;
     display: flex;
     gap: 10px;
+
+    &:hover button {
+        visibility: visible;
+    }
 `;
 
 const TaskName = styled.h3`
     display: flex;
     gap: 5px;
     align-items: center;
+    font-size: 1.2rem;
+    font-weight: 700;
     &:hover ${ChevronDownIconWrapper} {
         visibility: visible;
     }

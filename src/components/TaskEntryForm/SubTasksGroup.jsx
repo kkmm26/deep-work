@@ -45,7 +45,7 @@ function SubTasksGroup() {
 
             {subTaskInputs.length < SUB_TASKS_ADDABLE &&
                 subTaskInputs.length > 0 && (
-                    <PlusButton onClick={addSubTaskInput} type="Sub Task" />
+                    <PlusButton onClick={addSubTaskInput} variant="Sub Task" />
                 )}
             {subTaskInputs.length >= SUB_TASKS_ADDABLE && (
                 <SubTaskWarning>
@@ -53,7 +53,7 @@ function SubTasksGroup() {
                 </SubTaskWarning>
             )}
             {subTaskInputs.length === 0 && (
-                <PlusButton onClick={addSubTaskInput} type="Sub Task">
+                <PlusButton onClick={addSubTaskInput} variant="Sub Task">
                     Add a Sub Task
                 </PlusButton>
             )}

@@ -45,7 +45,7 @@ function TodayWork() {
                                 {isActive && (
                                     <PlusButton
                                         onClick={(e) => openForm(e)}
-                                        type="Work Type"
+                                        variant="Work Type"
                                     />
                                 )}
                             </WorkTitle>

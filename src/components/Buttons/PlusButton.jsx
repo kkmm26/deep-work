@@ -2,14 +2,14 @@ import styled from "styled-components";
 import { COLORS } from "../../constants.js";
 import { PlusIcon } from "@radix-ui/react-icons";
 
-function PlusButton({ onClick, type, children }) {
+function PlusButton({ onClick, variant, children }) {
     function defaultClick(e) {
         e.preventDefault();
     }
     if (!onClick) {
         onClick = defaultClick;
     }
-    if (type === "Sub Task" && children) {
+    if (variant === "Sub Task" && children) {
         return (
             <SubTaskChildrenPlusButton type="button" onClick={onClick}>
                 {children}
@@ -17,20 +17,28 @@ function PlusButton({ onClick, type, children }) {
             </SubTaskChildrenPlusButton>
         );
     }
-    if (type === "Work Type") {
+    if (variant === "Work Type") {
         return (
             <WorkTypePlusButton  type="button" onClick={onClick}>
                 <PlusIcon />
             </WorkTypePlusButton>
         );
     }
-    if (type === "Sub Task") {
+    if (variant === "Sub Task") {
         return (
             <SubTaskPlusButton type="button" onClick={onClick}>
                 <PlusIcon />
             </SubTaskPlusButton>
         );
     }
+    if (variant === "Main Task") {
+        return (
+            <MainTaskPlusButton type="button" onClick={onClick}>
+                <PlusIcon />
+            </MainTaskPlusButton>
+        );
+    }
+    
 
     return (
         <Button  type="button" onClick={onClick}>
@@ -76,5 +84,12 @@ const WorkTypePlusButton = styled(Button)`
     opacity: 0;
     transition: visibility 0s, opacity 0.3s ease-in-out;
 `;
+
+const MainTaskPlusButton = styled(Button)`
+    align-self: center;
+    width: 35px;
+    height: 25px;
+    visibility: hidden;
+`
 
 export default PlusButton;
