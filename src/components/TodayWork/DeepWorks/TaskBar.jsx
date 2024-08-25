@@ -49,7 +49,7 @@ function TaskBar({
        titleElement.addEventListener("blur", handleBlur);
    }
 
-
+   
 
     return (
         <Wrapper className={className}>
@@ -58,7 +58,13 @@ function TaskBar({
                     <ChevronDownIcon />
                 </ChevronDownIconWrapper>
             )}
-            <Tag onDoubleClick={editTaskTitle}>{children}</Tag>
+            <Tag
+                tabIndex={0}
+                onClick={(e) => e.currentTarget.focus()}
+                onDoubleClick={editTaskTitle}
+            >
+                {children}
+            </Tag>
             {hasDesc && <DescriptionIcon />}
             {variant !== "Sub Task" && (
                 <PlusButton onClick={onClick} variant="Task Bar" />
@@ -97,6 +103,10 @@ const Title = styled.h3`
     gap: 5px;
     align-items: center;
     font: inherit;
+    &:focus {
+        outline: 2px solid ${COLORS.taskFocusOutline}; 
+        opacity: 0.7;
+    }
 `;
 
 const MainTaskTitle = styled(Title)`

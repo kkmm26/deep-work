@@ -10,6 +10,8 @@ export const COLORS = {
     backgroundHover: "hsl(0, 0%, 85%, 100%)",
 
     mainTaskBackground: "hsl(0, 0%, 0%, 25%)",
+    taskFocusOutline: "hsl(0, 0%, 0%, 95%)",
+
 
     error: "hsl(343, 100%, 65%)",
 
