@@ -31,11 +31,11 @@ function PlusButton({ onClick, variant, children }) {
             </SubTaskPlusButton>
         );
     }
-    if (variant === "Main Task") {
+    if (variant === "Task Header") {
         return (
-            <MainTaskPlusButton type="button" onClick={onClick}>
+            <TaskHeaderPlusButton type="button" onClick={onClick}>
                 <PlusIcon />
-            </MainTaskPlusButton>
+            </TaskHeaderPlusButton>
         );
     }
     
@@ -85,7 +85,7 @@ const WorkTypePlusButton = styled(Button)`
     transition: visibility 0s, opacity 0.3s ease-in-out;
 `;
 
-const MainTaskPlusButton = styled(Button)`
+const TaskHeaderPlusButton = styled(Button)`
     align-self: center;
     width: 35px;
     height: 25px;
