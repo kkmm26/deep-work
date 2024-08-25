@@ -7,7 +7,7 @@ import React from "react";
 
 function TaskEntryForm({ closeForm }) {
     const [errors, setErrors] = React.useState({});
-    const mainTaskRef = React.useRef();
+    const subjectInputRef = React.useRef();
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -16,6 +16,7 @@ function TaskEntryForm({ closeForm }) {
 
         const mainTask = formData.get("main-task");
         if (!mainTask) {
+            validationErrors.subject = "Please write Subject/ Area!";
             validationErrors.mainTask = "Please write at lease one main task!";
             // e.target.children["main-task"].focus()
         }
@@ -25,7 +26,7 @@ function TaskEntryForm({ closeForm }) {
     }
 
     React.useEffect(() => {
-        mainTaskRef.current.focus();
+        subjectInputRef.current.focus();
 
         function handleKeydown(e) {
             if (e.key === "Escape") {
@@ -45,10 +46,21 @@ function TaskEntryForm({ closeForm }) {
             <Overlay>
                 <Form onSubmit={handleSubmit}>
                     <VisuallyHidden>
+                        <label htmlFor="subject">Subject/ Area</label>
+                    </VisuallyHidden>
+                    <SubjectInput
+                        ref={subjectInputRef}
+                        type="text"
+                        placeholder="Subject/ Area"
+                        id="subject"
+                        name="subject"
+                        hasError={errors.subject}
+                        required
+                    />
+                    <VisuallyHidden>
                         <label htmlFor="main-task">Main Task</label>
                     </VisuallyHidden>
                     <MainTaskInput
-                        ref={mainTaskRef}
                         type="text"
                         placeholder="Main Task"
                         id="main-task"
@@ -60,7 +72,10 @@ function TaskEntryForm({ closeForm }) {
                         <ErrorMessage>{errors.mainTask}</ErrorMessage>
                     )}
                     <SubTasksGroup />
-                    <DescriptionTextArea placeholder="Description" maxLength={120}/>
+                    <DescriptionTextArea
+                        placeholder="Description"
+                        maxLength={120}
+                    />
                     <CreateButton>Create</CreateButton>
                     <CrossButton onClick={closeForm} variant="Task Form" />
                 </Form>
@@ -100,14 +115,17 @@ const Overlay = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    /* background-color: rgba(0, 0, 0, 0.1); */
+`;
+
+const SubjectInput = styled.input`
+    height: 32px;
+    border: ${(p) => p.hasError && "1px solid red"};
 `;
 
 const MainTaskInput = styled.input`
     height: 32px;
-    border: ${p => p.hasError && "1px solid red"};
-
- 
+    border: ${(p) => p.hasError && "1px solid red"};
+    margin-top: 18px;
 `;
 
 const CreateButton = styled.button`
