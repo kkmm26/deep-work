@@ -4,17 +4,38 @@ import { COLORS } from "../../../constants.js";
 import DescriptionIcon from "./DescriptionIcon.jsx";
 import PlusButton from "../../Buttons/PlusButton.jsx";
 
-function TaskBar({ children, hasDesc, titleStyles, className, variant }) {
-    const Tag = variant === "Main Task" ? MainTaskTitle : Title;
+function TaskBar({
+    children,
+    hasDesc,
+    titleStyles,
+    className,
+    variant,
+    onClick,
+}) {
+    let Tag;
+    if (variant === "Main Task") {
+        Tag = MainTaskTitle;
+    } else if (variant === "Sub Task") {
+        Tag = SubTaskTitle;
+    } else {
+        Tag = Title;
+    }
 
     return (
         <Wrapper className={className}>
-            <ChevronDownIconWrapper>
-                <ChevronDownIcon />
-            </ChevronDownIconWrapper>
-            <Tag titleStyles={titleStyles}>{children}</Tag>
+            {variant !== "Sub Task" && (
+                <ChevronDownIconWrapper>
+                    <ChevronDownIcon />
+                </ChevronDownIconWrapper>
+            )}
+            <Tag titleStyles={titleStyles}>
+                {children}
+
+                {variant !== "Sub Task" && (
+                    <PlusButton onClick={onClick} variant="Task Bar" />
+                )}
+            </Tag>
             {hasDesc && <DescriptionIcon />}
-            <PlusButton variant="Task Header" />
         </Wrapper>
     );
 }
@@ -32,7 +53,7 @@ const ChevronDownIconWrapper = styled.div`
 `;
 
 const Wrapper = styled.div`
-    max-width: 30%;
+    width: 100%;
     display: flex;
     gap: 6px;
 
@@ -43,6 +64,7 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.h3`
+    position: relative;
     cursor: pointer;
     display: flex;
     gap: 5px;
@@ -51,11 +73,19 @@ const Title = styled.h3`
 `;
 
 const MainTaskTitle = styled(Title)`
-    background-color: ${COLORS.background};
+    background-color: ${COLORS.mainTaskBackground};
     padding: 8px;
     padding-left: 18px;
     width: 100%;
     border-radius: 3px;
+`;
+
+const SubTaskTitle = styled(Title)`
+    background-color: ${COLORS.background};
+    padding: 5px;
+    padding-left: 15px;
+    width: 100%;
+    border-radius: 2px;
 `;
 
 export default TaskBar;

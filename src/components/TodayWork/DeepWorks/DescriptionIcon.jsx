@@ -20,6 +20,7 @@ function DescriptionIcon() {
 
 const Wrapper = styled.div`
     position: relative;
+    z-index: 10;
 
     &:hover p {
         visibility: visible;

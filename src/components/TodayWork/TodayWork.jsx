@@ -21,10 +21,13 @@ function TodayWork() {
     function closeForm(e) {
         e.preventDefault()
         setIsFormOpen(false)
+        document.body.style.overflow = "auto"
     }
     function openForm(e) {
         e.preventDefault()
         setIsFormOpen(true)
+        document.body.style.overflow = "hidden"
+
     }
     
     

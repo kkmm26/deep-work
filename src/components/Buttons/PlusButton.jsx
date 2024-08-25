@@ -24,18 +24,18 @@ function PlusButton({ onClick, variant, children }) {
             </WorkTypePlusButton>
         );
     }
-    if (variant === "Sub Task") {
+    if (variant === "Sub Task Input") {
         return (
-            <SubTaskPlusButton type="button" onClick={onClick}>
+            <SubTaskInputPlusButton type="button" onClick={onClick}>
                 <PlusIcon />
-            </SubTaskPlusButton>
+            </SubTaskInputPlusButton>
         );
     }
-    if (variant === "Task Header") {
+    if (variant === "Task Bar") {
         return (
-            <TaskHeaderPlusButton type="button" onClick={onClick}>
+            <TaskBarPlusButton type="button" onClick={onClick}>
                 <PlusIcon />
-            </TaskHeaderPlusButton>
+            </TaskBarPlusButton>
         );
     }
     
@@ -64,10 +64,10 @@ const Button = styled.button`
     }
 `;
 
-const SubTaskPlusButton = styled(Button)`
+const SubTaskInputPlusButton = styled(Button)`
 `;
 
-const SubTaskChildrenPlusButton = styled(SubTaskPlusButton)`
+const SubTaskChildrenPlusButton = styled(Button)`
     width: fit-content;
     padding: 12px 10px;
     display: flex;
@@ -85,9 +85,13 @@ const WorkTypePlusButton = styled(Button)`
     transition: visibility 0s, opacity 0.3s ease-in-out;
 `;
 
-const TaskHeaderPlusButton = styled(Button)`
-    align-self: center;
-    width: 35px;
+const TaskBarPlusButton = styled(Button)`
+    position: absolute;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    min-width: 35px;
+    max-width: 35px;
     height: 25px;
     visibility: hidden;
 `

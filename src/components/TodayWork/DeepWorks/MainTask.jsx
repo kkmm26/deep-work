@@ -4,13 +4,18 @@ import TaskBar from "./TaskBar";
 
 
 function MainTask() {
+    function addSubTask() {
+
+    }
+
     return (
         <Wrapper>
             <MainTaskTaskBar
                 hasDesc={false}
+                onClick={addSubTask}
                 variant="Main Task"
             >
-                Memorize the periodic table
+                Organic Chemistry
             </MainTaskTaskBar>
         </Wrapper>
     );

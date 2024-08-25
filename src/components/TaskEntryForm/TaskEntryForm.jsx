@@ -15,13 +15,18 @@ function TaskEntryForm({ closeForm }) {
         const formData = new FormData(e.target);
 
         const mainTask = formData.get("main-task");
+        const subject = formData.get("subject");
         if (!mainTask) {
-            validationErrors.subject = "Please write Subject/ Area!";
             validationErrors.mainTask = "Please write at lease one main task!";
             // e.target.children["main-task"].focus()
         }
+        if (!subject) {
+            validationErrors.subject = "Please write Subject/ Area!";
+        }
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
+        } else {
+            setErrors({})
         }
     }
 
@@ -55,8 +60,10 @@ function TaskEntryForm({ closeForm }) {
                         id="subject"
                         name="subject"
                         hasError={errors.subject}
-                        required
                     />
+                    {errors.subject && (
+                        <ErrorMessage>{errors.subject}</ErrorMessage>
+                    )}
                     <VisuallyHidden>
                         <label htmlFor="main-task">Main Task</label>
                     </VisuallyHidden>
@@ -66,7 +73,6 @@ function TaskEntryForm({ closeForm }) {
                         id="main-task"
                         name="main-task"
                         hasError={errors.mainTask}
-                        required
                     />
                     {errors.mainTask && (
                         <ErrorMessage>{errors.mainTask}</ErrorMessage>
@@ -151,7 +157,6 @@ const DescriptionTextArea = styled.textarea`
 const ErrorMessage = styled.p`
     color: ${COLORS.error};
     font-size: 0.8rem;
-    margin-bottom: 5px;
 `;
 
 export default TaskEntryForm;

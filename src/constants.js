@@ -9,6 +9,8 @@ export const COLORS = {
     background: "hsl(0, 0%, 90%, 80%)",
     backgroundHover: "hsl(0, 0%, 85%, 100%)",
 
+    mainTaskBackground: "hsl(0, 0%, 0%, 25%)",
+
     error: "hsl(343, 100%, 65%)",
 
 };

@@ -45,7 +45,7 @@ function SubTasksGroup() {
 
             {subTaskInputs.length < SUB_TASKS_ADDABLE &&
                 subTaskInputs.length > 0 && (
-                    <PlusButton onClick={addSubTaskInput} variant="Sub Task" />
+                    <PlusButton onClick={addSubTaskInput} variant="Sub Task Input" />
                 )}
             {subTaskInputs.length >= SUB_TASKS_ADDABLE && (
                 <SubTaskWarning>

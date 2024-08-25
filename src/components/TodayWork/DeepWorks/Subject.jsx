@@ -12,6 +12,10 @@ function Subject() {
 const SubjectTaskBar = styled(TaskBar)`
     font-size: 1.2rem;
     font-weight: 700;
+
+    &  button {
+        right: -60px;
+    }
 `;
 
 export default Subject;
