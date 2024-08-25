@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import TaskBar from "./TaskBar";
-import { COLORS, TASK_TITLE_STYLES } from "../../../constants";
 
 
 
@@ -9,7 +8,7 @@ function MainTask() {
         <Wrapper>
             <MainTaskTaskBar
                 hasDesc={false}
-                titleStyles={TASK_TITLE_STYLES}
+                variant="Main Task"
             >
                 Memorize the periodic table
             </MainTaskTaskBar>
@@ -18,7 +17,6 @@ function MainTask() {
 }
 
 const Wrapper = styled.div`
-    
 `;
 
 const MainTaskTaskBar = styled(TaskBar)`

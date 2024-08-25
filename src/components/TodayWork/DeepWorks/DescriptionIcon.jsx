@@ -5,7 +5,7 @@ import { COLORS } from "../../../constants";
 function DescriptionIcon() {
     return (
         <Wrapper>
-            <InfoCircledIcon />
+            <InfoCircledIcon style={{width: "75%", opacity: "0.5"}} />
             <PositionAbsoluteFiller>
                 <Description>
                     Task Description Lorem ipsum dolor sit amet consectetur
@@ -35,10 +35,10 @@ const PositionAbsoluteFiller = styled.div`
 const Description = styled.p`
     max-width: 200px;
     position: absolute;
-    padding: 15px;
+    padding: 10px;
     top: 10px;
     left: 0;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     color: ${COLORS.white};
     background-color: ${COLORS.black};
     border-radius: 4px;

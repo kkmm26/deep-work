@@ -13,9 +13,6 @@ export const COLORS = {
 
 };
 
-export const TASK_TITLE_STYLES = {
-    padding: 10,
-};
 
 
 export const WORK_TYPES = ["Ritual", "Deep Works", "Shallow Works"];
@@ -30,7 +27,8 @@ export const WORK_TYPES_STYLES = {
 };
 
 export const FEATURE_TITLES_STYLES = {
-    fontSize: "1.2rem"
+    fontSize: "1.2rem",
+    padding: "8px"
 }
 
 export const STYLES = {

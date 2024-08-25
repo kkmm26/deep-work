@@ -17,6 +17,8 @@ const FeatureTitle = styled.h1`
     color: ${(p) => (p.isActive ? COLORS.white: COLORS.inactiveBlack)};
     text-align: center;
     font-size: ${FEATURE_TITLES_STYLES.fontSize};
+    padding-top: ${FEATURE_TITLES_STYLES.padding};
+    padding-bottom: ${FEATURE_TITLES_STYLES.padding};
 
     &:hover {
         cursor: pointer;

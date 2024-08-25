@@ -4,13 +4,15 @@ import { COLORS } from "../../../constants.js";
 import DescriptionIcon from "./DescriptionIcon.jsx";
 import PlusButton from "../../Buttons/PlusButton.jsx";
 
-function TaskBar({ children, hasDesc, titleStyles, className }) {
+function TaskBar({ children, hasDesc, titleStyles, className, variant }) {
+    const Tag = variant === "Main Task" ? MainTaskTitle : Title;
+
     return (
         <Wrapper className={className}>
             <ChevronDownIconWrapper>
                 <ChevronDownIcon />
             </ChevronDownIconWrapper>
-            <Title titleStyles={titleStyles}>{children}</Title>
+            <Tag titleStyles={titleStyles}>{children}</Tag>
             {hasDesc && <DescriptionIcon />}
             <PlusButton variant="Task Header" />
         </Wrapper>
@@ -31,7 +33,6 @@ const ChevronDownIconWrapper = styled.div`
 
 const Wrapper = styled.div`
     max-width: 30%;
-    width: fit-content;
     display: flex;
     gap: 6px;
 
@@ -47,8 +48,14 @@ const Title = styled.h3`
     gap: 5px;
     align-items: center;
     font: inherit;
-    background-color: ${(p) => p.titleStyles && `${COLORS.background}`};
-    padding: ${(p) => p.titleStyles && p.titleStyles.padding + "px"};
+`;
+
+const MainTaskTitle = styled(Title)`
+    background-color: ${COLORS.background};
+    padding: 8px;
+    padding-left: 18px;
+    width: 100%;
     border-radius: 3px;
 `;
+
 export default TaskBar;
