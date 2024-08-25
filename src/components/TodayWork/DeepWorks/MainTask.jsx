@@ -1,17 +1,29 @@
 import styled from "styled-components";
-import TaskHeader from "./TaskHeader";
+import TaskBar from "./TaskBar";
+import { COLORS, TASK_TITLE_STYLES } from "../../../constants";
 
-function MainTask({ children }) {
+
+
+function MainTask() {
     return (
         <Wrapper>
-            <TaskHeader hasDesc={false}>{children}</TaskHeader>
+            <MainTaskTaskBar
+                hasDesc={false}
+                titleStyles={TASK_TITLE_STYLES}
+            >
+                Memorize the periodic table
+            </MainTaskTaskBar>
         </Wrapper>
     );
 }
 
 const Wrapper = styled.div`
-    font-size: 1.2rem;
-    font-weight: 700;
+    
+`;
+
+const MainTaskTaskBar = styled(TaskBar)`
+    font-size: 1rem;
+    font-weight: 400;
 `;
 
 export default MainTask;

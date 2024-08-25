@@ -51,7 +51,7 @@ const Button = styled.button`
     width: 60px;
     height: 20px;
     border-radius: 3px;
-    background-color: ${COLORS.plusButton};
+    background-color: ${COLORS.background};
     border: none;
     font-size: 0.7rem;
     display: flex;
@@ -60,7 +60,7 @@ const Button = styled.button`
 
     &:hover {
         cursor: pointer;
-        background-color: ${COLORS.plusButtonHover};
+        background-color: ${COLORS.backgroundHover};
     }
 `;
 

@@ -6,15 +6,16 @@ export const COLORS = {
     inactiveBlack: "hsl(0, 0%, 0%, 30%)",
     hoverBlack: "hsl(0, 0%, 0%, 20%)",
 
-    plusButton: "hsl(0, 0%, 90%, 80%)",
-    plusButtonHover: "hsl(0, 0%, 85%, 100%)",
-
-   
+    background: "hsl(0, 0%, 90%, 80%)",
+    backgroundHover: "hsl(0, 0%, 85%, 100%)",
 
     error: "hsl(343, 100%, 65%)",
 
 };
 
+export const TASK_TITLE_STYLES = {
+    padding: 10,
+};
 
 
 export const WORK_TYPES = ["Ritual", "Deep Works", "Shallow Works"];

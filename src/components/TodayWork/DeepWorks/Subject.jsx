@@ -1,23 +1,17 @@
 import styled from "styled-components";
-import TaskHeader from "./TaskHeader";
+import TaskBar from "./TaskBar";
 
-function Subject({ children }) {
+function Subject() {
     return (
-        <Wrapper>
-            <TaskHeader hasDesc={true}>{children}</TaskHeader>
-        </Wrapper>
+   
+            <SubjectTaskBar hasDesc={true}>Chemistry</SubjectTaskBar>
+    
     );
 }
 
-const Wrapper = styled.div`
+const SubjectTaskBar = styled(TaskBar)`
     font-size: 1.2rem;
     font-weight: 700;
-
-    /* & > * {
-        font-size: 1.2rem;
-        font-weight: 700;
-    } */
 `;
-
 
 export default Subject;
