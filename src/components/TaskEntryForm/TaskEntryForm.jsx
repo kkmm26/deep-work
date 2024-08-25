@@ -93,7 +93,7 @@ const Form = styled.form`
     transform: translateX(-50%);
     box-shadow: ${STYLES.boxShadow2};
     border-radius: 3px;
-    padding: 30px 20px 20px 20px;
+    padding: 30px 30px 20px 30px;
     font-size: 0.9rem;
 
     display: flex;

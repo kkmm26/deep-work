@@ -1,18 +1,18 @@
 import styled from "styled-components";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
-import { COLORS } from "../../../constants";
-import DescriptionIcon from "./DescriptionIcon";
+import { COLORS } from "../../../constants.js";
+import DescriptionIcon from "./DescriptionIcon.jsx";
 import PlusButton from "../../Buttons/PlusButton.jsx"
 
-function MainTask() {
+function Subject({children}) {
     return (
         <Wrapper>
-            <TaskName>
+            <SubjectTitle>
                 <ChevronDownIconWrapper>
                     <ChevronDownIcon />
                 </ChevronDownIconWrapper>
-                Chemistry
-            </TaskName>
+                {children}
+            </SubjectTitle>
                 <DescriptionIcon />
                 <PlusButton variant="Main Task"/>
         </Wrapper>
@@ -40,7 +40,7 @@ const Wrapper = styled.div`
     }
 `;
 
-const TaskName = styled.h3`
+const SubjectTitle = styled.h3`
     display: flex;
     gap: 5px;
     align-items: center;
@@ -53,4 +53,4 @@ const TaskName = styled.h3`
 
 
 
-export default MainTask;
+export default Subject;

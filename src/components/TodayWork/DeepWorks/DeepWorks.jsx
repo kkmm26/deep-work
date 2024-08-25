@@ -1,15 +1,15 @@
-import styled from "styled-components"
-import MainTask from "./MainTask"
-
+import styled from "styled-components";
+import Subject from "./Subject";
 
 function DeepWorks() {
-    return <Wrapper>
-        <MainTask></MainTask>
-    </Wrapper>
-    
+    return (
+        <Wrapper>
+            <Subject>Chemistry</Subject>
+            
+        </Wrapper>
+    );
 }
 
-const Wrapper = styled.section`
-`
+const Wrapper = styled.section``;
 
-export default DeepWorks
+export default DeepWorks;
