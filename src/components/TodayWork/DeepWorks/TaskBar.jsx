@@ -1,55 +1,59 @@
 import React from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { COLORS } from "../../../constants.js";
 import DescriptionIcon from "./DescriptionIcon.jsx";
 import PlusButton from "../../Buttons/PlusButton.jsx";
+import useEditableTitle from "../../../hooks/useEditableTitle.jsx";
+
+const Title = styled.h3`
+    min-width: fit-content;
+    cursor: pointer;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    font: inherit;
+    &:focus {
+        outline: 2px solid ${COLORS.taskFocusOutline};
+        opacity: 0.7;
+    }
+`;
+
+const MainTaskTitle = styled(Title)`
+    width: 100%;
+    min-height: 40px;
+    background-color: ${COLORS.mainTaskBackground};
+    padding: 0;
+    padding-left: 15px;
+    border-radius: 3px;
+`;
+
+const SubTaskTitle = styled(Title)`
+    width: 100%;
+    min-height: 30px;
+    background-color: ${COLORS.background};
+    padding: 0;
+    padding-left: 15px;
+    border-radius: 2px;
+`;
+
+const titleComponents = {
+    "Subject": Title, 
+    "Main Task": MainTaskTitle,
+    "Sub Task": SubTaskTitle,
+};
 
 function TaskBar({
     children,
     hasDesc,
-    titleStyles,
     className,
     variant,
     onClick,
 }) {
-
-
-    let Tag;
-    if (variant === "Main Task") {
-        Tag = MainTaskTitle;
-    } else if (variant === "Sub Task") {
-        Tag = SubTaskTitle;
-    } else {
-        Tag = Title;
-    }
-
-   function editTaskTitle(e) {
-       const titleElement = e.currentTarget;
-       titleElement.setAttribute("contenteditable", "true");
-       titleElement.focus();
-
-       function handleKeydown(e) {
-           if (e.key === "Escape" || e.key === "Enter") {
-               titleElement.blur();
-           }
-       }
-
-       function handleBlur() {
-           titleElement.removeAttribute("contenteditable");
-
-           window.getSelection().removeAllRanges();
-
-           titleElement.removeEventListener("keydown", handleKeydown);
-           titleElement.removeEventListener("blur", handleBlur);
-       }
-
-       titleElement.addEventListener("keydown", handleKeydown);
-       titleElement.addEventListener("blur", handleBlur);
-   }
-
-   
+    const Tag = titleComponents[variant];
+    const editTaskTitle = useEditableTitle();
 
     return (
         <Wrapper className={className}>
@@ -72,6 +76,8 @@ function TaskBar({
         </Wrapper>
     );
 }
+
+
 
 const ChevronDownIconWrapper = styled.div`
     padding: 6px 10px;
@@ -96,36 +102,14 @@ const Wrapper = styled.div`
     }
 `;
 
-const Title = styled.h3`
-    min-width: fit-content;
-    cursor: pointer;
-    display: flex;
-    gap: 5px;
-    align-items: center;
-    font: inherit;
-    &:focus {
-        outline: 2px solid ${COLORS.taskFocusOutline}; 
-        opacity: 0.7;
-    }
-`;
 
-const MainTaskTitle = styled(Title)`
-    width: 100%;
-    min-height: 40px;
-    background-color: ${COLORS.mainTaskBackground};
-    padding: 0;
-    padding-left: 15px;
-    border-radius: 3px;
-`;
-
-const SubTaskTitle = styled(Title)`
-    width: 100%;
-    min-height: 30px;
-    background-color: ${COLORS.background};
-    padding: 0;
-    padding-left: 15px;
-    border-radius: 2px;
-`;
-
+TaskBar.propTypes = {
+    children: PropTypes.node,
+    hasDesc: PropTypes.bool,
+    titleStyles: PropTypes.object,
+    className: PropTypes.string,
+    variant: PropTypes.oneOf(["Subject", "Main Task", "Sub Task"]), 
+    onClick: PropTypes.func,
+};
 
 export default TaskBar;

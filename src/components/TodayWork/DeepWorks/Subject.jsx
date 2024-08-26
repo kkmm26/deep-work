@@ -4,7 +4,7 @@ import TaskBar from "./TaskBar";
 function Subject() {
     return (
    
-            <SubjectTaskBar hasDesc={true}>Chemistry</SubjectTaskBar>
+            <SubjectTaskBar hasDesc={true} variant="Subject">Chemistry</SubjectTaskBar>
     
     );
 }
