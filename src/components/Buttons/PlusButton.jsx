@@ -86,7 +86,6 @@ const WorkTypePlusButton = styled(Button)`
 `;
 
 const TaskBarPlusButton = styled(Button)`
-align-self: center;
     min-width: 35px;
     max-width: 35px;
     height: 25px;

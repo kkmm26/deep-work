@@ -6,13 +6,16 @@ import TaskBar from "./TaskBar";
 function MainTask({addSubTask}) {
 
     return (
-            <MainTaskTaskBar
-                hasDesc={false}
-                onClick={addSubTask}
-                variant="Main Task"
-            >
-                Organic Chemistry
-            </MainTaskTaskBar>
+        <MainTaskTaskBar
+            hasDesc={false}
+            onClick={addSubTask}
+            variant="Main Task"
+        >
+            Organic Here are my favourite ones so you can suggest similar: wind
+            river, prisoners, gone girl, no country for old man, nightcrawler...
+            etc. There is probably no famous movie that I have not seen, so I'm
+            looking tor some hidden gems, or some good foreign films.
+        </MainTaskTaskBar>
     );
 }
 

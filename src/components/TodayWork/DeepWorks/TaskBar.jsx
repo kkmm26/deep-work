@@ -9,23 +9,25 @@ import PlusButton from "../../Buttons/PlusButton.jsx";
 import useEditableTitle from "../../../hooks/useEditableTitle.jsx";
 
 const Title = styled.h3`
-    min-width: fit-content;
     cursor: pointer;
-    display: flex;
-    gap: 5px;
-    align-items: center;
+    min-height: 45px;
+    padding: 10px;
     font: inherit;
     &:focus {
         outline: 2px solid ${COLORS.taskFocusOutline};
         opacity: 0.7;
     }
+
 `;
+
+const SubjectTitle = styled(Title)`
+    padding: 0;
+`
 
 const MainTaskTitle = styled(Title)`
     width: 100%;
     min-height: 40px;
     background-color: ${COLORS.mainTaskBackground};
-    padding: 0;
     padding-left: 15px;
     border-radius: 3px;
 `;
@@ -34,13 +36,12 @@ const SubTaskTitle = styled(Title)`
     width: 100%;
     min-height: 30px;
     background-color: ${COLORS.background};
-    padding: 0;
     padding-left: 15px;
     border-radius: 2px;
 `;
 
 const titleComponents = {
-    "Subject": Title, 
+    "Subject": SubjectTitle, 
     "Main Task": MainTaskTitle,
     "Sub Task": SubTaskTitle,
 };
@@ -82,7 +83,6 @@ function TaskBar({
 const ChevronDownIconWrapper = styled.div`
     padding: 6px 10px;
     border-radius: 3px;
-    align-self: center;
     visibility: hidden;
 
     &:hover {
@@ -95,6 +95,7 @@ const Wrapper = styled.div`
     width: 100%;
     display: flex;
     gap: 5px;
+    align-items: flex-start;
 
     &:hover button,
     &:hover ${ChevronDownIconWrapper} {

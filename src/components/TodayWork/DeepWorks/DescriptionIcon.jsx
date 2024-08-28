@@ -19,6 +19,7 @@ function DescriptionIcon() {
 
 const Wrapper = styled.div`
     position: relative;
+    align-self: flex-start;
     z-index: 10;
 
     &:hover p {

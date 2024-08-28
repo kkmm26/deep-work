@@ -45,7 +45,8 @@ const TitleWrapper = styled.div`
 
 const Main = styled.main`
     max-width: 1440px;
-    height: 100vh;
+    min-height: 100vh;
+    height: auto;
     padding: 15px;
     margin: 0 auto;
     `;
@@ -58,6 +59,6 @@ min-width: fit-content;
     margin: 0 auto;
     border-radius: 5px;
     box-shadow: ${STYLES.boxShadow};
-    padding: 5px 40px;
+    padding: 10px;
 `;
 export default App;
