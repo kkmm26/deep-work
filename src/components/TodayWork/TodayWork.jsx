@@ -13,9 +13,9 @@ function TodayWork() {
     const [currentWork, setCurrentWork] = React.useState(WORK_TYPES[1]);
     const [isFormOpen, setIsFormOpen] = React.useState(false)
     const scrollRef = React.useRef();
-
     function scrollOnTitleClicked(e) {
         scrollRef.current.scrollIntoView({ behavior: "smooth" });
+        console.log(scrollRef.current);
         setCurrentWork(e.currentTarget.dataset.work);
     }
     function closeForm(e) {
@@ -33,7 +33,7 @@ function TodayWork() {
     
 
     return (
-        <>
+        <Wrapper ref={scrollRef}>
             <TitleWrapper>
                 {WORK_TYPES.map((work, index) => {
                     const isActive = work === currentWork;
@@ -59,14 +59,17 @@ function TodayWork() {
             <SubTaskProvider>
                 {isFormOpen && <TaskEntryForm closeForm={closeForm} />}
             </SubTaskProvider>
-            <WorkTypeWrapper ref={scrollRef}>
+            <WorkTypeWrapper>
                 {currentWork === WORK_TYPES[0] && <Ritual />}
                 {currentWork === WORK_TYPES[1] && <DeepWorks />}
                 {currentWork === WORK_TYPES[2] && <ShallowWorks />}
             </WorkTypeWrapper>
-        </>
+        </Wrapper>
     );
 }
+const Wrapper = styled.div`
+    
+`
 
 const TitleWrapper = styled.div`
     isolation: isolate;
@@ -118,11 +121,6 @@ const WorkTitle = styled.h2`
 
 
 const WorkTypeWrapper = styled.div`
-    /* padding: 20px;
-    border: 1px solid red;
-    background-color: aliceblue;
-    max-width: 100%;
-    min-width: fit-content; */
 `;
 
 

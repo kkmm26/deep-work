@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useState } from "react";
+import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 
 import { ChevronDownIcon } from "@radix-ui/react-icons";
@@ -10,19 +10,28 @@ import useEditableTitle from "../../../hooks/useEditableTitle.jsx";
 
 const Title = styled.h3`
     cursor: pointer;
-    min-height: 45px;
     padding: 10px;
     font: inherit;
     &:focus {
         outline: 2px solid ${COLORS.taskFocusOutline};
         opacity: 0.7;
     }
-
 `;
 
 const SubjectTitle = styled(Title)`
+    flex: 1;
     padding: 0;
-`
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    ${({ fullTextVisible }) =>
+        fullTextVisible &&
+        css`
+            display: block;
+            overflow: visible;
+        `}
+`;
 
 const MainTaskTitle = styled(Title)`
     width: 100%;
@@ -30,6 +39,8 @@ const MainTaskTitle = styled(Title)`
     background-color: ${COLORS.mainTaskBackground};
     padding-left: 15px;
     border-radius: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 `;
 
 const SubTaskTitle = styled(Title)`
@@ -41,20 +52,19 @@ const SubTaskTitle = styled(Title)`
 `;
 
 const titleComponents = {
-    "Subject": SubjectTitle, 
+    Subject: SubjectTitle,
     "Main Task": MainTaskTitle,
     "Sub Task": SubTaskTitle,
 };
 
-function TaskBar({
-    children,
-    hasDesc,
-    className,
-    variant,
-    onClick,
-}) {
+function TaskBar({ children, hasDesc, className, variant, onClick }) {
     const Tag = titleComponents[variant];
     const editTaskTitle = useEditableTitle();
+    const [fullTextVisible, setFullTextVisible] = useState(false);
+
+    function handleTitleClick() {
+        setFullTextVisible((prev) => !prev);
+    }
 
     return (
         <Wrapper className={className}>
@@ -65,7 +75,8 @@ function TaskBar({
             )}
             <Tag
                 tabIndex={0}
-                onClick={(e) => e.currentTarget.focus()}
+                onClick={handleTitleClick}
+                fullTextVisible={fullTextVisible}
                 onDoubleClick={editTaskTitle}
             >
                 {children}
@@ -77,8 +88,6 @@ function TaskBar({
         </Wrapper>
     );
 }
-
-
 
 const ChevronDownIconWrapper = styled.div`
     padding: 6px 10px;
@@ -92,7 +101,7 @@ const ChevronDownIconWrapper = styled.div`
 `;
 
 const Wrapper = styled.div`
-    width: 100%;
+    max-width: 100%;
     display: flex;
     gap: 5px;
     align-items: flex-start;
@@ -103,13 +112,12 @@ const Wrapper = styled.div`
     }
 `;
 
-
 TaskBar.propTypes = {
     children: PropTypes.node,
     hasDesc: PropTypes.bool,
     titleStyles: PropTypes.object,
     className: PropTypes.string,
-    variant: PropTypes.oneOf(["Subject", "Main Task", "Sub Task"]), 
+    variant: PropTypes.oneOf(["Subject", "Main Task", "Sub Task"]),
     onClick: PropTypes.func,
 };
 

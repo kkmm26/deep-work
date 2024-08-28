@@ -6,22 +6,27 @@ import FleetingThoughts from "./components/FleetingThoughts/FleetingThoughts.jsx
 import TimeBlock from "./components/TimeBlock/TimeBlock.jsx";
 import { COLORS, STYLES } from "./constants.js";
 
-const FEATURES = ["Time Block", "Today's Works", "Fleeting Thoughts"]
+const FEATURES = ["Time Block", "Today's Works", "Fleeting Thoughts"];
 
 function App() {
-    const [activeFeature, setActiveFeature] = React.useState(FEATURES[1])
-
+    const [activeFeature, setActiveFeature] = React.useState(FEATURES[1]);
 
     function handleClick(e) {
-        const feature = e.target.textContent
-        setActiveFeature(feature)
+        const feature = e.target.textContent;
+        setActiveFeature(feature);
     }
 
     return (
         <>
             <TitleWrapper onClick={(e) => handleClick(e)}>
                 {FEATURES.map((title) => {
-                    return <Feature key={crypto.randomUUID()} title={title} isActive={title === activeFeature}/>;
+                    return (
+                        <Feature
+                            key={crypto.randomUUID()}
+                            title={title}
+                            isActive={title === activeFeature}
+                        />
+                    );
                 })}
             </TitleWrapper>
             <Main>
@@ -42,19 +47,17 @@ const TitleWrapper = styled.div`
     margin: 0 auto;
 `;
 
-
 const Main = styled.main`
     max-width: 1440px;
-    min-height: 100vh;
-    height: auto;
+    height: 100vh;
     padding: 15px;
     margin: 0 auto;
-    `;
+`;
 
 const FeatureWrapper = styled.div`
-min-width: fit-content;
+    min-width: fit-content;
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     background-color: ${COLORS.white};
     margin: 0 auto;
     border-radius: 5px;

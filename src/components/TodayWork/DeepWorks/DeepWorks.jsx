@@ -47,7 +47,6 @@ const Wrapper = styled.section`
 
 const SubTaskWarning = styled.p`
     align-self: center;
-    /* text-align: center; */
     padding-left: 70px;
     padding-right: 30px;
     font-size: 0.8rem;
