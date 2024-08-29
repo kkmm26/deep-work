@@ -42,6 +42,7 @@ const Wrapper = styled.section`
     display: flex;
     flex-direction: column;
     gap: 8px;
+    padding: 5px;
     max-width: 35%;
     max-height: 80vh;
     overflow-y: scroll;
@@ -60,5 +61,6 @@ const SubTaskWarning = styled.p`
     font-size: 0.8rem;
     opacity: 0.8;
 `;
+
 
 export default DeepWorks;

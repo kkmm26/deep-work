@@ -11,6 +11,22 @@ const FEATURES = ["Time Block", "Today's Works", "Fleeting Thoughts"];
 function App() {
     const [activeFeature, setActiveFeature] = React.useState(FEATURES[1]);
 
+    React.useEffect(()=> {
+        function handleKeydown(e) {
+            if (e.key === "Escape") {
+                if(document.activeElement) {
+                    document.activeElement.blur()
+                }
+            }
+        }
+
+        window.addEventListener('keydown', handleKeydown)
+
+        return (() => {
+            window.removeEventListener('keydown', handleKeydown)
+        })
+    })
+
     function handleClick(e) {
         const feature = e.target.textContent;
         setActiveFeature(feature);
