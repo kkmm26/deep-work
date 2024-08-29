@@ -11,26 +11,22 @@ import TaskEntryForm from "../TaskEntryForm/TaskEntryForm.jsx";
 
 function TodayWork() {
     const [currentWork, setCurrentWork] = React.useState(WORK_TYPES[1]);
-    const [isFormOpen, setIsFormOpen] = React.useState(false)
+    const [isFormOpen, setIsFormOpen] = React.useState(false);
     const scrollRef = React.useRef();
-    function scrollOnTitleClicked(e) {
-        scrollRef.current.scrollIntoView({ behavior: "smooth" });
-        console.log(scrollRef.current);
+    function handleTitleClicked(e) {
         setCurrentWork(e.currentTarget.dataset.work);
+        scrollRef.current.scrollIntoView();
     }
     function closeForm(e) {
-        e.preventDefault()
-        setIsFormOpen(false)
-        document.body.style.overflow = "auto"
+        e.preventDefault();
+        setIsFormOpen(false);
+        document.body.style.overflow = "auto";
     }
     function openForm(e) {
-        e.preventDefault()
-        setIsFormOpen(true)
-        document.body.style.overflow = "hidden"
-
+        e.preventDefault();
+        setIsFormOpen(true);
+        document.body.style.overflow = "hidden";
     }
-    
-    
 
     return (
         <Wrapper ref={scrollRef}>
@@ -41,7 +37,7 @@ function TodayWork() {
                         <Work key={index}>
                             <WorkTitle
                                 data-work={work}
-                                onClick={(e) => scrollOnTitleClicked(e)}
+                                onClick={(e) => handleTitleClicked(e)}
                                 isActive={isActive}
                             >
                                 {work}
@@ -68,8 +64,7 @@ function TodayWork() {
     );
 }
 const Wrapper = styled.div`
-    
-`
+`;
 
 const TitleWrapper = styled.div`
     isolation: isolate;
@@ -102,8 +97,8 @@ const WorkTitle = styled.h2`
     color: ${(p) => (p.isActive ? COLORS.black : COLORS.inactiveBlack)};
     font-size: ${(p) =>
         p.isActive
-            ? WORK_TYPES_STYLES.fontSize.active 
-            : WORK_TYPES_STYLES.fontSize.inactive };
+            ? WORK_TYPES_STYLES.fontSize.active
+            : WORK_TYPES_STYLES.fontSize.inactive};
     font-weight: ${(p) => p.isActive && 900};
     border-bottom: ${(p) => p.isActive && "1px solid black"};
     padding-bottom: 5px;
@@ -114,15 +109,8 @@ const WorkTitle = styled.h2`
     &:hover {
         color: ${(p) => !p.isActive && COLORS.hoverBlack};
     }
-
-   
 `;
 
-
-
-const WorkTypeWrapper = styled.div`
-`;
-
-
+const WorkTypeWrapper = styled.div``;
 
 export default TodayWork;

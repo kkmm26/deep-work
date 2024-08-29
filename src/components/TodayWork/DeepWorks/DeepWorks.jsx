@@ -43,6 +43,14 @@ const Wrapper = styled.section`
     flex-direction: column;
     gap: 8px;
     max-width: 35%;
+    max-height: 80vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 `;
 
 const SubTaskWarning = styled.p`
