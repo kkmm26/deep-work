@@ -10,7 +10,7 @@ import useEditableTitle from "../../../hooks/useEditableTitle.jsx";
 
 const Title = styled.h3`
     cursor: pointer;
-    padding: 10px;
+    padding: 8px;
     font: inherit;
     &:focus {
         outline: 2px solid ${COLORS.taskFocusOutline};
@@ -35,8 +35,8 @@ const SubjectTitle = styled(Title)`
 
 const MainTaskTitle = styled(Title)`
     width: 100%;
-    min-height: 40px;
     background-color: ${COLORS.mainTaskBackground};
+    padding: 8px;
     padding-left: 15px;
     border-radius: 3px;
     overflow: hidden;
@@ -45,8 +45,8 @@ const MainTaskTitle = styled(Title)`
 
 const SubTaskTitle = styled(Title)`
     width: 100%;
-    min-height: 30px;
     background-color: ${COLORS.background};
+    padding: 5px;
     padding-left: 15px;
     border-radius: 2px;
 `;

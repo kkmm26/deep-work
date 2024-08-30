@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import TaskBar from "./TaskBar";
 
-function Subject({children}) {
+function Subject({children, onPlusBtnClicked}) {
     return (
-        <SubjectTaskBar hasDesc={true} variant="Subject">
+        <SubjectTaskBar onPlusBtnClicked={onPlusBtnClicked} hasDesc={true} variant="Subject">
             {children}
         </SubjectTaskBar>
     );

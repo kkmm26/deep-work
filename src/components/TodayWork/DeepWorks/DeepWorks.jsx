@@ -7,22 +7,28 @@ import SubTask from "./SubTask.jsx";
 import { MAIN_TASKS_ADDABLE, SUB_TASKS_ADDABLE } from "../../../constants.js";
 
 function DeepWorks() {
-
-    const [mainTasks, setMainTasks] = React.useState([{task: "Memorize the periodic table", id: crypto.randomUUID()}])
-    
-
+    const [mainTasks, setMainTasks] = React.useState([
+        { task: "Memorize the periodic table", id: crypto.randomUUID() },
+    ]);
 
     function addMainTask() {
         if (mainTasks.length >= MAIN_TASKS_ADDABLE) {
-            return
+            return;
         }
-        setMainTasks([...mainTasks, {task: "New Main Task", id: crypto.randomUUID()}])
+        setMainTasks([
+            ...mainTasks,
+            { task: "New Main Task", id: crypto.randomUUID() },
+        ]);
     }
 
     return (
         <Wrapper>
-            <Subject hasDesc={true}>Chemistry</Subject>
-            <MainTask mainTasks={mainTasks} onPlusBtnClicked={addMainTask} />
+            <Subject onPlusBtnClicked={addMainTask} hasDesc={true}>
+                Chemistry
+            </Subject>
+            {mainTasks.map(({ task, id }) => {
+                return <MainTask key={id} onPlusBtnClicked={addMainTask}>{task}</MainTask>;
+            })}
         </Wrapper>
     );
 }
@@ -42,7 +48,5 @@ const Wrapper = styled.section`
         display: none;
     }
 `;
-
-
 
 export default DeepWorks;

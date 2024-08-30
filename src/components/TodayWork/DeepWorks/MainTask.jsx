@@ -4,7 +4,7 @@ import TaskBar from "./TaskBar";
 import SubTask from "./SubTask";
 import { SUB_TASKS_ADDABLE } from "../../../constants";
 
-function MainTask({ mainTasks, children, onPlusBtnClicked }) {
+function MainTask({ children, onPlusBtnClicked }) {
     const [subTasks, setSubTasks] = React.useState([
         "HomeWork(1)",
         "HomeWork(1)",
@@ -15,22 +15,17 @@ function MainTask({ mainTasks, children, onPlusBtnClicked }) {
         }
         setSubTasks([...subTasks, "New Sub Task"]);
     }
+
     return (
         <>
-            {mainTasks.map(({ task, id }) => {
-                return (
-                    <React.Fragment key={id}>
-                        <MainTaskTaskBar
-                            hasDesc={false}
-                            onPlusBtnClicked={addSubTask}
-                            variant="Main Task"
-                        >
-                            {task}
-                        </MainTaskTaskBar>
-                        <SubTask subTasks={subTasks} />
-                    </React.Fragment>
-                );
-            })}
+            <MainTaskTaskBar
+                hasDesc={false}
+                onPlusBtnClicked={addSubTask}
+                variant="Main Task"
+            >
+                {children}
+            </MainTaskTaskBar>
+            <SubTask subTasks={subTasks} />
         </>
     );
 }
