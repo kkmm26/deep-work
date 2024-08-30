@@ -7,17 +7,19 @@ import SubTask from "./SubTask.jsx";
 import { SUB_TASKS_ADDABLE } from "../../../constants.js";
 
 function DeepWorks() {
-    const [subTasks, setSubtasks] = React.useState([
+    const [subTasks, setSubTasks] = React.useState([
         "HomeWork(1)",
         "ive into Systems is a free, online textbook that serves as a gentle introduction to computer systems, computer organization, and parallel computing. The book is intended for an audience that has only a CS1 background. It guides readers through a vertical slice of a computer to develop an understanding of a variety of systems topics, including:(2)",
         "ive into Systems is a free, online textbook that serves as a gentle introduction to computer systems, computer organization, and parallel computing. The book is intended for an audience that has only a CS1 background. It guides readers through a vertical slice of a computer to develop an understanding of a variety of systems topics, including:(2)",
     ]);
+    
+    
 
     function addSubTask() {
         if (subTasks.length >= SUB_TASKS_ADDABLE) {
             return;
         }
-        setSubtasks([...subTasks, "New Sub Task"]);
+        setSubTasks([...subTasks, "New Sub Task"]);
     }
 
     return (

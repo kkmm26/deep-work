@@ -57,7 +57,7 @@ const titleComponents = {
     "Sub Task": SubTaskTitle,
 };
 
-function TaskBar({ children, hasDesc, className, variant, onClick }) {
+function TaskBar({ children, hasDesc, className, variant, onPlusBtnClicked }) {
     const Tag = titleComponents[variant];
     const editTaskTitle = useEditableTitle();
     const [fullTextVisible, setFullTextVisible] = useState(false);
@@ -83,7 +83,7 @@ function TaskBar({ children, hasDesc, className, variant, onClick }) {
             </Tag>
             {hasDesc && <DescriptionIcon />}
             {variant !== "Sub Task" && (
-                <PlusButton onClick={onClick} variant="Task Bar" />
+                <PlusButton onClick={onPlusBtnClicked} variant="Task Bar" />
             )}
         </Wrapper>
     );
@@ -118,7 +118,7 @@ TaskBar.propTypes = {
     titleStyles: PropTypes.object,
     className: PropTypes.string,
     variant: PropTypes.oneOf(["Subject", "Main Task", "Sub Task"]),
-    onClick: PropTypes.func,
+    onPlusBtnClicked: PropTypes.func,
 };
 
 export default TaskBar;

@@ -8,7 +8,7 @@ function MainTask({addSubTask}) {
     return (
         <MainTaskTaskBar
             hasDesc={false}
-            onClick={addSubTask}
+            onPlusBtnClicked={addSubTask}
             variant="Main Task"
         >
             Organic Here are my favourite ones so you can suggest similar: wind
