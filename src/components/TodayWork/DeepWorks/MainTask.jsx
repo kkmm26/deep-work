@@ -1,26 +1,41 @@
+import React from "react";
 import styled from "styled-components";
 import TaskBar from "./TaskBar";
+import SubTask from "./SubTask";
+import { SUB_TASKS_ADDABLE } from "../../../constants";
 
-
-
-function MainTask({addSubTask}) {
-
+function MainTask({ mainTasks, children, onPlusBtnClicked }) {
+    const [subTasks, setSubTasks] = React.useState([
+        "HomeWork(1)",
+        "HomeWork(1)",
+    ]);
+    function addSubTask() {
+        if (subTasks.length >= SUB_TASKS_ADDABLE) {
+            return;
+        }
+        setSubTasks([...subTasks, "New Sub Task"]);
+    }
     return (
-        <MainTaskTaskBar
-            hasDesc={false}
-            onPlusBtnClicked={addSubTask}
-            variant="Main Task"
-        >
-            Organic Here are my favourite ones so you can suggest similar: wind
-            river, prisoners, gone girl, no country for old man, nightcrawler...
-            etc. There is probably no famous movie that I have not seen, so I'm
-            looking tor some hidden gems, or some good foreign films.
-        </MainTaskTaskBar>
+        <>
+            {mainTasks.map(({ task, id }) => {
+                return (
+                    <React.Fragment key={id}>
+                        <MainTaskTaskBar
+                            hasDesc={false}
+                            onPlusBtnClicked={addSubTask}
+                            variant="Main Task"
+                        >
+                            {task}
+                        </MainTaskTaskBar>
+                        <SubTask subTasks={subTasks} />
+                    </React.Fragment>
+                );
+            })}
+        </>
     );
 }
 
-const Wrapper = styled.div`
-`;
+const Wrapper = styled.div``;
 
 const MainTaskTaskBar = styled(TaskBar)`
     font-size: 1rem;

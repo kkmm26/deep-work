@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import TaskBar from "./TaskBar";
+import { SUB_TASKS_ADDABLE } from "../../../constants";
 
 function SubTask({ subTasks }) {
     return (
@@ -11,6 +12,13 @@ function SubTask({ subTasks }) {
                     </SubTaskBar>
                 );
             })}
+            {subTasks.length >= SUB_TASKS_ADDABLE && (
+                <SubTaskWarning>
+                    Whoa, that's a lot of tasks! You've maxed out your{" "}
+                    {SUB_TASKS_ADDABLE} sub-tasks. Time to check some off before
+                    adding more.{" "}
+                </SubTaskWarning>
+            )}
         </Wrapper>
     );
 }
@@ -30,5 +38,13 @@ const SubTaskBar = styled(TaskBar)`
     font-size: 0.9rem;
     font-weight: 400;
 `;
+
+const SubTaskWarning = styled.p`
+    align-self: flex-start;
+    padding: 5px 15px;
+    font-size: 0.8rem;
+    opacity: 0.8;
+`;
+
 
 export default SubTask;

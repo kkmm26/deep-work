@@ -1,4 +1,5 @@
 export const SUB_TASKS_ADDABLE = 5
+export const MAIN_TASKS_ADDABLE = 3
 
 export const COLORS = {
     white: "hsl(0, 100%, 100%)",

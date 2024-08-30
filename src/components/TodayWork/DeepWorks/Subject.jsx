@@ -1,13 +1,10 @@
 import styled from "styled-components";
 import TaskBar from "./TaskBar";
 
-function Subject() {
+function Subject({children}) {
     return (
         <SubjectTaskBar hasDesc={true} variant="Subject">
-            By default, the element is aligned to the top (or bottom) edge of
-            the scrollable ancestor. To define a custom spacing, use
-            scroll-margin-top or scroll-margin-bottom. This is often useful when
-            there's a fixed header on the page.
+            {children}
         </SubjectTaskBar>
     );
 }
