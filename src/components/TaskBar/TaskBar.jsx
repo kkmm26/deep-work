@@ -110,7 +110,6 @@ const ChevronDownIconWrapper = styled.div`
     visibility: hidden;
     transform: ${({ isRotated }) =>
         isRotated ? "rotate(180deg)" : "rotate(0deg)"};
-    transition: transform 500ms ease-in-out;
 
     &:hover {
         cursor: pointer;

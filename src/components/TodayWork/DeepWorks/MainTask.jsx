@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import TaskBar from "../../TaskBar/TaskBar";
-import SubTask from "./SubTask";
+import SubTaskList from "./SubTaskList";
 import { SUB_TASKS_ADDABLE } from "../../../constants";
 
 function MainTask({ children, onPlusBtnClicked }) {
@@ -31,12 +31,11 @@ function MainTask({ children, onPlusBtnClicked }) {
             >
                 {children}
             </MainTaskTaskBar>
-            <SubTask isShowSubTasks={isShowSubTasks} subTasks={subTasks} />
+            <SubTaskList isShowSubTasks={isShowSubTasks} subTasks={subTasks} />
         </>
     );
 }
 
-const Wrapper = styled.div``;
 
 const MainTaskTaskBar = styled(TaskBar)`
     font-size: 1rem;

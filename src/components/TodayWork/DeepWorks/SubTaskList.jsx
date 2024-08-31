@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import TaskBar from "../../TaskBar/TaskBar";
 import { SUB_TASKS_ADDABLE } from "../../../constants";
 
-function SubTask({ subTasks, isShowSubTasks }) {
+function SubTaskList({ subTasks, isShowSubTasks }) {
     return (
         <Wrapper isShowSubTasks={isShowSubTasks}>
             {subTasks.map((task, index) => {
@@ -31,10 +31,9 @@ const Wrapper = styled.div`
     padding-right: 40px;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 2px;
     opacity: 1;
     transform: translateY(0);
-    transition: opacity 1000ms, height 1000ms ease-in-out;
     overflow: hidden;
     height: auto;
 
@@ -59,4 +58,4 @@ const SubTaskWarning = styled.p`
 `;
 
 
-export default SubTask;
+export default SubTaskList;

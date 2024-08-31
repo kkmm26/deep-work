@@ -3,19 +3,22 @@ import styled from "styled-components";
 
 import Subject from "./Subject.jsx";
 import MainTask from "./MainTask.jsx";
-import SubTask from "./SubTask.jsx";
+import SubTask from "./SubTaskList.jsx";
 import { MAIN_TASKS_ADDABLE, SUB_TASKS_ADDABLE } from "../../../constants.js";
 import PopUp from "../../PopUp/PopUp.jsx";
+import MainTaskList from "./MainTaskList.jsx";
 
 function DeepWorks() {
+    const [isTasksLimitReached, setIsTasksLimitReached] = React.useState(false);
+    const isShowPopUp =
+        typeof JSON.parse(localStorage.getItem("showPopUp")) === "boolean"
+            ? JSON.parse(localStorage.getItem("showPopUp"))
+            : true;
+
     const [mainTasks, setMainTasks] = React.useState([
         { task: "Memorize the periodic table", id: crypto.randomUUID() },
     ]);
-    const [isTasksLimitReached, setIsTasksLimitReached] = React.useState(false);
-    const isShowPopUp =
-        typeof JSON.parse(localStorage.getItem("showPopUp")) === "boolean" ?
-        JSON.parse(localStorage.getItem("showPopUp")) : true;
-
+    const [isShowMainTasks, setIsShowMainTasks] = React.useState(true)
     function addMainTask() {
         if (mainTasks.length >= MAIN_TASKS_ADDABLE) {
             setIsTasksLimitReached(true);
@@ -31,21 +34,28 @@ function DeepWorks() {
         setIsTasksLimitReached(false);
     }
 
+    function toggleDisplayTasks() {
+        console.log(isShowMainTasks);
+        setIsShowMainTasks(prev => !prev)
+    }
+
     return (
         <Wrapper>
             {isShowPopUp && isTasksLimitReached && (
                 <PopUp closePopUp={closePopUp}></PopUp>
             )}
-            <Subject onPlusBtnClicked={addMainTask} hasDesc={true}>
+            <Subject
+                onChevronBtnClicked= {toggleDisplayTasks}
+                onPlusBtnClicked={addMainTask}
+                hasDesc={true}
+            >
                 Chemistry
             </Subject>
-            {mainTasks.map(({ task, id }) => {
-                return (
-                    <MainTask key={id} onPlusBtnClicked={addMainTask}>
-                        {task}
-                    </MainTask>
-                );
-            })}
+            <MainTaskList
+                mainTasks={mainTasks}
+                addMainTask={addMainTask}
+                isShowMainTasks={isShowMainTasks}
+            ></MainTaskList>
         </Wrapper>
     );
 }
