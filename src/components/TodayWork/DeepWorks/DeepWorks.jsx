@@ -12,11 +12,13 @@ function DeepWorks() {
         { task: "Memorize the periodic table", id: crypto.randomUUID() },
     ]);
     const [isTasksLimitReached, setIsTasksLimitReached] = React.useState(false);
+    const isShowPopUp = localStorage.getItem("showPopUp") || true;
 
+    console.log(localStorage.getItem("showPopUp"));
+    console.log(isShowPopUp);
     function addMainTask() {
         if (mainTasks.length >= MAIN_TASKS_ADDABLE) {
             setIsTasksLimitReached(true);
-            document.body.style.overflow = "hidden";
         } else {
             setMainTasks([
                 ...mainTasks,
@@ -31,7 +33,9 @@ function DeepWorks() {
 
     return (
         <Wrapper>
-            {isTasksLimitReached && <PopUp closePopUp={closePopUp}></PopUp>}
+            {isShowPopUp && isTasksLimitReached && (
+                <PopUp closePopUp={closePopUp}></PopUp>
+            )}
             <Subject onPlusBtnClicked={addMainTask} hasDesc={true}>
                 Chemistry
             </Subject>

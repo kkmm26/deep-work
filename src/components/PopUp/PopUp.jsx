@@ -1,10 +1,10 @@
-import styled from "styled-components";
 import React from "react";
+import styled from "styled-components";
 import { COLORS, MAIN_TASKS_ADDABLE, STYLES } from "../../constants";
 import CrossButton from "../Buttons/CrossButton";
 
 function PopUp({ closePopUp }) {
-    const popUpRef = React.useRef()
+    const [dontShowAgain, setDontShowAgain] = React.useState(false);
 
     React.useEffect(() => {
         function handleKeydown(e) {
@@ -13,7 +13,6 @@ function PopUp({ closePopUp }) {
             }
         }
 
-
         window.addEventListener("keydown", handleKeydown);
 
         return () => {
@@ -21,28 +20,47 @@ function PopUp({ closePopUp }) {
         };
     }, [closePopUp]);
 
+    function handleOkayButtonClicked() {
+        localStorage.setItem("showPopUp", !dontShowAgain); // inverse is stored cuz isShowPopUp will be called to open pop up again
+        closePopUp();
+    }
+
+    function handleCheckBoxChange() {
+        setDontShowAgain((prev) => !prev);
+    }
+
     return (
         <Overlay>
-        
-        <Card ref={popUpRef}>
-            <Message>
-                {MAIN_TASKS_ADDABLE} tasks is your max for now. Move to{" "}
-                <PlannerLink href="">the planner</PlannerLink>, if not urgent
-                yet. Or let’s just try to finish a few tasks!
-            </Message>
-            <CheckBoxLabel>
-                <CheckBox type="checkbox"></CheckBox>
-                Don’t interfere me again!
-            </CheckBoxLabel>
-            <ButtonGroup>
-                <OkayButton onClick={closePopUp}>Alright!</OkayButton>
-                <ConfigureButton>Configure tasks limit</ConfigureButton>
-            </ButtonGroup>
-            <CrossButton onClick={closePopUp} variant="Pop Up"></CrossButton>
-        </Card>
+            <Card>
+                <Message>
+                    {MAIN_TASKS_ADDABLE} tasks is your max for now. Move to{" "}
+                    <PlannerLink href="">the planner</PlannerLink>, if not
+                    urgent yet. Or let’s just try to finish a few tasks!
+                </Message>
+                <CheckBoxLabel>
+                    <CheckBox
+                        type="checkbox"
+                        id="show-again"
+                        checked={dontShowAgain}
+                        onChange={handleCheckBoxChange}
+                    ></CheckBox>
+                    Don’t interfere me again!
+                </CheckBoxLabel>
+                <ButtonGroup>
+                    <OkayButton onClick={handleOkayButtonClicked}>
+                        Alright!
+                    </OkayButton>
+                    <ConfigureButton>Configure tasks limit</ConfigureButton>
+                </ButtonGroup>
+                <CrossButton
+                    onClick={closePopUp}
+                    variant="Pop Up"
+                ></CrossButton>
+            </Card>
         </Overlay>
     );
 }
+
 const Overlay = styled.div`
     background-color: ${COLORS.overlay};
     width: 100%;
@@ -50,7 +68,7 @@ const Overlay = styled.div`
     position: fixed;
     top: 0;
     left: 0;
-`
+`;
 
 const Card = styled.article`
     background-color: ${COLORS.background};
@@ -63,9 +81,11 @@ const Card = styled.article`
     padding: 20px;
     border-radius: 6px;
 `;
+
 const Message = styled.p`
     font-size: 1.1rem;
 `;
+
 const PlannerLink = styled.a`
     color: ${COLORS.linkColor};
 `;
@@ -78,14 +98,12 @@ const CheckBox = styled.input`
 const CheckBoxLabel = styled.label`
     display: block;
     font-size: 0.9rem;
-
     margin-top: 15px;
 `;
 
 const ButtonGroup = styled.div`
     display: flex;
     justify-content: space-between;
-
     margin-top: 15px;
 `;
 
