@@ -11,26 +11,36 @@ function DeepWorks() {
     const [mainTasks, setMainTasks] = React.useState([
         { task: "Memorize the periodic table", id: crypto.randomUUID() },
     ]);
-    const [isTasksLimitReached, setIsTasksLimitReached] = React.useState(true)
+    const [isTasksLimitReached, setIsTasksLimitReached] = React.useState(false);
 
     function addMainTask() {
         if (mainTasks.length >= MAIN_TASKS_ADDABLE) {
-            setIsTasksLimitReached(true)
+            setIsTasksLimitReached(true);
+            document.body.style.overflow = "hidden";
+        } else {
+            setMainTasks([
+                ...mainTasks,
+                { task: "New Main Task", id: crypto.randomUUID() },
+            ]);
         }
-        setMainTasks([
-            ...mainTasks,
-            { task: "New Main Task", id: crypto.randomUUID() },
-        ]);
+    }
+
+    function closePopUp() {
+        setIsTasksLimitReached(false);
     }
 
     return (
         <Wrapper>
-            {isTasksLimitReached && <PopUp></PopUp>}
+            {isTasksLimitReached && <PopUp closePopUp={closePopUp}></PopUp>}
             <Subject onPlusBtnClicked={addMainTask} hasDesc={true}>
                 Chemistry
             </Subject>
             {mainTasks.map(({ task, id }) => {
-                return <MainTask key={id} onPlusBtnClicked={addMainTask}>{task}</MainTask>;
+                return (
+                    <MainTask key={id} onPlusBtnClicked={addMainTask}>
+                        {task}
+                    </MainTask>
+                );
             })}
         </Wrapper>
     );

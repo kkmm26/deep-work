@@ -17,6 +17,7 @@ export const COLORS = {
     buttonSecondary: "hsl(0,0%,80%, 100%)",
 
     linkColor: "hsl(328, 100%, 54%)",
+    overlay: "hsl(0, 0%, 0%, 0.03)"
 
     error: "hsl(343, 100%, 65%)",
 

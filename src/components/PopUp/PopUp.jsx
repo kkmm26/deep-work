@@ -1,10 +1,30 @@
 import styled from "styled-components";
+import React from "react";
 import { COLORS, MAIN_TASKS_ADDABLE, STYLES } from "../../constants";
 import CrossButton from "../Buttons/CrossButton";
 
-function PopUp() {
+function PopUp({ closePopUp }) {
+    const popUpRef = React.useRef()
+
+    React.useEffect(() => {
+        function handleKeydown(e) {
+            if (e.key === "Escape") {
+                closePopUp();
+            }
+        }
+
+
+        window.addEventListener("keydown", handleKeydown);
+
+        return () => {
+            window.removeEventListener("keydown", handleKeydown);
+        };
+    }, [closePopUp]);
+
     return (
-        <Card>
+        <Overlay>
+        
+        <Card ref={popUpRef}>
             <Message>
                 {MAIN_TASKS_ADDABLE} tasks is your max for now. Move to{" "}
                 <PlannerLink href="">the planner</PlannerLink>, if not urgent
@@ -15,13 +35,22 @@ function PopUp() {
                 Don’t interfere me again!
             </CheckBoxLabel>
             <ButtonGroup>
-                <OkayButton>Alright!</OkayButton>
+                <OkayButton onClick={closePopUp}>Alright!</OkayButton>
                 <ConfigureButton>Configure tasks limit</ConfigureButton>
             </ButtonGroup>
-            <CrossButton variant="Pop Up"></CrossButton>
+            <CrossButton onClick={closePopUp} variant="Pop Up"></CrossButton>
         </Card>
+        </Overlay>
     );
 }
+const Overlay = styled.div`
+    background-color: ${COLORS.overlay};
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+`
 
 const Card = styled.article`
     background-color: ${COLORS.background};
@@ -61,7 +90,7 @@ const ButtonGroup = styled.div`
 `;
 
 const OkayButton = styled.button`
-cursor: pointer;
+    cursor: pointer;
     border: none;
     background-color: ${COLORS.buttonPrimary};
     color: ${COLORS.white};
