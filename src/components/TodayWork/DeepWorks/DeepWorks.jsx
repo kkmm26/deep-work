@@ -12,10 +12,10 @@ function DeepWorks() {
         { task: "Memorize the periodic table", id: crypto.randomUUID() },
     ]);
     const [isTasksLimitReached, setIsTasksLimitReached] = React.useState(false);
-    const isShowPopUp = localStorage.getItem("showPopUp") || true;
+    const isShowPopUp =
+        typeof JSON.parse(localStorage.getItem("showPopUp")) === "boolean" ?
+        JSON.parse(localStorage.getItem("showPopUp")) : true;
 
-    console.log(localStorage.getItem("showPopUp"));
-    console.log(isShowPopUp);
     function addMainTask() {
         if (mainTasks.length >= MAIN_TASKS_ADDABLE) {
             setIsTasksLimitReached(true);
