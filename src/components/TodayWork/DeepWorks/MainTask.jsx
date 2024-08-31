@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import TaskBar from "./TaskBar";
+import TaskBar from "../../TaskBar/TaskBar";
 import SubTask from "./SubTask";
 import { SUB_TASKS_ADDABLE } from "../../../constants";
 

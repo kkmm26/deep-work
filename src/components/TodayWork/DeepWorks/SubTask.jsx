@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import TaskBar from "./TaskBar";
+import TaskBar from "../../TaskBar/TaskBar";
 import { SUB_TASKS_ADDABLE } from "../../../constants";
 
 function SubTask({ subTasks }) {

@@ -3,10 +3,10 @@ import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 
 import { ChevronDownIcon } from "@radix-ui/react-icons";
-import { COLORS } from "../../../constants.js";
+import { COLORS } from "../../constants.js";
 import DescriptionIcon from "./DescriptionIcon.jsx";
-import PlusButton from "../../Buttons/PlusButton.jsx";
-import useEditableTitle from "../../../hooks/useEditableTitle.jsx";
+import PlusButton from "../Buttons/PlusButton.jsx";
+import useEditableTitle from "../../hooks/useEditableTitle.jsx";
 
 const Title = styled.h3`
     cursor: pointer;
@@ -39,8 +39,6 @@ const MainTaskTitle = styled(Title)`
     padding: 8px;
     padding-left: 15px;
     border-radius: 3px;
-    overflow: hidden;
-    text-overflow: ellipsis;
 `;
 
 const SubTaskTitle = styled(Title)`
