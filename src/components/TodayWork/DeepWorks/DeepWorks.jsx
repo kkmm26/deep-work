@@ -5,15 +5,17 @@ import Subject from "./Subject.jsx";
 import MainTask from "./MainTask.jsx";
 import SubTask from "./SubTask.jsx";
 import { MAIN_TASKS_ADDABLE, SUB_TASKS_ADDABLE } from "../../../constants.js";
+import PopUp from "../../PopUp/PopUp.jsx";
 
 function DeepWorks() {
     const [mainTasks, setMainTasks] = React.useState([
         { task: "Memorize the periodic table", id: crypto.randomUUID() },
     ]);
+    const [isTasksLimitReached, setIsTasksLimitReached] = React.useState(true)
 
     function addMainTask() {
         if (mainTasks.length >= MAIN_TASKS_ADDABLE) {
-            return;
+            setIsTasksLimitReached(true)
         }
         setMainTasks([
             ...mainTasks,
@@ -23,6 +25,7 @@ function DeepWorks() {
 
     return (
         <Wrapper>
+            {isTasksLimitReached && <PopUp></PopUp>}
             <Subject onPlusBtnClicked={addMainTask} hasDesc={true}>
                 Chemistry
             </Subject>

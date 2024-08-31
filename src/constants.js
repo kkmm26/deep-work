@@ -13,6 +13,10 @@ export const COLORS = {
     mainTaskBackground: "hsl(0, 0%, 0%, 25%)",
     taskFocusOutline: "hsl(0, 0%, 0%, 95%)",
 
+    buttonPrimary: "hsl(0, 0%, 0%)",
+    buttonSecondary: "hsl(0,0%,80%, 100%)",
+
+    linkColor: "hsl(328, 100%, 54%)",
 
     error: "hsl(343, 100%, 65%)",
 
@@ -41,5 +45,7 @@ export const STYLES = {
         "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
     boxShadow2:
         "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
+    boxShadow3: "rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px",
+    boxShadow4: "4px 4px 13px 5px rgba(0,0,0,0.13)",
 };
 
