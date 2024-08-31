@@ -10,13 +10,17 @@ function MainTask({ children, onPlusBtnClicked }) {
         "HomeWork(1)",
     ]);
     const [isShowSubTasks, setIsShowSubTasks] = React.useState(true)
+    const [isSubTasksLimitReached, setIsSubTasksLimitReached] = React.useState(false)
 
     function addSubTask() {
         setIsShowSubTasks(true)
         if (subTasks.length >= SUB_TASKS_ADDABLE) {
-            return;
+            setIsSubTasksLimitReached(true)
+            
+        } else {
+
+            setSubTasks([...subTasks, "New Sub Task"]);
         }
-        setSubTasks([...subTasks, "New Sub Task"]);
     }
     function toggleDisplayTasks(){
         setIsShowSubTasks(prev => !prev)
@@ -32,7 +36,7 @@ function MainTask({ children, onPlusBtnClicked }) {
             >
                 {children}
             </MainTaskTaskBar>
-            <SubTaskList isShowSubTasks={isShowSubTasks} subTasks={subTasks} />
+            <SubTaskList isShowSubTasks={isShowSubTasks} subTasks={subTasks} isSubTasksLimitReached={isSubTasksLimitReached}/>
         </Wrapper>
     );
 }

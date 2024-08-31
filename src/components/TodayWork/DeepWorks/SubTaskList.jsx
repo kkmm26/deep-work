@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import TaskBar from "../../TaskBar/TaskBar";
 import { SUB_TASKS_ADDABLE } from "../../../constants";
 
-function SubTaskList({ subTasks, isShowSubTasks }) {
+function SubTaskList({ subTasks, isShowSubTasks, isSubTasksLimitReached }) {
     return (
         <Wrapper isShowSubTasks={isShowSubTasks}>
             {subTasks.map((task, index) => {
@@ -13,7 +13,7 @@ function SubTaskList({ subTasks, isShowSubTasks }) {
                     </SubTaskBar>
                 );
             })}
-            {subTasks.length >= SUB_TASKS_ADDABLE && (
+            {isSubTasksLimitReached && (
                 <SubTaskWarning>
                     Whoa, that's a lot of tasks! You've maxed out your{" "}
                     {SUB_TASKS_ADDABLE} sub-tasks. Time to check some off before
