@@ -12,6 +12,7 @@ function MainTask({ children, onPlusBtnClicked }) {
     const [isShowSubTasks, setIsShowSubTasks] = React.useState(true)
 
     function addSubTask() {
+        setIsShowSubTasks(true)
         if (subTasks.length >= SUB_TASKS_ADDABLE) {
             return;
         }

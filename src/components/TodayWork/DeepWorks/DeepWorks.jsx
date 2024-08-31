@@ -20,6 +20,8 @@ function DeepWorks() {
     ]);
     const [isShowMainTasks, setIsShowMainTasks] = React.useState(true)
     function addMainTask() {
+        setIsShowMainTasks(true)
+        
         if (mainTasks.length >= MAIN_TASKS_ADDABLE) {
             setIsTasksLimitReached(true);
         } else {
