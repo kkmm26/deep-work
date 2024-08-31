@@ -9,23 +9,29 @@ function MainTask({ children, onPlusBtnClicked }) {
         "HomeWork(1)",
         "HomeWork(1)",
     ]);
+    const [isShowSubTasks, setIsShowSubTasks] = React.useState(true)
+
     function addSubTask() {
         if (subTasks.length >= SUB_TASKS_ADDABLE) {
             return;
         }
         setSubTasks([...subTasks, "New Sub Task"]);
     }
+    function toggleDisplayTasks(){
+        setIsShowSubTasks(prev => !prev)
+    }
 
     return (
         <>
             <MainTaskTaskBar
                 hasDesc={false}
+                onChevronBtnClicked={toggleDisplayTasks}
                 onPlusBtnClicked={addSubTask}
                 variant="Main Task"
             >
                 {children}
             </MainTaskTaskBar>
-            <SubTask subTasks={subTasks} />
+            <SubTask isShowSubTasks={isShowSubTasks} subTasks={subTasks} />
         </>
     );
 }

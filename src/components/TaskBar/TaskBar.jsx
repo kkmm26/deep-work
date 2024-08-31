@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 
@@ -55,19 +55,36 @@ const titleComponents = {
     "Sub Task": SubTaskTitle,
 };
 
-function TaskBar({ children, hasDesc, className, variant, onPlusBtnClicked }) {
+function TaskBar({
+    children,
+    hasDesc,
+    className,
+    variant,
+    onPlusBtnClicked,
+    onChevronBtnClicked,
+}) {
     const Tag = titleComponents[variant];
     const editTaskTitle = useEditableTitle();
     const [fullTextVisible, setFullTextVisible] = useState(false);
+    const [isChevronRotated, setIsChevronRotated] = useState(false);
 
     function handleTitleClick() {
         setFullTextVisible((prev) => !prev);
     }
 
+    function handleChevronClicked(e) {
+        e.preventDefault();
+        setIsChevronRotated((prev) => !prev);
+        typeof onChevronBtnClicked === "function" && onChevronBtnClicked();
+    }
+
     return (
         <Wrapper className={className}>
             {variant !== "Sub Task" && (
-                <ChevronDownIconWrapper>
+                <ChevronDownIconWrapper
+                    onClick={handleChevronClicked}
+                    isRotated={isChevronRotated}
+                >
                     <ChevronDownIcon />
                 </ChevronDownIconWrapper>
             )}
@@ -91,6 +108,9 @@ const ChevronDownIconWrapper = styled.div`
     padding: 6px 10px;
     border-radius: 3px;
     visibility: hidden;
+    transform: ${({ isRotated }) =>
+        isRotated ? "rotate(180deg)" : "rotate(0deg)"};
+    transition: transform 500ms ease-in-out;
 
     &:hover {
         cursor: pointer;
@@ -113,10 +133,10 @@ const Wrapper = styled.div`
 TaskBar.propTypes = {
     children: PropTypes.node,
     hasDesc: PropTypes.bool,
-    titleStyles: PropTypes.object,
     className: PropTypes.string,
     variant: PropTypes.oneOf(["Subject", "Main Task", "Sub Task"]),
     onPlusBtnClicked: PropTypes.func,
+    onChevronBtnClicked: PropTypes.func,
 };
 
 export default TaskBar;

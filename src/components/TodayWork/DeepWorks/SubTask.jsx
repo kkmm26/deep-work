@@ -1,10 +1,11 @@
-import styled from "styled-components";
+import React from "react";
+import styled, { css } from "styled-components";
 import TaskBar from "../../TaskBar/TaskBar";
 import { SUB_TASKS_ADDABLE } from "../../../constants";
 
-function SubTask({ subTasks }) {
+function SubTask({ subTasks, isShowSubTasks }) {
     return (
-        <Wrapper>
+        <Wrapper isShowSubTasks={isShowSubTasks}>
             {subTasks.map((task, index) => {
                 return (
                     <SubTaskBar key={index} variant="Sub Task">
@@ -22,7 +23,6 @@ function SubTask({ subTasks }) {
         </Wrapper>
     );
 }
-
 const Wrapper = styled.div`
     max-width: 85%;
     width: 100%;
@@ -32,6 +32,18 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 5px;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 1000ms, height 1000ms ease-in-out;
+    overflow: hidden;
+    height: auto;
+
+    ${(p) =>
+        !p.isShowSubTasks &&
+        css`
+            opacity: 0;
+            height: 0;
+        `}
 `;
 
 const SubTaskBar = styled(TaskBar)`
