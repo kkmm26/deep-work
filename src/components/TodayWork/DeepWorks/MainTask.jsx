@@ -22,7 +22,7 @@ function MainTask({ children, onPlusBtnClicked }) {
     }
 
     return (
-        <>
+        <Wrapper>
             <MainTaskTaskBar
                 hasDesc={false}
                 onChevronBtnClicked={toggleDisplayTasks}
@@ -32,10 +32,15 @@ function MainTask({ children, onPlusBtnClicked }) {
                 {children}
             </MainTaskTaskBar>
             <SubTaskList isShowSubTasks={isShowSubTasks} subTasks={subTasks} />
-        </>
+        </Wrapper>
     );
 }
 
+const Wrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+`
 
 const MainTaskTaskBar = styled(TaskBar)`
     font-size: 1rem;

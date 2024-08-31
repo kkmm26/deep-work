@@ -20,7 +20,7 @@ const Wrapper = styled.div`
     opacity: 1;
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 6px;
 
     ${(p) =>
         !p.isShowMainTasks &&
