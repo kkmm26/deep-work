@@ -27,8 +27,7 @@ const Wrapper = styled.div`
     max-width: 85%;
     width: 100%;
     align-self: flex-end;
-    padding-left: 0px;
-    padding-right: 40px;
+    padding: 2px 40px 2px 2px;  // 2px is room for outline on task focus
     display: flex;
     flex-direction: column;
     gap: 3px;
