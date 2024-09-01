@@ -7,8 +7,10 @@ import { COLORS } from "../../constants.js";
 import DescriptionIcon from "./DescriptionIcon.jsx";
 import PlusButton from "../Buttons/PlusButton.jsx";
 import useEditableTitle from "../../hooks/useEditableTitle.jsx";
+import MinusButton from "../Buttons/MinusButton.jsx"
 
 const Title = styled.h3`
+    position: relative;
     cursor: pointer;
     padding: 8px;
     font: inherit;
@@ -95,6 +97,7 @@ function TaskBar({
                 onDoubleClick={editTaskTitle}
             >
                 {children}
+                <MinusButton variant="default"></MinusButton>
             </Tag>
             {hasDesc && <DescriptionIcon />}
             {variant !== "Sub Task" && (

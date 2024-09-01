@@ -1,5 +1,5 @@
 export const SUB_TASKS_ADDABLE = 5
-export const MAIN_TASKS_ADDABLE = 3
+export const MAIN_TASKS_ADDABLE = 5
 
 export const COLORS = {
     white: "hsl(0, 100%, 100%)",
@@ -14,7 +14,9 @@ export const COLORS = {
     taskFocusOutline: "hsl(0, 0%, 0%, 95%)",
 
     buttonPrimary: "hsl(0, 0%, 0%)",
+    buttonPrimaryHover: "hsl(0, 0%, 0%, 80%)",
     buttonSecondary: "hsl(0,0%,80%, 100%)",
+    buttonSecondaryHover: "hsl(0,0%,80%, 80%)",
 
     linkColor: "hsl(328, 100%, 54%)",
     overlay: "hsl(0, 0%, 0%, 0.03)",
