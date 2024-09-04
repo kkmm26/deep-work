@@ -9,6 +9,7 @@ function Slider({ titleRef, className }) {
     function handleMousedown(e) {
         isDragging = true;
         slider = e.target;
+        slider.style.visibility = "visible"
         initialOffsetX = e.clientX - slider.getBoundingClientRect().left;
 
         document.addEventListener("mousemove", handleMousemove);
