@@ -7,7 +7,7 @@ import { COLORS } from "../../constants.js";
 import DescriptionIcon from "./DescriptionIcon.jsx";
 import PlusButton from "../Buttons/PlusButton.jsx";
 import useEditableTitle from "../../hooks/useEditableTitle.jsx";
-import MinusButton from "../Buttons/MinusButton.jsx"
+import Slider from "./Slider.jsx";
 
 const Title = styled.h3`
     position: relative;
@@ -39,7 +39,7 @@ const MainTaskTitle = styled(Title)`
     width: 100%;
     background-color: ${COLORS.mainTaskBackground};
     padding: 8px;
-    padding-left: 15px;
+    padding-left: 20px;
     border-radius: 3px;
 `;
 
@@ -47,7 +47,7 @@ const SubTaskTitle = styled(Title)`
     width: 100%;
     background-color: ${COLORS.background};
     padding: 5px;
-    padding-left: 15px;
+    padding-left: 20px;
     border-radius: 2px;
 `;
 
@@ -69,6 +69,7 @@ function TaskBar({
     const editTaskTitle = useEditableTitle();
     const [fullTextVisible, setFullTextVisible] = useState(false);
     const [isChevronRotated, setIsChevronRotated] = useState(false);
+    const titleRef = React.useRef()
 
     function handleTitleClick() {
         setFullTextVisible((prev) => !prev);
@@ -79,6 +80,8 @@ function TaskBar({
         setIsChevronRotated((prev) => !prev);
         typeof onChevronBtnClicked === "function" && onChevronBtnClicked();
     }
+
+
 
     return (
         <Wrapper className={className}>
@@ -91,13 +94,14 @@ function TaskBar({
                 </ChevronDownIconWrapper>
             )}
             <Tag
+                ref={titleRef}
                 tabIndex={0}
                 onClick={handleTitleClick}
                 fullTextVisible={fullTextVisible}
                 onDoubleClick={editTaskTitle}
             >
                 {children}
-                <MinusButton variant="default"></MinusButton>
+                <StyledSlider titleRef={titleRef}></StyledSlider>
             </Tag>
             {hasDesc && <DescriptionIcon />}
             {variant !== "Sub Task" && (
@@ -120,6 +124,8 @@ const ChevronDownIconWrapper = styled.div`
     }
 `;
 
+const StyledSlider = styled(Slider)``
+
 const Wrapper = styled.div`
     max-width: 100%;
     display: flex;
@@ -127,10 +133,13 @@ const Wrapper = styled.div`
     align-items: flex-start;
 
     &:hover button,
-    &:hover ${ChevronDownIconWrapper} {
+    &:hover ${ChevronDownIconWrapper},
+    &:hover ${StyledSlider} {
         visibility: visible;
     }
 `;
+
+
 
 TaskBar.propTypes = {
     children: PropTypes.node,

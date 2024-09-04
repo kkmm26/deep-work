@@ -6,8 +6,7 @@ import { SUB_TASKS_ADDABLE } from "../../../constants";
 
 function MainTask({ children, onPlusBtnClicked }) {
     const [subTasks, setSubTasks] = React.useState([
-        "HomeWork(1)",
-        "HomeWork(1)",
+        "Sub Task",
     ]);
     const [isShowSubTasks, setIsShowSubTasks] = React.useState(true)
     const [isSubTasksLimitReached, setIsSubTasksLimitReached] = React.useState(false)

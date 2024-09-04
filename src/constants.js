@@ -23,6 +23,8 @@ export const COLORS = {
 
     error: "hsl(343, 100%, 65%)",
 
+    slider: "hsl(328, 100%, 54%);",
+    sliderActive: "hsl(328, 100%, 94%);",
 };
 
 
