@@ -8,6 +8,7 @@ import DescriptionIcon from "./DescriptionIcon.jsx";
 import PlusButton from "../Buttons/PlusButton.jsx";
 import useEditableTitle from "../../hooks/useEditableTitle.jsx";
 import Slider from "./Slider.jsx";
+import Toast from "../Toast/Toast.jsx"
 
 const Title = styled.h3`
     position: relative;
@@ -27,6 +28,7 @@ const SubjectTitle = styled(Title)`
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    word-wrap: break-word;
     ${({ fullTextVisible }) =>
         fullTextVisible &&
         css`
@@ -69,7 +71,8 @@ function TaskBar({
     const editTaskTitle = useEditableTitle();
     const [fullTextVisible, setFullTextVisible] = useState(false);
     const [isChevronRotated, setIsChevronRotated] = useState(false);
-    const titleRef = React.useRef()
+    const [isToastCreated, setIsToastCreated] = useState(false);
+    const titleRef = React.useRef();
 
     function handleTitleClick() {
         setFullTextVisible((prev) => !prev);
@@ -81,7 +84,12 @@ function TaskBar({
         typeof onChevronBtnClicked === "function" && onChevronBtnClicked();
     }
 
-
+    function createToast(){
+        setIsToastCreated(true)
+    }
+    function destroyToast(){
+        setIsToastCreated(false)
+    }
 
     return (
         <Wrapper className={className}>
@@ -98,15 +106,19 @@ function TaskBar({
                 tabIndex={0}
                 onClick={handleTitleClick}
                 fullTextVisible={fullTextVisible}
-                onDoubleClick={editTaskTitle}
+                onDoubleClick={(e) => {
+                    setFullTextVisible(true);
+                    editTaskTitle(e);
+                }}
             >
                 {children}
-                <StyledSlider titleRef={titleRef}></StyledSlider>
+                <StyledSlider titleRef={titleRef} onTaskComplete={createToast}></StyledSlider>
             </Tag>
             {hasDesc && <DescriptionIcon />}
             {variant !== "Sub Task" && (
                 <PlusButton onClick={onPlusBtnClicked} variant="Task Bar" />
             )}
+            {isToastCreated && <Toast task={children} destroyToast={destroyToast}></Toast>}
         </Wrapper>
     );
 }
@@ -124,7 +136,7 @@ const ChevronDownIconWrapper = styled.div`
     }
 `;
 
-const StyledSlider = styled(Slider)``
+const StyledSlider = styled(Slider)``;
 
 const Wrapper = styled.div`
     max-width: 100%;
@@ -133,13 +145,10 @@ const Wrapper = styled.div`
     align-items: flex-start;
 
     &:hover button,
-    &:hover ${ChevronDownIconWrapper},
-    &:hover ${StyledSlider} {
+    &:hover ${ChevronDownIconWrapper}, &:hover ${StyledSlider} {
         visibility: visible;
     }
 `;
-
-
 
 TaskBar.propTypes = {
     children: PropTypes.node,

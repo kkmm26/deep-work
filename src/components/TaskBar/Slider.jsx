@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { COLORS } from "../../constants";
 
-function Slider({ titleRef, className }) {
+function Slider({ titleRef, className, onTaskComplete }) {
     let isDragging = false;
     let slider = null;
     let initialOffsetX = 0;
@@ -9,7 +9,6 @@ function Slider({ titleRef, className }) {
     function handleMousedown(e) {
         isDragging = true;
         slider = e.target;
-        slider.style.visibility = "visible"
         initialOffsetX = e.clientX - slider.getBoundingClientRect().left;
 
         document.addEventListener("mousemove", handleMousemove);
@@ -40,6 +39,8 @@ function Slider({ titleRef, className }) {
         } else {
             completeTask();
         }
+        document.removeEventListener("mousemove", handleMousemove);
+        document.removeEventListener("mouseup", handleMouseup);
     }
 
     function resetThumb() {
@@ -48,9 +49,12 @@ function Slider({ titleRef, className }) {
     function completeTask() {
         slider.style.pointerEvents = "none";
         titleRef.current.style.backgroundColor = "#2196F3";
+        onTaskComplete();
     }
 
-    return <Wrapper className={className} onMouseDown={handleMousedown}></Wrapper>;
+    return (
+        <Wrapper className={className} onMouseDown={handleMousedown}></Wrapper>
+    );
 }
 
 const Wrapper = styled.div`

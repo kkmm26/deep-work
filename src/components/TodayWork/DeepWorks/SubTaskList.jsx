@@ -32,7 +32,6 @@ const Wrapper = styled.div`
     flex-direction: column;
     gap: 3px;
     opacity: 1;
-    transform: translateY(0);
     overflow: hidden;
     height: auto;
 

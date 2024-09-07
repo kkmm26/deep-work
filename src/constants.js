@@ -25,6 +25,8 @@ export const COLORS = {
 
     slider: "hsl(328, 100%, 54%);",
     sliderActive: "hsl(328, 100%, 94%);",
+
+    underlineColor: "hsl(328, 100%, 54%)",
 };
 
 

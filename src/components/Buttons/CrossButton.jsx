@@ -23,24 +23,26 @@ const SubTaskCrossButton = styled(Button)`
 
 const PopUpCrossButton = styled(TaskEntryFormCrossButton)``;
 
+const ToastCrossButton = styled(TaskEntryFormCrossButton)``;
+
 const VARIANTS = {
     "Task Form": TaskEntryFormCrossButton,
     "Sub Task": SubTaskCrossButton,
     "Pop Up": PopUpCrossButton,
+    "Toast": ToastCrossButton
 };
 
 function CrossButton({ onClick, variant }) {
-    function defaultClick(e) {
-        e.preventDefault();
-    }
-    if (!onClick) {
-        onClick = defaultClick;
-    }
+
     const Tag = VARIANTS[variant];
+    function handleClick(e){
+        e.preventDefault()
+        typeof onClick === "function" && onClick()
+    }
 
     if (Tag) {
         return (
-            <Tag onClick={onClick}>
+            <Tag onClick={handleClick}>
                 <Cross1Icon />
             </Tag>
         );
