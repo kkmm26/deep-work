@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import CrossButton from "../Buttons/CrossButton.jsx";
-import { COLORS } from "../../constants.js";
+import { COLORS, STYLES } from "../../constants.js";
 
 function Toast({ task, destroyToast }) {
     return (
@@ -26,11 +26,12 @@ const ToastCard = styled.li`
     list-style: none;
     position: relative;
     margin-top: 20px;
-    width: fit-content;
+    width: 250px;
     padding: 12px 20px;
 
     background-color: ${COLORS.background};
     border-radius: 3px;
+    box-shadow: ${STYLES.toastBoxShadow};
 `;
 
 const Columns = styled.div`

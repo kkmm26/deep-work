@@ -29,6 +29,9 @@ const Toasts = styled.ul`
     position: fixed;
     bottom: 10px;
     right: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 `;
 
 export default ToastList

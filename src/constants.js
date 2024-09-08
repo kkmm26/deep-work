@@ -28,6 +28,16 @@ export const COLORS = {
 
     underlineColor: "hsl(328, 100%, 54%)",
 };
+export const STYLES = {
+    boxShadow:
+        "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
+    boxShadow2:
+        "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
+    boxShadow3: "rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px",
+    boxShadow4: "4px 4px 13px 5px rgba(0,0,0,0.13)",
+    toastBoxShadow:
+        "rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px",
+};
 
 
 
@@ -47,12 +57,4 @@ export const FEATURE_TITLES_STYLES = {
     padding: "8px"
 }
 
-export const STYLES = {
-    boxShadow:
-        "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
-    boxShadow2:
-        "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
-    boxShadow3: "rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px",
-    boxShadow4: "4px 4px 13px 5px rgba(0,0,0,0.13)",
-};
 
