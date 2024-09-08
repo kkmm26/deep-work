@@ -2,13 +2,16 @@ import React from "react";
 import styled, { css } from "styled-components";
 import TaskBar from "../../TaskBar/TaskBar";
 import { SUB_TASKS_ADDABLE } from "../../../constants";
+import { ToastsContext } from "./ToastsProvider";
 
 function SubTaskList({ subTasks, isShowSubTasks, isSubTasksLimitReached }) {
+    const createToast = React.useContext(ToastsContext)
+
     return (
         <Wrapper isShowSubTasks={isShowSubTasks}>
             {subTasks.map((task, index) => {
                 return (
-                    <SubTaskBar key={index} variant="Sub Task">
+                    <SubTaskBar key={index} variant="Sub Task" createToast={createToast}>
                         {task}
                     </SubTaskBar>
                 );

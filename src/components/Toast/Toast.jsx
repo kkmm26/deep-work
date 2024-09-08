@@ -22,12 +22,11 @@ function Toast({ task, destroyToast }) {
     );
 }
 
-const ToastCard = styled.article`
+const ToastCard = styled.li`
+    list-style: none;
     width: fit-content;
     padding: 12px 20px;
-    position: fixed;
-    bottom: 10px;
-    right: 30px;
+
     background-color: ${COLORS.background};
     border-radius: 6px;
 `;

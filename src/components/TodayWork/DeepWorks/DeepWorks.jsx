@@ -7,6 +7,8 @@ import SubTask from "./SubTaskList.jsx";
 import { MAIN_TASKS_ADDABLE, SUB_TASKS_ADDABLE } from "../../../constants.js";
 import PopUp from "../../PopUp/PopUp.jsx";
 import MainTaskList from "./MainTaskList.jsx";
+import ToastList from "./ToastList.jsx";
+import ToastsProvider from "./ToastsProvider.jsx";
 
 function DeepWorks() {
     const [isTasksLimitReached, setIsTasksLimitReached] = React.useState(false);
@@ -14,14 +16,13 @@ function DeepWorks() {
         typeof JSON.parse(localStorage.getItem("showPopUp")) === "boolean"
             ? JSON.parse(localStorage.getItem("showPopUp"))
             : true;
-
     const [mainTasks, setMainTasks] = React.useState([
         { task: "Memorize the periodic table", id: crypto.randomUUID() },
     ]);
-    const [isShowMainTasks, setIsShowMainTasks] = React.useState(true)
+    const [isShowMainTasks, setIsShowMainTasks] = React.useState(true);
     function addMainTask() {
-        setIsShowMainTasks(true)
-        
+        setIsShowMainTasks(true);
+
         if (mainTasks.length >= MAIN_TASKS_ADDABLE) {
             setIsTasksLimitReached(true);
         } else {
@@ -38,29 +39,33 @@ function DeepWorks() {
 
     function toggleDisplayTasks() {
         console.log(isShowMainTasks);
-        setIsShowMainTasks(prev => !prev)
+        setIsShowMainTasks((prev) => !prev);
     }
 
     return (
-        <Wrapper>
-            {isShowPopUp && isTasksLimitReached && (
-                <PopUp closePopUp={closePopUp}></PopUp>
-            )}
-            <Subject
-                onChevronBtnClicked= {toggleDisplayTasks}
-                onPlusBtnClicked={addMainTask}
-                hasDesc={true}
-            >
-                Chemistry
-            </Subject>
-            <MainTaskList
-                mainTasks={mainTasks}
-                addMainTask={addMainTask}
-                isShowMainTasks={isShowMainTasks}
-            ></MainTaskList>
-        </Wrapper>
+        <ToastsProvider>
+            <Wrapper>
+                {isShowPopUp && isTasksLimitReached && (
+                    <PopUp closePopUp={closePopUp}></PopUp>
+                )}
+                <Subject
+                    onChevronBtnClicked={toggleDisplayTasks}
+                    onPlusBtnClicked={addMainTask}
+                    hasDesc={true}
+                >
+                    Chemistry
+                </Subject>
+                <MainTaskList
+                    mainTasks={mainTasks}
+                    addMainTask={addMainTask}
+                    isShowMainTasks={isShowMainTasks}
+                ></MainTaskList>
+                <ToastList></ToastList>
+            </Wrapper>
+        </ToastsProvider>
     );
 }
+
 
 const Wrapper = styled.section`
     display: flex;

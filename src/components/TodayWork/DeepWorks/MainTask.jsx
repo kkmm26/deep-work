@@ -3,6 +3,7 @@ import styled from "styled-components";
 import TaskBar from "../../TaskBar/TaskBar";
 import SubTaskList from "./SubTaskList";
 import { SUB_TASKS_ADDABLE } from "../../../constants";
+import { ToastsContext } from "./ToastsProvider";
 
 function MainTask({ children, onPlusBtnClicked }) {
     const [subTasks, setSubTasks] = React.useState([
@@ -10,6 +11,7 @@ function MainTask({ children, onPlusBtnClicked }) {
     ]);
     const [isShowSubTasks, setIsShowSubTasks] = React.useState(true)
     const [isSubTasksLimitReached, setIsSubTasksLimitReached] = React.useState(false)
+    const createToast = React.useContext(ToastsContext)
 
     function addSubTask() {
         setIsShowSubTasks(true)
@@ -31,6 +33,7 @@ function MainTask({ children, onPlusBtnClicked }) {
                 hasDesc={false}
                 onChevronBtnClicked={toggleDisplayTasks}
                 onPlusBtnClicked={addSubTask}
+                createToast={createToast}
                 variant="Main Task"
             >
                 {children}

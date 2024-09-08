@@ -8,7 +8,7 @@ import DescriptionIcon from "./DescriptionIcon.jsx";
 import PlusButton from "../Buttons/PlusButton.jsx";
 import useEditableTitle from "../../hooks/useEditableTitle.jsx";
 import Slider from "./Slider.jsx";
-import Toast from "../Toast/Toast.jsx"
+import Toast from "../Toast/Toast.jsx";
 
 const Title = styled.h3`
     position: relative;
@@ -66,12 +66,12 @@ function TaskBar({
     variant,
     onPlusBtnClicked,
     onChevronBtnClicked,
+    createToast
 }) {
     const Tag = titleComponents[variant];
     const editTaskTitle = useEditableTitle();
     const [fullTextVisible, setFullTextVisible] = useState(false);
     const [isChevronRotated, setIsChevronRotated] = useState(false);
-    const [isToastCreated, setIsToastCreated] = useState(false);
     const titleRef = React.useRef();
 
     function handleTitleClick() {
@@ -84,12 +84,7 @@ function TaskBar({
         typeof onChevronBtnClicked === "function" && onChevronBtnClicked();
     }
 
-    function createToast(){
-        setIsToastCreated(true)
-    }
-    function destroyToast(){
-        setIsToastCreated(false)
-    }
+
 
     return (
         <Wrapper className={className}>
@@ -112,13 +107,16 @@ function TaskBar({
                 }}
             >
                 {children}
-                <StyledSlider titleRef={titleRef} onTaskComplete={createToast}></StyledSlider>
+                <StyledSlider
+                    titleRef={titleRef}
+                    onTaskComplete={createToast}
+                ></StyledSlider>
             </Tag>
             {hasDesc && <DescriptionIcon />}
             {variant !== "Sub Task" && (
                 <PlusButton onClick={onPlusBtnClicked} variant="Task Bar" />
             )}
-            {isToastCreated && <Toast task={children} destroyToast={destroyToast}></Toast>}
+            
         </Wrapper>
     );
 }
@@ -137,6 +135,7 @@ const ChevronDownIconWrapper = styled.div`
 `;
 
 const StyledSlider = styled(Slider)``;
+
 
 const Wrapper = styled.div`
     max-width: 100%;
@@ -157,6 +156,7 @@ TaskBar.propTypes = {
     variant: PropTypes.oneOf(["Subject", "Main Task", "Sub Task"]),
     onPlusBtnClicked: PropTypes.func,
     onChevronBtnClicked: PropTypes.func,
+    createToast: PropTypes.func,
 };
 
 export default TaskBar;
