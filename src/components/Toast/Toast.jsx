@@ -24,11 +24,13 @@ function Toast({ task, destroyToast }) {
 
 const ToastCard = styled.li`
     list-style: none;
+    position: relative;
+    margin-top: 20px;
     width: fit-content;
     padding: 12px 20px;
 
     background-color: ${COLORS.background};
-    border-radius: 6px;
+    border-radius: 3px;
 `;
 
 const Columns = styled.div`

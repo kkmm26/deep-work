@@ -1,12 +1,15 @@
 import styled, { css } from "styled-components";
 import MainTask from "./MainTask";
+import React from "react";
+import { ToastsContext } from "./ToastsProvider";
 
 function MainTaskList({ mainTasks, addMainTask, isShowMainTasks }) {
+    const { createToast } = React.useContext(ToastsContext);
     return (
         <Wrapper isShowMainTasks={isShowMainTasks}>
             {mainTasks.map(({ task, id }) => {
                 return (
-                    <MainTask key={id} onPlusBtnClicked={addMainTask}>
+                    <MainTask key={id} onPlusBtnClicked={addMainTask} createToast={()=>createToast(task)}>
                         {task}
                     </MainTask>
                 );

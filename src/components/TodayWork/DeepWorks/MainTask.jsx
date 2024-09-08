@@ -5,13 +5,13 @@ import SubTaskList from "./SubTaskList";
 import { SUB_TASKS_ADDABLE } from "../../../constants";
 import { ToastsContext } from "./ToastsProvider";
 
-function MainTask({ children, onPlusBtnClicked }) {
+function MainTask({ children, onPlusBtnClicked, createToast }) {
     const [subTasks, setSubTasks] = React.useState([
         "Sub Task",
     ]);
     const [isShowSubTasks, setIsShowSubTasks] = React.useState(true)
     const [isSubTasksLimitReached, setIsSubTasksLimitReached] = React.useState(false)
-    const createToast = React.useContext(ToastsContext)
+    
 
     function addSubTask() {
         setIsShowSubTasks(true)

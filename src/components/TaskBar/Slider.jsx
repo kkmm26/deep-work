@@ -37,7 +37,7 @@ function Slider({ titleRef, className, onTaskComplete }) {
         if (sliderLeft < rect.width - slider.offsetWidth / 0.8) {
             resetThumb();
         } else {
-            completeTask();
+            completeTask(titleRef.current.textContent);
         }
         document.removeEventListener("mousemove", handleMousemove);
         document.removeEventListener("mouseup", handleMouseup);

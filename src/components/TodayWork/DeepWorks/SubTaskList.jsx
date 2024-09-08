@@ -5,13 +5,13 @@ import { SUB_TASKS_ADDABLE } from "../../../constants";
 import { ToastsContext } from "./ToastsProvider";
 
 function SubTaskList({ subTasks, isShowSubTasks, isSubTasksLimitReached }) {
-    const createToast = React.useContext(ToastsContext)
+    const {createToast} = React.useContext(ToastsContext)
 
     return (
         <Wrapper isShowSubTasks={isShowSubTasks}>
             {subTasks.map((task, index) => {
                 return (
-                    <SubTaskBar key={index} variant="Sub Task" createToast={createToast}>
+                    <SubTaskBar key={index} variant="Sub Task" createToast={()=>createToast(task)}>
                         {task}
                     </SubTaskBar>
                 );

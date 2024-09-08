@@ -4,10 +4,12 @@ export const ToastsContext = React.createContext();
 
 function ToastsProvider({children}) {
     const [toasts, setToasts] = React.useState([]);
-    function createToast() {
-        setToasts([...toasts, { id: crypto.randomUUID() }]);
+    function createToast(taskName) {
+        setToasts([...toasts, { taskName, id: crypto.randomUUID() }]);
     }
-    function destroyToast() {}
+    function destroyToast(idToDel) {
+        setToasts(toasts.filter(toast => toast.id !== idToDel))
+    }
 
     return <ToastsContext.Provider value={{toasts, createToast, destroyToast}}>{children}</ToastsContext.Provider>;
 }
