@@ -1,11 +1,18 @@
+import React from "react";
 import styled from "styled-components";
 import CrossButton from "../Buttons/CrossButton.jsx";
 import { COLORS, STYLES } from "../../constants.js";
+import useTimeout from "../../hooks/useTimeout.jsx";
 
-function Toast({ task, destroyToast }) {
+function Toast({ id, task, destroyToast }) {
+    useTimeout(() => destroyToast(id), 3000);
+
     return (
         <ToastCard>
-            <CrossButton onClick={destroyToast} variant="Toast"></CrossButton>
+            <CrossButton
+                onClick={() => destroyToast(id)}
+                variant="Toast"
+            ></CrossButton>
             <Columns>
                 <FirstColumn>
                     <span>Completed:</span>

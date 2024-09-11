@@ -15,6 +15,7 @@ function ToastList(){
                         return (
                             <Toast
                                 key={toast.id}
+                                id={toast.id}
                                 task={toast.taskName}
                                 destroyToast={() => destroyToast(toast.id)}
                             ></Toast>

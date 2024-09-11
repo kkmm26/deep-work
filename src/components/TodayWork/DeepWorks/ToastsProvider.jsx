@@ -12,14 +12,18 @@ function ToastsProvider({ children }) {
             setToasts([lastToast, newToast])
             return
         }
-        setToasts([...toasts, newToast]);
+        setToasts(prev => [...prev, newToast]);
     }
     function destroyToast(idToDel) {
-        setToasts(toasts.filter((toast) => toast.id !== idToDel));
+        setToasts(toasts =>toasts.filter((toast) => toast.id !== idToDel));
     }
 
+    const values = React.useMemo(() => {
+        return { toasts, createToast, destroyToast };
+    }, [toasts]);
+
     return (
-        <ToastsContext.Provider value={{ toasts, createToast, destroyToast }}>
+        <ToastsContext.Provider value={values}>
             {children}
         </ToastsContext.Provider>
     );
