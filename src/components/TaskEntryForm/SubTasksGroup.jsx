@@ -6,38 +6,35 @@ import styled from "styled-components";
 import { SUB_TASKS_ADDABLE } from "../../constants.js";
 
 function SubTasksGroup() {
-    const id = React.useId();
-    const [subTaskInputs, setSubTaskInputs] = React.useState([0]);
+    const [subTaskInputs, setSubTaskInputs] = React.useState([{id: crypto.randomUUID()}]);
 
     function addSubTaskInput(e) {
         e.preventDefault();
         if (subTaskInputs.length >= SUB_TASKS_ADDABLE) {
             return;
         }
-        setSubTaskInputs([...subTaskInputs, 0]);
+        setSubTaskInputs([...subTaskInputs, {id: crypto.randomUUID()}]);
     }
-    function deleteSubTaskInput(e, index) {
-        e.preventDefault();
-        setSubTaskInputs(subTaskInputs.filter((_, i) => i !== index));
+    function deleteSubTaskInput(idToDel) {
+        setSubTaskInputs(subTaskInputs.filter((task) => task.id !== idToDel));
     }
 
     return (
         <Wrapper>
-            {subTaskInputs.map((_, index) => {
+            {subTaskInputs.map((task) => {
                 return (
-                    <SubTaskInputWrapper  key={index}>
+                    <SubTaskInputWrapper  key={task.id}>
                         <VisuallyHidden>
                             <label htmlFor="sub-task">Sub Task</label>
                         </VisuallyHidden>
                         <input
                             type="text"
                             placeholder="Sub Task"
-                            id={id}
                             name="sub-task"
                         />
                         <CrossButton
                             variant= "Sub Task"
-                            onClick={(e) => deleteSubTaskInput(e, index)}
+                            onClick={() => deleteSubTaskInput(task.id)}
                             />
                     </SubTaskInputWrapper>
                 );

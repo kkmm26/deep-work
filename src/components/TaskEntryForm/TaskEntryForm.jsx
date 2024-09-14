@@ -4,15 +4,14 @@ import { COLORS, STYLES } from "../../constants";
 import SubTasksGroup from "./SubTasksGroup";
 import CrossButton from "../Buttons/CrossButton";
 import React from "react";
+import { getFromStorage, updateStorage } from "../../api/db/localStorage";
 
 function TaskEntryForm({ closeForm }) {
     const [errors, setErrors] = React.useState({});
     const subjectInputRef = React.useRef();
 
-    function handleSubmit(e) {
-        e.preventDefault();
+    function handleErrors(formData){
         let validationErrors = {};
-        const formData = new FormData(e.target);
 
         const mainTask = formData.get("main-task");
         const subject = formData.get("subject");
@@ -26,9 +25,30 @@ function TaskEntryForm({ closeForm }) {
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
         } else {
-            setErrors({})
+            setErrors({});
         }
     }
+function handleSubmit(e) {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    handleErrors(formData);
+
+    const task = {
+        subject: formData.get("subject"),
+        mainTask: formData.get("main-task"),
+        subTasks: [],
+    };
+
+    for (let [key, value] of formData.entries()) {
+        if (key.startsWith("sub-task") && value) {
+            task.subTasks.push(value);
+        }
+    }
+
+    updateStorage("tasks", task)
+}
+
 
     React.useEffect(() => {
         subjectInputRef.current.focus();

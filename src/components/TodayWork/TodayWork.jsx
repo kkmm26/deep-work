@@ -15,10 +15,9 @@ function TodayWork() {
     const scrollRef = React.useRef();
     function handleTitleClicked(e) {
         setCurrentWork(e.currentTarget.dataset.work);
-        scrollRef.current.scrollIntoView();
+        scrollRef.current.scrollIntoView({behavior: "smooth"});
     }
-    function closeForm(e) {
-        e.preventDefault();
+    function closeForm() {
         setIsFormOpen(false);
         document.body.style.overflow = "auto";
     }
