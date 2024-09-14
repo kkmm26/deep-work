@@ -1,5 +1,7 @@
 export function getFromStorage(key) {
-    return JSON.parse(localStorage.getItem(key) || "[]"); 
+    const storedValue = localStorage.getItem(key);
+    console.log(`Stored value for ${key}:`, storedValue); 
+    return JSON.parse(storedValue || "[]");
 }
 
 export function setInStorage(key, value) {

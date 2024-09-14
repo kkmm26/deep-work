@@ -5,7 +5,7 @@ import DeepWorks from "./DeepWorks/DeepWorks.jsx";
 import ShallowWorks from "./ShallowWorks.jsx";
 
 import { COLORS, WORK_TYPES, WORK_TYPES_STYLES } from "../../constants.js";
-import SubTaskProvider from "../Providers/SubTaskProvider.jsx";
+import SubTaskInputProvider from "../Providers/SubTaskInputProvider.jsx";
 import PlusButton from "../Buttons/PlusButton.jsx";
 import TaskEntryForm from "../TaskEntryForm/TaskEntryForm.jsx";
 
@@ -51,9 +51,9 @@ function TodayWork() {
                     );
                 })}
             </TitleWrapper>
-            <SubTaskProvider>
+            <SubTaskInputProvider>
                 {isFormOpen && <TaskEntryForm closeForm={closeForm} />}
-            </SubTaskProvider>
+            </SubTaskInputProvider>
             <WorkTypeWrapper>
                 {currentWork === WORK_TYPES[0] && <Ritual />}
                 {currentWork === WORK_TYPES[1] && <DeepWorks />}

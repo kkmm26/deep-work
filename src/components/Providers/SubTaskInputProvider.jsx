@@ -3,7 +3,7 @@ import { SUB_TASKS_ADDABLE } from "../../constants";
 
 export const SubTaskContext = React.createContext()
 
-function SubTaskProvider({children}) {
+function SubTaskInputProvider({children}) {
 
 
     const [subTaskInputs, setSubTaskInputs] = React.useState([0]);
@@ -33,4 +33,4 @@ function SubTaskProvider({children}) {
     );
 }
 
-export default SubTaskProvider
+export default SubTaskInputProvider

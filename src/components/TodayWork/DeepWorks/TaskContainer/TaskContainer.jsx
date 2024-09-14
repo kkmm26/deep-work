@@ -6,15 +6,17 @@ import { MAIN_TASKS_ADDABLE } from "../../../../constants.js";
 import PopUp from "../../../PopUp/PopUp.jsx";
 import MainTaskList from "./MainTaskList.jsx";
 
-function TaskContainer() {
+function TaskContainer({task}) {
     const [isTasksLimitReached, setIsTasksLimitReached] = React.useState(false);
     const isShowPopUp =
         typeof JSON.parse(localStorage.getItem("showPopUp")) === "boolean"
             ? JSON.parse(localStorage.getItem("showPopUp"))
             : true;
-    const [mainTasks, setMainTasks] = React.useState([
-        { task: "Memorize the periodic table", id: crypto.randomUUID() },
-    ]);
+    // const [mainTasks, setMainTasks] = React.useState([
+    //     { task: "Memorize the periodic table", id: crypto.randomUUID() },
+    // ]);
+    const [mainTasks, setMainTasks] = React.useState(task.mainTasks)
+    console.log(mainTasks);
     const [isShowMainTasks, setIsShowMainTasks] = React.useState(true);
     function addMainTask() {
         setIsShowMainTasks(true);
@@ -34,7 +36,6 @@ function TaskContainer() {
     }
 
     function toggleDisplayTasks() {
-        console.log(isShowMainTasks);
         setIsShowMainTasks((prev) => !prev);
     }
     return (
@@ -63,7 +64,7 @@ const Wrapper = styled.section`
     flex-direction: column;
     gap: 8px;
     padding: 5px;
-    max-width: 35%;
+    min-width: 33%;
     max-height: 80vh;
     overflow-y: scroll;
     overflow-x: hidden;

@@ -5,9 +5,7 @@ import { styled, keyframes } from "@stitches/react";
 import React from "react";
 import { COLORS, STYLES, SUB_TASKS_ADDABLE } from "../constants.js";
 import PlusButton from "../components/Buttons/PlusButton.jsx";
-import { SubTaskContext } from "../components/Providers/SubTaskProvider.jsx";
-// import SubTaskCrossButton from "../components/Buttons/SubTaskCrossButton.jsx";
-// import CloseButton from "../components/Buttons/CloseButton.jsx";
+import { SubTaskContext } from "../components/Providers/SubTaskInputProvider.jsx";
 
 function TaskForm({ closeForm, isFormOpen }) {
     const { subTaskInputs, addSubTaskInput, deleteSubTaskInput } =

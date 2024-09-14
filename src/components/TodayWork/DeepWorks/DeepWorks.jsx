@@ -1,16 +1,17 @@
-import React from "react";
 import ToastList from "./ToastList.jsx";
 import ToastsProvider from "./ToastsProvider.jsx";
-import TaskContainer from "./TaskContainer/TaskContainer.jsx";
+import TasksProvider from "../../Providers/TasksProvider.jsx";
+import TaskContainerList from "./TaskContainerList.jsx";
 
 function DeepWorks() {
 
-
     return (
-        <ToastsProvider>
-            <TaskContainer></TaskContainer>
-            <ToastList></ToastList>
-        </ToastsProvider>
+        <TasksProvider>
+            <ToastsProvider>
+                <TaskContainerList></TaskContainerList>
+                <ToastList></ToastList>
+            </ToastsProvider>
+        </TasksProvider>
     );
 }
 
