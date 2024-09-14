@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import TaskBar from "../../TaskBar/TaskBar";
-import SubTaskList from "./SubTaskList";
-import { SUB_TASKS_ADDABLE } from "../../../constants";
-import { ToastsContext } from "./ToastsProvider";
+import { SUB_TASKS_ADDABLE } from "../../../../constants";
+import TaskBar from "../../../TaskBar/TaskBar";
+import SubTaskList from "./SubTaskList"
 
 function MainTask({ children, onPlusBtnClicked, createToast }) {
     const [subTasks, setSubTasks] = React.useState([

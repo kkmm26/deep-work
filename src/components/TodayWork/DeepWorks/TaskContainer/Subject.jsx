@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import TaskBar from "../../TaskBar/TaskBar";
+import TaskBar from "../../../TaskBar/TaskBar";
 
 function Subject({ children, onPlusBtnClicked, onChevronBtnClicked }) {
     return (

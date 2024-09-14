@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import MainTask from "./MainTask";
 import React from "react";
-import { ToastsContext } from "./ToastsProvider";
+import { ToastsContext } from "../ToastsProvider";
 
 function MainTaskList({ mainTasks, addMainTask, isShowMainTasks }) {
     const { createToast } = React.useContext(ToastsContext);
