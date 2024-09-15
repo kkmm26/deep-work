@@ -3,27 +3,20 @@ import styled from "styled-components";
 import { SUB_TASKS_ADDABLE } from "../../../../constants";
 import TaskBar from "../../../TaskBar/TaskBar";
 import SubTaskList from "./SubTaskList"
+import { TasksContext } from "../../../Providers/TasksProvider";
 
-function MainTask({ children, onPlusBtnClicked, createToast }) {
-    const [subTasks, setSubTasks] = React.useState([
-        "Sub Task",
-    ]);
-    const [isShowSubTasks, setIsShowSubTasks] = React.useState(true)
-    const [isSubTasksLimitReached, setIsSubTasksLimitReached] = React.useState(false)
-    
+function MainTask({ children, createToast, subTaskIds, mainTaskId }) {
+    const [isShowSubTasks, setIsShowSubTasks] = React.useState(true);
+    const [isSubTasksLimitReached, setIsSubTasksLimitReached] =
+        React.useState(false);
+    const {addNewSubTask} = React.useContext(TasksContext)
 
-    function addSubTask() {
-        setIsShowSubTasks(true)
-        if (subTasks.length >= SUB_TASKS_ADDABLE) {
-            setIsSubTasksLimitReached(true)
-            
-        } else {
-
-            setSubTasks([...subTasks, "New Sub Task"]);
-        }
+    function addSubTask(mainTaskId) {
+        setIsShowSubTasks(true);
+        addNewSubTask(mainTaskId, ()=>setIsSubTasksLimitReached(true))
     }
-    function toggleDisplayTasks(){
-        setIsShowSubTasks(prev => !prev)
+    function toggleDisplayTasks() {
+        setIsShowSubTasks((prev) => !prev);
     }
 
     return (
@@ -31,13 +24,17 @@ function MainTask({ children, onPlusBtnClicked, createToast }) {
             <MainTaskTaskBar
                 hasDesc={false}
                 onChevronBtnClicked={toggleDisplayTasks}
-                onPlusBtnClicked={addSubTask}
+                onPlusBtnClicked={()=>addSubTask(mainTaskId)}
                 createToast={createToast}
                 variant="Main Task"
             >
                 {children}
             </MainTaskTaskBar>
-            <SubTaskList isShowSubTasks={isShowSubTasks} subTasks={subTasks} isSubTasksLimitReached={isSubTasksLimitReached}/>
+            <SubTaskList
+                isShowSubTasks={isShowSubTasks}
+                subTaskIds={subTaskIds}
+                isSubTasksLimitReached={isSubTasksLimitReached}
+            />
         </Wrapper>
     );
 }

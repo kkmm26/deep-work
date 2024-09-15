@@ -54,42 +54,71 @@ export const FEATURE_TITLES_STYLES = {
     fontSize: "1.2rem",
     padding: "8px",
 };
-export const TASKS = [
-    {
-        id: 0,
-        subject: "Astronomy",
-        mainTasks: [
-            { id: 0, task: "Learn about the Solar System" },
-            { id: 1, task: "Understand the concept of black holes" },
-            { id: 2, task: "Explore exoplanets and their atmospheres" },
-        ],
-        subTasks: [
-            { id: 0, task: "Identify planets and their characteristics" },
-            { id: 1, task: "Research the formation of the solar system" },
-        ],
+export const TASKS = {
+    subjects: {
+        0: { id: 0, task: "Astronomy", mainTaskIds: [0, 1, 2] },
+        1: { id: 1, task: "Cooking", mainTaskIds: [3, 4] },
+        2: { id: 2, task: "Music Theory", mainTaskIds: [5, 6] },
+        3: { id: 3, task: "Photography", mainTaskIds: [7, 8] },
     },
-    {
-        id: 1,
-        subject: "Cooking",
-        mainTasks: [
-            { id: 0, task: "Learn basic knife skills" },
-            { id: 1, task: "Master the art of pasta making" },
-        ],
-        subTasks: [
-            {
-                id: 0,
-                task: "Practice cutting vegetables with different knife techniques",
-            },
-        ],
+    mainTasks: {
+        0: { id: 0, task: "Learn about the Solar System", subTaskIds: [0, 1] },
+        1: {
+            id: 1,
+            task: "Understand the concept of black holes",
+            subTaskIds: [2],
+        },
+        2: {
+            id: 2,
+            task: "Explore exoplanets and their atmospheres",
+            subTaskIds: [3, 4],
+        },
+        3: { id: 3, task: "Learn basic knife skills", subTaskIds: [5, 6] },
+        4: {
+            id: 4,
+            task: "Master the art of pasta making",
+            subTaskIds: [7, 8],
+        },
+        5: { id: 5, task: "Explore chord progressions", subTaskIds: [9, 10] },
+        6: {
+            id: 6,
+            task: "Memorize major and minor scales",
+            subTaskIds: [11, 12],
+        },
+        7: {
+            id: 7,
+            task: "Understand basic camera settings",
+            subTaskIds: [13, 14],
+        },
+        8: {
+            id: 8,
+            task: "Master the art of composition",
+            subTaskIds: [15, 16],
+        },
     },
-    {
-        id: 2,
-        subject: "Music Theory",
-        mainTasks: [{ id: 0, task: "Explore chord progressions" }],
-        subTasks: [
-            { id: 0, task: "Practice reading music for a simple song" },
-            { id: 1, task: "Memorize the major and minor scales" },
-            { id: 2, task: "Analyze a popular song's chord progression" },
-        ],
+    subTasks: {
+        0: { id: 0, task: "Identify planets and their characteristics" },
+        1: { id: 1, task: "Understand planetary orbits" },
+        2: { id: 2, task: "Study the event horizon theory" },
+        3: { id: 3, task: "Research methods of detecting exoplanets" },
+        4: { id: 4, task: "Analyze atmospheres of discovered exoplanets" },
+        5: {
+            id: 5,
+            task: "Practice cutting vegetables with different knife techniques",
+        },
+        6: { id: 6, task: "Learn how to sharpen knives" },
+        7: { id: 7, task: "Make fresh pasta dough" },
+        8: { id: 8, task: "Experiment with different pasta shapes" },
+        9: { id: 9, task: "Analyze common chord patterns in pop music" },
+        10: { id: 10, task: "Practice creating basic progressions in C major" },
+        11: { id: 11, task: "Learn the finger positions for scales" },
+        12: {
+            id: 12,
+            task: "Understand the difference between major and minor keys",
+        },
+        13: { id: 13, task: "Learn about aperture, ISO, and shutter speed" },
+        14: { id: 14, task: "Practice adjusting camera settings manually" },
+        15: { id: 15, task: "Study the rule of thirds" },
+        16: { id: 16, task: "Experiment with framing and leading lines" },
     },
-];
+};

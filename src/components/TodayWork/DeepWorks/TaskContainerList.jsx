@@ -8,8 +8,12 @@ function TaskContainerList() {
 
     return (
         <Wrapper>
-            {tasks.map((task) => (
-                <TaskContainer key={task.id} task={task}></TaskContainer>
+            {Object.values(tasks.subjects).map((subjectObj) => (
+                <TaskContainer
+                    key={subjectObj.id}
+                    mainTaskIds={subjectObj.mainTaskIds}
+                    subjectObj={subjectObj}
+                ></TaskContainer>
             ))}
         </Wrapper>
     );

@@ -4,15 +4,24 @@ import React from "react";
 import { ToastsContext } from "../ToastsProvider";
 import { TasksContext } from "../../../Providers/TasksProvider";
 
-function MainTaskList({ mainTasks, addMainTask, isShowMainTasks }) {
+function MainTaskList({ mainTaskIds, addMainTask, isShowMainTasks }) {
     const { createToast } = React.useContext(ToastsContext);
+    const {tasks} = React.useContext(TasksContext)
+    
 
     return (
         <Wrapper isShowMainTasks={isShowMainTasks}>
-            {mainTasks.map(({ task, id }) => {
+            {mainTaskIds.map((id) => {
+                const mainTask = tasks.mainTasks[id]
+                
                 return (
-                    <MainTask key={id} onPlusBtnClicked={addMainTask} createToast={()=>createToast(task)}>
-                        {task}
+                    <MainTask
+                        key={mainTask.id}
+                        createToast={() => createToast(mainTask.task)}
+                        subTaskIds={mainTask.subTaskIds}
+                        mainTaskId = {id}
+                    >
+                        {mainTask.task}
                     </MainTask>
                 );
             })}

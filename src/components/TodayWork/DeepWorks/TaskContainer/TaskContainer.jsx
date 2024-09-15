@@ -1,34 +1,26 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import styled from "styled-components";
 
 import Subject from "./Subject.jsx";
-import { MAIN_TASKS_ADDABLE } from "../../../../constants.js";
+import { MAIN_TASKS_ADDABLE, TASKS } from "../../../../constants.js";
 import PopUp from "../../../PopUp/PopUp.jsx";
 import MainTaskList from "./MainTaskList.jsx";
+import { TasksContext } from "../../../Providers/TasksProvider.jsx";
 
-function TaskContainer({task}) {
+function TaskContainer({ subjectObj, mainTaskIds }) {
     const [isTasksLimitReached, setIsTasksLimitReached] = React.useState(false);
     const isShowPopUp =
         typeof JSON.parse(localStorage.getItem("showPopUp")) === "boolean"
             ? JSON.parse(localStorage.getItem("showPopUp"))
             : true;
-    // const [mainTasks, setMainTasks] = React.useState([
-    //     { task: "Memorize the periodic table", id: crypto.randomUUID() },
-    // ]);
-    const [mainTasks, setMainTasks] = React.useState(task.mainTasks)
-    console.log(mainTasks);
     const [isShowMainTasks, setIsShowMainTasks] = React.useState(true);
-    function addMainTask() {
+    const {addNewMainTask} = React.useContext(TasksContext)
+    function addMainTask(subjectId) {
         setIsShowMainTasks(true);
 
-        if (mainTasks.length >= MAIN_TASKS_ADDABLE) {
-            setIsTasksLimitReached(true);
-        } else {
-            setMainTasks([
-                ...mainTasks,
-                { task: "New Main Task", id: crypto.randomUUID() },
-            ]);
-        }
+        addNewMainTask(subjectId, () => setIsTasksLimitReached(true))
+        
     }
 
     function closePopUp() {
@@ -45,14 +37,13 @@ function TaskContainer({task}) {
             )}
             <Subject
                 onChevronBtnClicked={toggleDisplayTasks}
-                onPlusBtnClicked={addMainTask}
+                onPlusBtnClicked={()=>addMainTask(subjectObj.id)}
                 hasDesc={true}
             >
-                Chemistry
+                {subjectObj.task}
             </Subject>
             <MainTaskList
-                mainTasks={mainTasks}
-                addMainTask={addMainTask}
+                mainTaskIds={mainTaskIds}
                 isShowMainTasks={isShowMainTasks}
             ></MainTaskList>
         </Wrapper>
@@ -64,7 +55,7 @@ const Wrapper = styled.section`
     flex-direction: column;
     gap: 8px;
     padding: 5px;
-    min-width: 33%;
+    min-width: 25%;
     max-height: 80vh;
     overflow-y: scroll;
     overflow-x: hidden;

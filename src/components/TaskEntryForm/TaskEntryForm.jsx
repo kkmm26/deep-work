@@ -121,6 +121,7 @@ const Form = styled.form`
     border-radius: 3px;
     padding: 30px 30px 20px 30px;
     font-size: 0.9rem;
+    background-color: ${COLORS.white};
 
     display: flex;
     flex-direction: column;
@@ -141,6 +142,8 @@ const Overlay = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: 10;
+    background-color: ${COLORS.overlay};
 `;
 
 const SubjectInput = styled.input`

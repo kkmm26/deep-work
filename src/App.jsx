@@ -12,8 +12,6 @@ const FEATURES = ["Time Block", "Today's Works", "Fleeting Thoughts"];
 function App() {
     const [activeFeature, setActiveFeature] = React.useState(FEATURES[1]);
 
-    setInStorage("tasks", TASKS) // just for testing, remove later
-
     React.useEffect(()=> {
         function handleKeydown(e) {
             if (e.key === "Escape") {

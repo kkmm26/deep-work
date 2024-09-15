@@ -3,16 +3,23 @@ import styled, { css } from "styled-components";
 import TaskBar from "../../../TaskBar/TaskBar";
 import { SUB_TASKS_ADDABLE } from "../../../../constants";
 import { ToastsContext } from "../ToastsProvider";
+import { TasksContext } from "../../../Providers/TasksProvider";
 
-function SubTaskList({ subTasks, isShowSubTasks, isSubTasksLimitReached }) {
-    const {createToast} = React.useContext(ToastsContext)
-
+function SubTaskList({ subTaskIds, isShowSubTasks, isSubTasksLimitReached }) {
+    const { createToast } = React.useContext(ToastsContext);
+    const {tasks} = React.useContext(TasksContext)
     return (
         <Wrapper isShowSubTasks={isShowSubTasks}>
-            {subTasks.map((task, index) => {
+            {subTaskIds.map((id) => {
+                const subTask = tasks.subTasks[id]
+                
                 return (
-                    <SubTaskBar key={index} variant="Sub Task" createToast={()=>createToast(task)}>
-                        {task}
+                    <SubTaskBar
+                        key={subTask.id}
+                        variant="Sub Task"
+                        createToast={() => createToast(subTask.task)}
+                    >
+                        {subTask.task}
                     </SubTaskBar>
                 );
             })}
