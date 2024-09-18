@@ -30,10 +30,10 @@ function TasksProvider({ children }) {
         newSubTaskIds.forEach((subTaskId, index) => {
             existingTasks.subTasks[subTaskId] = {
                 id: subTaskId,
-                task: newTask[index],
+                task: newTask.subTasks[index],
             };
         });
-
+        console.log(existingTasks);
         setTasks(existingTasks);
         setInStorage("tasks", existingTasks);
     }

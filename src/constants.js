@@ -58,8 +58,6 @@ export const TASKS = {
     subjects: {
         0: { id: 0, task: "Astronomy", mainTaskIds: [0, 1, 2] },
         1: { id: 1, task: "Cooking", mainTaskIds: [3, 4] },
-        2: { id: 2, task: "Music Theory", mainTaskIds: [5, 6] },
-        // 3: { id: 3, task: "Photography", mainTaskIds: [7, 8] },
     },
     mainTasks: {
         0: { id: 0, task: "Learn about the Solar System", subTaskIds: [0, 1] },
@@ -79,22 +77,7 @@ export const TASKS = {
             task: "Master the art of pasta making",
             subTaskIds: [7, 8],
         },
-        5: { id: 5, task: "Explore chord progressions", subTaskIds: [9, 10] },
-        6: {
-            id: 6,
-            task: "Memorize major and minor scales",
-            subTaskIds: [11, 12],
-        },
-        // 7: {
-        //     id: 7,
-        //     task: "Understand basic camera settings",
-        //     subTaskIds: [13, 14],
-        // },
-        // 8: {
-        //     id: 8,
-        //     task: "Master the art of composition",
-        //     subTaskIds: [15, 16],
-        // },
+   
     },
     subTasks: {
         0: { id: 0, task: "Identify planets and their characteristics" },
@@ -109,16 +92,5 @@ export const TASKS = {
         6: { id: 6, task: "Learn how to sharpen knives" },
         7: { id: 7, task: "Make fresh pasta dough" },
         8: { id: 8, task: "Experiment with different pasta shapes" },
-        9: { id: 9, task: "Analyze common chord patterns in pop music" },
-        10: { id: 10, task: "Practice creating basic progressions in C major" },
-        11: { id: 11, task: "Learn the finger positions for scales" },
-        12: {
-            id: 12,
-            task: "Understand the difference between major and minor keys",
-        },
-        // 13: { id: 13, task: "Learn about aperture, ISO, and shutter speed" },
-        // 14: { id: 14, task: "Practice adjusting camera settings manually" },
-        // 15: { id: 15, task: "Study the rule of thirds" },
-        // 16: { id: 16, task: "Experiment with framing and leading lines" },
     },
 };

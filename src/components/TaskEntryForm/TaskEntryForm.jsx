@@ -26,26 +26,32 @@ function TaskEntryForm({ closeForm }) {
         }
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
+            return false
         } else {
             setErrors({});
+            return true
         }
     }
     function handleSubmit(e) {
         e.preventDefault();
 
         const formData = new FormData(e.target);
-        handleErrors(formData);
-
+        if(!handleErrors(formData)) {
+            return
+        }
+        let subTasks = []
+        for (let [key, value] of formData.entries()) {
+            if (key === "sub-task" && value) {
+                subTasks.push(value);
+            }
+        }
         const task = {
             subject: formData.get("subject"),
             mainTask: formData.get("main-task"),
-            subTasks: [],
+            subTasks: subTasks,
         };
-
-        for (let [key, value] of formData.entries()) {
-            if (key.startsWith("sub-task") && value) {
-                task.subTasks.push(value);
-            }
+        if (!task.subject && !task.mainTask) {
+            return
         }
 
         addNewTask(task)
