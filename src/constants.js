@@ -59,7 +59,7 @@ export const TASKS = {
         0: { id: 0, task: "Astronomy", mainTaskIds: [0, 1, 2] },
         1: { id: 1, task: "Cooking", mainTaskIds: [3, 4] },
         2: { id: 2, task: "Music Theory", mainTaskIds: [5, 6] },
-        3: { id: 3, task: "Photography", mainTaskIds: [7, 8] },
+        // 3: { id: 3, task: "Photography", mainTaskIds: [7, 8] },
     },
     mainTasks: {
         0: { id: 0, task: "Learn about the Solar System", subTaskIds: [0, 1] },
@@ -85,16 +85,16 @@ export const TASKS = {
             task: "Memorize major and minor scales",
             subTaskIds: [11, 12],
         },
-        7: {
-            id: 7,
-            task: "Understand basic camera settings",
-            subTaskIds: [13, 14],
-        },
-        8: {
-            id: 8,
-            task: "Master the art of composition",
-            subTaskIds: [15, 16],
-        },
+        // 7: {
+        //     id: 7,
+        //     task: "Understand basic camera settings",
+        //     subTaskIds: [13, 14],
+        // },
+        // 8: {
+        //     id: 8,
+        //     task: "Master the art of composition",
+        //     subTaskIds: [15, 16],
+        // },
     },
     subTasks: {
         0: { id: 0, task: "Identify planets and their characteristics" },
@@ -116,9 +116,9 @@ export const TASKS = {
             id: 12,
             task: "Understand the difference between major and minor keys",
         },
-        13: { id: 13, task: "Learn about aperture, ISO, and shutter speed" },
-        14: { id: 14, task: "Practice adjusting camera settings manually" },
-        15: { id: 15, task: "Study the rule of thirds" },
-        16: { id: 16, task: "Experiment with framing and leading lines" },
+        // 13: { id: 13, task: "Learn about aperture, ISO, and shutter speed" },
+        // 14: { id: 14, task: "Practice adjusting camera settings manually" },
+        // 15: { id: 15, task: "Study the rule of thirds" },
+        // 16: { id: 16, task: "Experiment with framing and leading lines" },
     },
 };

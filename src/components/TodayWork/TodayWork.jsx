@@ -8,6 +8,7 @@ import { COLORS, WORK_TYPES, WORK_TYPES_STYLES } from "../../constants.js";
 import SubTaskInputProvider from "../Providers/SubTaskInputProvider.jsx";
 import PlusButton from "../Buttons/PlusButton.jsx";
 import TaskEntryForm from "../TaskEntryForm/TaskEntryForm.jsx";
+import TasksProvider from "../Providers/TasksProvider.jsx";
 
 function TodayWork() {
     const [currentWork, setCurrentWork] = React.useState(WORK_TYPES[1]);
@@ -15,7 +16,7 @@ function TodayWork() {
     const scrollRef = React.useRef();
     function handleTitleClicked(e) {
         setCurrentWork(e.currentTarget.dataset.work);
-        scrollRef.current.scrollIntoView({behavior: "smooth"});
+        scrollRef.current.scrollIntoView({ behavior: "smooth" });
     }
     function closeForm() {
         setIsFormOpen(false);
@@ -51,19 +52,20 @@ function TodayWork() {
                     );
                 })}
             </TitleWrapper>
-            <SubTaskInputProvider>
-                {isFormOpen && <TaskEntryForm closeForm={closeForm} />}
-            </SubTaskInputProvider>
-            <WorkTypeWrapper>
-                {currentWork === WORK_TYPES[0] && <Ritual />}
-                {currentWork === WORK_TYPES[1] && <DeepWorks />}
-                {currentWork === WORK_TYPES[2] && <ShallowWorks />}
-            </WorkTypeWrapper>
+            <TasksProvider>
+                <SubTaskInputProvider>
+                    {isFormOpen && <TaskEntryForm closeForm={closeForm} />}
+                </SubTaskInputProvider>
+                <WorkTypeWrapper>
+                    {currentWork === WORK_TYPES[0] && <Ritual />}
+                    {currentWork === WORK_TYPES[1] && <DeepWorks />}
+                    {currentWork === WORK_TYPES[2] && <ShallowWorks />}
+                </WorkTypeWrapper>
+            </TasksProvider>
         </Wrapper>
     );
 }
-const Wrapper = styled.div`
-`;
+const Wrapper = styled.div``;
 
 const TitleWrapper = styled.div`
     isolation: isolate;

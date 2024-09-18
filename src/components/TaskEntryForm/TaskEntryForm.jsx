@@ -5,12 +5,14 @@ import SubTasksGroup from "./SubTasksGroup";
 import CrossButton from "../Buttons/CrossButton";
 import React from "react";
 import { getFromStorage, updateStorage } from "../../api/db/localStorage";
+import { TasksContext } from "../Providers/TasksProvider";
 
 function TaskEntryForm({ closeForm }) {
     const [errors, setErrors] = React.useState({});
     const subjectInputRef = React.useRef();
+    const {addNewTask} = React.useContext(TasksContext)
 
-    function handleErrors(formData){
+    function handleErrors(formData) {
         let validationErrors = {};
 
         const mainTask = formData.get("main-task");
@@ -28,27 +30,27 @@ function TaskEntryForm({ closeForm }) {
             setErrors({});
         }
     }
-function handleSubmit(e) {
-    e.preventDefault();
+    function handleSubmit(e) {
+        e.preventDefault();
 
-    const formData = new FormData(e.target);
-    handleErrors(formData);
+        const formData = new FormData(e.target);
+        handleErrors(formData);
 
-    const task = {
-        subject: formData.get("subject"),
-        mainTask: formData.get("main-task"),
-        subTasks: [],
-    };
+        const task = {
+            subject: formData.get("subject"),
+            mainTask: formData.get("main-task"),
+            subTasks: [],
+        };
 
-    for (let [key, value] of formData.entries()) {
-        if (key.startsWith("sub-task") && value) {
-            task.subTasks.push(value);
+        for (let [key, value] of formData.entries()) {
+            if (key.startsWith("sub-task") && value) {
+                task.subTasks.push(value);
+            }
         }
+
+        addNewTask(task)
+        closeForm()
     }
-
-    updateStorage("tasks", task)
-}
-
 
     React.useEffect(() => {
         subjectInputRef.current.focus();

@@ -5,7 +5,10 @@ import TaskContainer from "./TaskContainer/TaskContainer";
 
 function TaskContainerList() {
     const { tasks } = React.useContext(TasksContext);
-
+    
+    if (!tasks || !tasks.subjects) {
+        return null
+    }
     return (
         <Wrapper>
             {Object.values(tasks.subjects).map((subjectObj) => (
@@ -22,7 +25,7 @@ function TaskContainerList() {
 const Wrapper = styled.div`
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
 `;
 
 export default TaskContainerList;

@@ -55,7 +55,9 @@ const Wrapper = styled.section`
     flex-direction: column;
     gap: 8px;
     padding: 5px;
+    flex: 1;
     min-width: 25%;
+    max-width: 35%;
     max-height: 80vh;
     overflow-y: scroll;
     overflow-x: hidden;
