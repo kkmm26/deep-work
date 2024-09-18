@@ -4,7 +4,7 @@ import React from "react";
 import { ToastsContext } from "../ToastsProvider";
 import { TasksContext } from "../../../Providers/TasksProvider";
 
-function MainTaskList({ mainTaskIds, addMainTask, isShowMainTasks }) {
+function MainTaskList({ mainTaskIds, addMainTask, isShowMainTasks, subjectId }) {
     const { createToast } = React.useContext(ToastsContext);
     const {tasks} = React.useContext(TasksContext)
     
@@ -20,6 +20,7 @@ function MainTaskList({ mainTaskIds, addMainTask, isShowMainTasks }) {
                         createToast={() => createToast(mainTask.task)}
                         subTaskIds={mainTask.subTaskIds}
                         mainTaskId = {id}
+                        subjectId={subjectId}
                     >
                         {mainTask.task}
                     </MainTask>

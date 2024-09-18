@@ -8,12 +8,13 @@ function TasksProvider({ children }) {
 
     function addNewTask(newTask) {
         const existingTasks = JSON.parse(JSON.stringify(tasks));
-        existingTasks.subjects = existingTasks.subjects || {}
-        existingTasks.mainTasks = existingTasks.mainTasks || {}
+        existingTasks.subjects = existingTasks.subjects || {};
+        existingTasks.mainTasks = existingTasks.mainTasks || {};
         existingTasks.subTasks = existingTasks.subTasks || {};
         const newSubjectId = crypto.randomUUID();
         const newMainTaskId = crypto.randomUUID();
-        const newSubTaskIds = newTask.subTasks?.map(() => crypto.randomUUID()) || [];
+        const newSubTaskIds =
+            newTask.subTasks?.map(() => crypto.randomUUID()) || [];
 
         existingTasks.subjects[newSubjectId] = {
             id: newSubjectId,
@@ -26,12 +27,12 @@ function TasksProvider({ children }) {
             subTaskIds: [...newSubTaskIds],
         };
 
-        newSubTaskIds.forEach((subTaskId, index )=> {
+        newSubTaskIds.forEach((subTaskId, index) => {
             existingTasks.subTasks[subTaskId] = {
                 id: subTaskId,
-                task: newTask[index]
-            }
-        }); 
+                task: newTask[index],
+            };
+        });
 
         setTasks(existingTasks);
         setInStorage("tasks", existingTasks);
@@ -76,7 +77,37 @@ function TasksProvider({ children }) {
         setInStorage("tasks", existingTasks);
     }
 
-    const VALUES = { tasks, addNewTask, addNewMainTask, addNewSubTask };
+    function completeMainTask(subjectId, mainTaskId) {
+        const existingTasks = JSON.parse(JSON.stringify(tasks));
+        existingTasks.subjects[subjectId].mainTaskIds = existingTasks.subjects[
+            subjectId
+        ].mainTaskIds.filter((id) => id !== mainTaskId); // delete mainTaskId
+        const subTasksToDel = existingTasks.mainTasks[mainTaskId].subTaskIds;
+        subTasksToDel.forEach((id) => delete existingTasks[id]); 
+        delete existingTasks.mainTasks[mainTaskId];
+        setTasks(existingTasks);
+        setInStorage("tasks", existingTasks);
+    }
+
+    function completeSubTask(mainTaskId, subTaskId) {
+        const existingTasks = JSON.parse(JSON.stringify(tasks));
+        existingTasks.mainTasks[mainTaskId].subTaskIds =
+            existingTasks.mainTasks[mainTaskId].subTaskIds.filter(
+                (id) => id !== subTaskId
+            );
+        delete existingTasks.subTasks[subTaskId];
+        setTasks(existingTasks);
+        setInStorage("tasks", existingTasks);        
+    }
+
+    const VALUES = {
+        tasks,
+        addNewTask,
+        addNewMainTask,
+        addNewSubTask,
+        completeSubTask,
+        completeMainTask,
+    };
     return (
         <TasksContext.Provider value={VALUES}>{children}</TasksContext.Provider>
     );

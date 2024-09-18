@@ -2,18 +2,24 @@ import React from "react";
 import styled from "styled-components";
 import { SUB_TASKS_ADDABLE } from "../../../../constants";
 import TaskBar from "../../../TaskBar/TaskBar";
-import SubTaskList from "./SubTaskList"
+import SubTaskList from "./SubTaskList";
 import { TasksContext } from "../../../Providers/TasksProvider";
 
-function MainTask({ children, createToast, subTaskIds, mainTaskId }) {
+function MainTask({
+    children,
+    createToast,
+    subTaskIds,
+    mainTaskId,
+    subjectId,
+}) {
     const [isShowSubTasks, setIsShowSubTasks] = React.useState(true);
     const [isSubTasksLimitReached, setIsSubTasksLimitReached] =
         React.useState(false);
-    const {addNewSubTask} = React.useContext(TasksContext)
+    const { addNewSubTask, completeMainTask } = React.useContext(TasksContext);
 
     function addSubTask(mainTaskId) {
         setIsShowSubTasks(true);
-        addNewSubTask(mainTaskId, ()=>setIsSubTasksLimitReached(true))
+        addNewSubTask(mainTaskId, () => setIsSubTasksLimitReached(true));
     }
     function toggleDisplayTasks() {
         setIsShowSubTasks((prev) => !prev);
@@ -24,8 +30,9 @@ function MainTask({ children, createToast, subTaskIds, mainTaskId }) {
             <MainTaskTaskBar
                 hasDesc={false}
                 onChevronBtnClicked={toggleDisplayTasks}
-                onPlusBtnClicked={()=>addSubTask(mainTaskId)}
+                onPlusBtnClicked={() => addSubTask(mainTaskId)}
                 createToast={createToast}
+                completeTask={() => completeMainTask(subjectId, mainTaskId)}
                 variant="Main Task"
             >
                 {children}
@@ -34,6 +41,7 @@ function MainTask({ children, createToast, subTaskIds, mainTaskId }) {
                 isShowSubTasks={isShowSubTasks}
                 subTaskIds={subTaskIds}
                 isSubTasksLimitReached={isSubTasksLimitReached}
+                mainTaskId={mainTaskId}
             />
         </Wrapper>
     );
@@ -43,7 +51,7 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 3px;
-`
+`;
 
 const MainTaskTaskBar = styled(TaskBar)`
     font-size: 1rem;

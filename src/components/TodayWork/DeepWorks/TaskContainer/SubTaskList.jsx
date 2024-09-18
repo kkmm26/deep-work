@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import styled, { css } from "styled-components";
 import TaskBar from "../../../TaskBar/TaskBar";
@@ -5,9 +6,9 @@ import { SUB_TASKS_ADDABLE } from "../../../../constants";
 import { ToastsContext } from "../ToastsProvider";
 import { TasksContext } from "../../../Providers/TasksProvider";
 
-function SubTaskList({ subTaskIds, isShowSubTasks, isSubTasksLimitReached }) {
+function SubTaskList({ subTaskIds, isShowSubTasks, isSubTasksLimitReached, mainTaskId }) {
     const { createToast } = React.useContext(ToastsContext);
-    const {tasks} = React.useContext(TasksContext)
+    const {tasks, completeSubTask} = React.useContext(TasksContext)
     return (
         <Wrapper isShowSubTasks={isShowSubTasks}>
             {subTaskIds.map((id) => {
@@ -18,6 +19,7 @@ function SubTaskList({ subTaskIds, isShowSubTasks, isSubTasksLimitReached }) {
                         key={subTask.id}
                         variant="Sub Task"
                         createToast={() => createToast(subTask.task)}
+                        completeTask={()=> completeSubTask(mainTaskId, id)}
                     >
                         {subTask.task}
                     </SubTaskBar>

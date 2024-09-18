@@ -45,6 +45,7 @@ function TaskContainer({ subjectObj, mainTaskIds }) {
             <MainTaskList
                 mainTaskIds={mainTaskIds}
                 isShowMainTasks={isShowMainTasks}
+                subjectId={subjectObj.id}
             ></MainTaskList>
         </Wrapper>
     );

@@ -66,7 +66,8 @@ function TaskBar({
     variant,
     onPlusBtnClicked,
     onChevronBtnClicked,
-    createToast
+    createToast,
+    completeTask
 }) {
     const Tag = titleComponents[variant];
     const editTaskTitle = useEditableTitle();
@@ -84,6 +85,10 @@ function TaskBar({
         typeof onChevronBtnClicked === "function" && onChevronBtnClicked();
     }
 
+    function onTaskComplete(){
+        createToast()
+        completeTask()
+    }
 
 
     return (
@@ -109,7 +114,7 @@ function TaskBar({
                 {children}
                 <StyledSlider
                     titleRef={titleRef}
-                    onTaskComplete={createToast}
+                    onTaskComplete={onTaskComplete}
                 ></StyledSlider>
             </Tag>
             {hasDesc && <DescriptionIcon />}
@@ -157,6 +162,7 @@ TaskBar.propTypes = {
     onPlusBtnClicked: PropTypes.func,
     onChevronBtnClicked: PropTypes.func,
     createToast: PropTypes.func,
+    completeTask: PropTypes.func
 };
 
 export default TaskBar;

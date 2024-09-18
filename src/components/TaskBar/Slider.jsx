@@ -37,7 +37,7 @@ function Slider({ titleRef, className, onTaskComplete }) {
         if (sliderLeft < rect.width - slider.offsetWidth / 0.8) {
             resetThumb();
         } else {
-            completeTask(titleRef.current.textContent);
+            completeTaskOnSliding(titleRef.current.textContent);
         }
         document.removeEventListener("mousemove", handleMousemove);
         document.removeEventListener("mouseup", handleMouseup);
@@ -46,7 +46,7 @@ function Slider({ titleRef, className, onTaskComplete }) {
     function resetThumb() {
         slider.style.left = 0;
     }
-    function completeTask() {
+    function completeTaskOnSliding() {
         slider.style.pointerEvents = "none";
         titleRef.current.style.backgroundColor = "#2196F3";
         onTaskComplete();

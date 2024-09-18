@@ -2,7 +2,6 @@ export function getFromStorage(key) {
     const storedValue = localStorage.getItem(key);
     
     const v= JSON.parse(storedValue || "{}");
-    console.log("value", v);
     return v
 }
 
