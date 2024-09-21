@@ -66,6 +66,7 @@ function TaskBar({
     variant,
     onPlusBtnClicked,
     onChevronBtnClicked,
+    description,
     createToast,
     completeTask
 }) {
@@ -89,7 +90,6 @@ function TaskBar({
         createToast()
         completeTask()
     }
-
 
     return (
         <Wrapper className={className}>
@@ -117,11 +117,10 @@ function TaskBar({
                     onTaskComplete={onTaskComplete}
                 ></StyledSlider>
             </Tag>
-            {hasDesc && <DescriptionIcon />}
+            {hasDesc && <DescriptionIcon description={description} />}
             {variant !== "Sub Task" && (
                 <PlusButton onClick={onPlusBtnClicked} variant="Task Bar" />
             )}
-            
         </Wrapper>
     );
 }
@@ -162,7 +161,8 @@ TaskBar.propTypes = {
     onPlusBtnClicked: PropTypes.func,
     onChevronBtnClicked: PropTypes.func,
     createToast: PropTypes.func,
-    completeTask: PropTypes.func
+    completeTask: PropTypes.func,
+    description: PropTypes.string
 };
 
 export default TaskBar;

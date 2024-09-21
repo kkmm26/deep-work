@@ -1,9 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-import { COLORS, MAIN_TASKS_ADDABLE, STYLES } from "../../constants";
+import { COLORS, MAIN_TASKS_ADDABLE, STYLES, SUBJECTS_ADDABLE } from "../../constants";
 import CrossButton from "../Buttons/CrossButton";
+import { getFromStorage, setInStorage } from "../../api/db/localStorage";
+import { SHOW_POPUP } from "../../config";
 
-function PopUp({ closePopUp }) {
+const TYPES = {
+    "Subject": {addable: SUBJECTS_ADDABLE, name: "subject"},
+    "MainTask": {addable: MAIN_TASKS_ADDABLE, name: "main task"},
+}
+
+function PopUp({ closePopUp, type }) {
     const [dontShowAgain, setDontShowAgain] = React.useState(false);
 
     React.useEffect(() => {
@@ -21,7 +28,19 @@ function PopUp({ closePopUp }) {
     }, [closePopUp]);
 
     function handleOkayButtonClicked() {
-        localStorage.setItem("showPopUp", !dontShowAgain); // inverse is stored cuz isShowPopUp will be called to open pop up again
+        let newConfig = Object.values(getFromStorage("showPopUp")).length ? getFromStorage("showPopUp") : SHOW_POPUP
+        console.log(newConfig);
+        if (type === "Subject") {
+            newConfig.onSubjectLimit = !dontShowAgain
+            setInStorage("showPopUp", newConfig)
+        }
+        if (type === "MainTask") {
+            newConfig.onMainTaskLimit = !dontShowAgain
+            setInStorage("showPopUp", newConfig)
+        }
+        console.log(type, newConfig);
+        // localStorage.setItem("showPopUp", !dontShowAgain); 
+        // inverse is stored cuz isShowPopUp will be called to open pop up again
         closePopUp();
     }
 
@@ -33,7 +52,7 @@ function PopUp({ closePopUp }) {
         <Overlay>
             <Card>
                 <Message>
-                    {MAIN_TASKS_ADDABLE} tasks is your max for now. Move to{" "}
+                    {TYPES[type].addable} tasks is your max for "{TYPES[type].name}" now. Move to{" "}
                     <PlannerLink href="">the planner</PlannerLink>, if not
                     urgent yet. Or let’s just try to finish a few tasks!
                 </Message>

@@ -49,7 +49,9 @@ function TaskEntryForm({ closeForm }) {
             subject: formData.get("subject"),
             mainTask: formData.get("main-task"),
             subTasks: subTasks,
+            description: formData.get("description") || "No Description added"
         };
+        console.log(task.description);
         if (!task.subject && !task.mainTask) {
             return
         }
@@ -107,6 +109,7 @@ function TaskEntryForm({ closeForm }) {
                     )}
                     <SubTasksGroup />
                     <DescriptionTextArea
+                        name="description"
                         placeholder="Description"
                         maxLength={120}
                     />

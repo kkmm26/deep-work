@@ -4,16 +4,30 @@ import Ritual from "./Ritual.jsx";
 import DeepWorks from "./DeepWorks/DeepWorks.jsx";
 import ShallowWorks from "./ShallowWorks.jsx";
 
-import { COLORS, WORK_TYPES, WORK_TYPES_STYLES } from "../../constants.js";
+import {
+    COLORS,
+    SUBJECTS_ADDABLE,
+    WORK_TYPES,
+    WORK_TYPES_STYLES,
+} from "../../constants.js";
 import SubTaskInputProvider from "../Providers/SubTaskInputProvider.jsx";
 import PlusButton from "../Buttons/PlusButton.jsx";
 import TaskEntryForm from "../TaskEntryForm/TaskEntryForm.jsx";
 import TasksProvider from "../Providers/TasksProvider.jsx";
+import { getFromStorage } from "../../api/db/localStorage.js";
+import PopUp from "../PopUp/PopUp.jsx";
+import { SHOW_POPUP } from "../../config.js";
 
 function TodayWork() {
     const [currentWork, setCurrentWork] = React.useState(WORK_TYPES[1]);
     const [isFormOpen, setIsFormOpen] = React.useState(false);
+    const [isSubjectLimitReached, setIsSubjectLimitReached] =
+        React.useState(false);
+    const isShowPopUp = Object.keys(getFromStorage("showPopUp")).length
+        ? getFromStorage("showPopUp").onSubjectLimit
+        : SHOW_POPUP.onSubjectLimit;
     const scrollRef = React.useRef();
+
     function handleTitleClicked(e) {
         setCurrentWork(e.currentTarget.dataset.work);
         scrollRef.current.scrollIntoView({ behavior: "smooth" });
@@ -27,9 +41,29 @@ function TodayWork() {
         setIsFormOpen(true);
         document.body.style.overflow = "hidden";
     }
+    function handlePlusBtnClick(e) {
+        const currentTasks = getFromStorage("tasks");
+        console.log(isShowPopUp);
+        if (Object.keys(currentTasks).length === 0) {
+            openForm(e);
+            return;
+        }
+        if (Object.values(currentTasks.subjects).length < SUBJECTS_ADDABLE) {
+            openForm(e);
+        } else {
+            // setIsShowPopUp(getFromStorage("showPopUp").onSubjectLimit);
+            setIsSubjectLimitReached(true);
+        }
+    }
+    function closePopUp() {
+        setIsSubjectLimitReached(false);
+    }
 
     return (
         <Wrapper ref={scrollRef}>
+            {isShowPopUp && isSubjectLimitReached && (
+                <PopUp type="Subject" closePopUp={closePopUp}></PopUp>
+            )}
             <TitleWrapper>
                 {WORK_TYPES.map((work, index) => {
                     const isActive = work === currentWork;
@@ -43,7 +77,7 @@ function TodayWork() {
                                 {work}
                                 {isActive && (
                                     <PlusButton
-                                        onClick={(e) => openForm(e)}
+                                        onClick={(e) => handlePlusBtnClick(e)}
                                         variant="Work Type"
                                     />
                                 )}

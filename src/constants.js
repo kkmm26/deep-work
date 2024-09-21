@@ -1,3 +1,4 @@
+export const SUBJECTS_ADDABLE = 4
 export const SUB_TASKS_ADDABLE = 5;
 export const MAIN_TASKS_ADDABLE = 5;
 
@@ -54,43 +55,17 @@ export const FEATURE_TITLES_STYLES = {
     fontSize: "1.2rem",
     padding: "8px",
 };
-export const TASKS = {
+export const DEFAULT_TASKS = {
     subjects: {
-        0: { id: 0, task: "Astronomy", mainTaskIds: [0, 1, 2] },
-        1: { id: 1, task: "Cooking", mainTaskIds: [3, 4] },
+        0: { id: 0, task: "Astronomy", mainTaskIds: [0] }
     },
     mainTasks: {
         0: { id: 0, task: "Learn about the Solar System", subTaskIds: [0, 1] },
-        1: {
-            id: 1,
-            task: "Understand the concept of black holes",
-            subTaskIds: [2],
-        },
-        2: {
-            id: 2,
-            task: "Explore exoplanets and their atmospheres",
-            subTaskIds: [3, 4],
-        },
-        3: { id: 3, task: "Learn basic knife skills", subTaskIds: [5, 6] },
-        4: {
-            id: 4,
-            task: "Master the art of pasta making",
-            subTaskIds: [7, 8],
-        },
+
    
     },
     subTasks: {
         0: { id: 0, task: "Identify planets and their characteristics" },
         1: { id: 1, task: "Understand planetary orbits" },
-        2: { id: 2, task: "Study the event horizon theory" },
-        3: { id: 3, task: "Research methods of detecting exoplanets" },
-        4: { id: 4, task: "Analyze atmospheres of discovered exoplanets" },
-        5: {
-            id: 5,
-            task: "Practice cutting vegetables with different knife techniques",
-        },
-        6: { id: 6, task: "Learn how to sharpen knives" },
-        7: { id: 7, task: "Make fresh pasta dough" },
-        8: { id: 8, task: "Experiment with different pasta shapes" },
     },
 };

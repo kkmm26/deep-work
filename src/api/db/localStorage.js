@@ -1,8 +1,10 @@
+
 export function getFromStorage(key) {
     const storedValue = localStorage.getItem(key);
-    
-    const v= JSON.parse(storedValue || "{}");
-    return v
+    if(!storedValue) {
+        return {}
+    }
+    return JSON.parse(storedValue)
 }
 
 export function setInStorage(key, value) {

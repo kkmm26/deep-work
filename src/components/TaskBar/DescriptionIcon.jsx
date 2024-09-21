@@ -2,15 +2,13 @@ import styled from "styled-components";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { COLORS } from "../../constants";
 
-function DescriptionIcon() {
+function DescriptionIcon({description}) {
     return (
         <Wrapper>
             <InfoCircledIcon style={{ width: "75%", opacity: "0.5" }} />
             <PositionAbsoluteFiller>
                 <Description>
-                    Complete the assigned chemistry homework, which focuses on
-                    reinforcing key concepts and practicing problem-solving
-                    skills.
+                    {description}
                 </Description>
             </PositionAbsoluteFiller>
         </Wrapper>

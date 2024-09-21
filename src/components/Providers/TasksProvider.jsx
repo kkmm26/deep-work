@@ -1,6 +1,6 @@
 import React from "react";
 import { getFromStorage, setInStorage } from "../../api/db/localStorage";
-import { MAIN_TASKS_ADDABLE, SUB_TASKS_ADDABLE, TASKS } from "../../constants";
+import { MAIN_TASKS_ADDABLE, SUB_TASKS_ADDABLE } from "../../constants";
 
 export const TasksContext = React.createContext();
 function TasksProvider({ children }) {
@@ -18,6 +18,7 @@ function TasksProvider({ children }) {
 
         existingTasks.subjects[newSubjectId] = {
             id: newSubjectId,
+            description: newTask.description,
             task: newTask.subject,
             mainTaskIds: [newMainTaskId],
         };
@@ -33,7 +34,6 @@ function TasksProvider({ children }) {
                 task: newTask.subTasks[index],
             };
         });
-        console.log(existingTasks);
         setTasks(existingTasks);
         setInStorage("tasks", existingTasks);
     }

@@ -4,15 +4,14 @@ import styled from "styled-components";
 import TodayWork from "./components/TodayWork/TodayWork.jsx";
 import FleetingThoughts from "./components/FleetingThoughts/FleetingThoughts.jsx";
 import TimeBlock from "./components/TimeBlock/TimeBlock.jsx";
-import { COLORS, STYLES, TASKS } from "./constants.js";
-import { setInStorage } from "./api/db/localStorage.js";
+import { COLORS, STYLES } from "./constants.js";
 
 const FEATURES = ["Time Block", "Today's Works", "Fleeting Thoughts"];
 
 function App() {
     const [activeFeature, setActiveFeature] = React.useState(FEATURES[1]);
 
-    // setInStorage("tasks", TASKS)
+    
 
     React.useEffect(()=> {
         function handleKeydown(e) {
