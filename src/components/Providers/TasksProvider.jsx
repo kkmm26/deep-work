@@ -2,6 +2,12 @@ import React from "react";
 import { getFromStorage, setInStorage } from "../../api/db/localStorage";
 import { MAIN_TASKS_ADDABLE, SUB_TASKS_ADDABLE } from "../../constants";
 
+
+const TASK_TYPES = {
+    "Subject": "subjects",
+    "Main Task": "mainTasks",
+    "Sub Task": "subTasks"
+} 
 export const TasksContext = React.createContext();
 function TasksProvider({ children }) {
     const [tasks, setTasks] = React.useState(getFromStorage("tasks"));
@@ -41,9 +47,9 @@ function TasksProvider({ children }) {
     function addNewMainTask(subjectId, limitReachedCb) {
         const existingTasks = JSON.parse(JSON.stringify(tasks));
         const newId = crypto.randomUUID();
-
+        
         const currentMainTaskIds =
-            existingTasks.subjects[subjectId].mainTaskIds;
+        existingTasks.subjects[subjectId].mainTaskIds;
         if (currentMainTaskIds.length >= MAIN_TASKS_ADDABLE) {
             limitReachedCb();
             return;
@@ -56,6 +62,14 @@ function TasksProvider({ children }) {
         };
         setTasks(existingTasks);
         setInStorage("tasks", existingTasks);
+    }
+
+    function updateTask(currentTaskId, newTask, type){
+        const existingTasks = JSON.parse(JSON.stringify(tasks));
+        const taskType = TASK_TYPES[type]
+        existingTasks[taskType][currentTaskId].task = newTask
+        setTasks(existingTasks)
+        setInStorage("tasks", existingTasks)
     }
 
     function addNewSubTask(mainTaskId, limitReachedCb) {
@@ -107,6 +121,7 @@ function TasksProvider({ children }) {
         addNewSubTask,
         completeSubTask,
         completeMainTask,
+        updateTask,
     };
     return (
         <TasksContext.Provider value={VALUES}>{children}</TasksContext.Provider>

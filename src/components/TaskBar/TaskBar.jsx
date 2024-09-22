@@ -1,14 +1,13 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
-
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { COLORS } from "../../constants.js";
 import DescriptionIcon from "./DescriptionIcon.jsx";
 import PlusButton from "../Buttons/PlusButton.jsx";
 import useEditableTitle from "../../hooks/useEditableTitle.jsx";
 import Slider from "./Slider.jsx";
-import Toast from "../Toast/Toast.jsx";
+import { getCurrentTask } from "../../helpers.js";
 
 const Title = styled.h3`
     position: relative;
@@ -17,7 +16,6 @@ const Title = styled.h3`
     font: inherit;
     &:focus {
         outline: 2px solid ${COLORS.taskFocusOutline};
-        opacity: 0.7;
     }
 `;
 
@@ -54,12 +52,13 @@ const SubTaskTitle = styled(Title)`
 `;
 
 const titleComponents = {
-    Subject: SubjectTitle,
+    "Subject": SubjectTitle,
     "Main Task": MainTaskTitle,
     "Sub Task": SubTaskTitle,
 };
 
 function TaskBar({
+    task,
     children,
     hasDesc,
     className,
@@ -68,27 +67,49 @@ function TaskBar({
     onChevronBtnClicked,
     description,
     createToast,
-    completeTask
+    completeTask,
+    currentTaskId,
+    updateTask
 }) {
     const Tag = titleComponents[variant];
-    const editTaskTitle = useEditableTitle();
-    const [fullTextVisible, setFullTextVisible] = useState(false);
-    const [isChevronRotated, setIsChevronRotated] = useState(false);
+    // const editTaskTitle = useEditableTitle();
+    const [isEditMode, setIsEditMode] = React.useState(false);
+    const [fullTextVisible, setFullTextVisible] = React.useState(false);
+    const [isChevronRotated, setIsChevronRotated] = React.useState(false);
+    const [currentTask, setCurrentTask] = React.useState(getCurrentTask(variant, currentTaskId));
+
     const titleRef = React.useRef();
+    const taskInputRef = React.useRef();
 
-    function handleTitleClick() {
-        setFullTextVisible((prev) => !prev);
-    }
+    const handleTitleClick = () => setFullTextVisible((prev) => !prev);
+    const handleTitleDblClick = (e) => {
+        setIsEditMode(true);
+        setFullTextVisible(true);
+        taskInputRef.current.focus();
+        // editTaskTitle(e);
+    };
+    React.useEffect(() => {
+        if (isEditMode && taskInputRef.current) {
+            taskInputRef.current.focus();
+        }
+    }, [isEditMode]);
 
-    function handleChevronClicked(e) {
+    const handleChevronClicked = (e) => {
         e.preventDefault();
         setIsChevronRotated((prev) => !prev);
-        typeof onChevronBtnClicked === "function" && onChevronBtnClicked();
-    }
+        if (typeof onChevronBtnClicked === "function") {
+            onChevronBtnClicked();
+        }
+    };
 
-    function onTaskComplete(){
-        createToast()
-        completeTask()
+    const onTaskComplete = () => {
+        createToast();
+        completeTask();
+    };
+
+    function handleBlur() {
+        setIsEditMode(false);
+        updateTask(currentTaskId, currentTask, variant)
     }
 
     return (
@@ -103,19 +124,25 @@ function TaskBar({
             )}
             <Tag
                 ref={titleRef}
-                tabIndex={0}
                 onClick={handleTitleClick}
                 fullTextVisible={fullTextVisible}
                 onDoubleClick={(e) => {
-                    setFullTextVisible(true);
-                    editTaskTitle(e);
+                    handleTitleDblClick(e);
                 }}
             >
                 {children}
                 <StyledSlider
                     titleRef={titleRef}
                     onTaskComplete={onTaskComplete}
-                ></StyledSlider>
+                />
+                <TaskInput
+                    ref={taskInputRef}
+                    isEditMode={isEditMode}
+                    type="text"
+                    value={currentTask}
+                    onChange={(e)=>{setCurrentTask(e.target.value)}}
+                    onBlur={handleBlur}
+                />
             </Tag>
             {hasDesc && <DescriptionIcon description={description} />}
             {variant !== "Sub Task" && (
@@ -140,7 +167,6 @@ const ChevronDownIconWrapper = styled.div`
 
 const StyledSlider = styled(Slider)``;
 
-
 const Wrapper = styled.div`
     max-width: 100%;
     display: flex;
@@ -153,8 +179,26 @@ const Wrapper = styled.div`
     }
 `;
 
+const TaskInput = styled.input`
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    visibility: hidden;
+    z-index: -1;
+
+    ${({ isEditMode }) =>
+        isEditMode &&
+        css`
+            visibility: visible;
+            z-index: 10;
+        `}
+`;
+
 TaskBar.propTypes = {
-    children: PropTypes.node,
+    children: PropTypes.node.isRequired,
+    task: PropTypes.string.isRequired,
     hasDesc: PropTypes.bool,
     className: PropTypes.string,
     variant: PropTypes.oneOf(["Subject", "Main Task", "Sub Task"]),
@@ -162,7 +206,10 @@ TaskBar.propTypes = {
     onChevronBtnClicked: PropTypes.func,
     createToast: PropTypes.func,
     completeTask: PropTypes.func,
-    description: PropTypes.string
+    description: PropTypes.string,
+    currentTaskId: PropTypes.string,
+    currentTask: PropTypes.string,
+    updateTask: PropTypes.func
 };
 
 export default TaskBar;

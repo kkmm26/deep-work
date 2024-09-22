@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import TaskBar from "../../../TaskBar/TaskBar";
 
-function Subject({ children, onPlusBtnClicked, onChevronBtnClicked, description }) {
+function Subject({ currentTask,  currentTaskId, updateTask, children, onPlusBtnClicked, onChevronBtnClicked, description }) {
     return (
         <SubjectTaskBar
             onChevronBtnClicked={onChevronBtnClicked}
@@ -9,6 +9,9 @@ function Subject({ children, onPlusBtnClicked, onChevronBtnClicked, description 
             hasDesc={true}
             description={description}
             variant="Subject"
+            currentTask={currentTask}
+            currentTaskId={currentTaskId}
+            updateTask={updateTask}
         >
             {children}
         </SubjectTaskBar>

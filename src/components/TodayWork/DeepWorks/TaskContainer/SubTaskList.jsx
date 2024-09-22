@@ -8,7 +8,7 @@ import { TasksContext } from "../../../Providers/TasksProvider";
 
 function SubTaskList({ subTaskIds, isShowSubTasks, isSubTasksLimitReached, mainTaskId }) {
     const { createToast } = React.useContext(ToastsContext);
-    const {tasks, completeSubTask} = React.useContext(TasksContext)
+    const {tasks, completeSubTask, updateTask} = React.useContext(TasksContext)
     return (
         <Wrapper isShowSubTasks={isShowSubTasks}>
             {subTaskIds.map((id) => {
@@ -19,7 +19,10 @@ function SubTaskList({ subTaskIds, isShowSubTasks, isSubTasksLimitReached, mainT
                         key={subTask.id}
                         variant="Sub Task"
                         createToast={() => createToast(subTask.task)}
-                        completeTask={()=> completeSubTask(mainTaskId, id)}
+                        completeTask={() => completeSubTask(mainTaskId, id)}
+                        currentTask={subTask.task}
+                        currentTaskId={subTask.id}
+                        updateTask={updateTask}
                     >
                         {subTask.task}
                     </SubTaskBar>

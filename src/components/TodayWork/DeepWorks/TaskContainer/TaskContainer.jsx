@@ -24,7 +24,7 @@ function TaskContainer({ subjectObj, mainTaskIds }) {
         : SHOW_POPUP.onMainTaskLimit;
 
     const [isShowMainTasks, setIsShowMainTasks] = React.useState(true);
-    const { addNewMainTask } = React.useContext(TasksContext);
+    const { addNewMainTask, updateTask } = React.useContext(TasksContext);
     function addMainTask(subjectId) {
         setIsShowMainTasks(true);
         addNewMainTask(subjectId, () => setIsTasksLimitReached(true));
@@ -48,7 +48,10 @@ function TaskContainer({ subjectObj, mainTaskIds }) {
                 onPlusBtnClicked={() => addMainTask(subjectObj.id)}
                 hasDesc={true}
                 description={subjectObj.description}
-            >
+                updateTask={updateTask}
+                currentTaskId={subjectObj.id}
+                currentTask={subjectObj.task}
+        >
                 {subjectObj.task}
             </Subject>
             <MainTaskList

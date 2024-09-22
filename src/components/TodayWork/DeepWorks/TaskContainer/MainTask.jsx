@@ -7,6 +7,7 @@ import { TasksContext } from "../../../Providers/TasksProvider";
 
 function MainTask({
     children,
+    task,
     createToast,
     subTaskIds,
     mainTaskId,
@@ -15,7 +16,7 @@ function MainTask({
     const [isShowSubTasks, setIsShowSubTasks] = React.useState(true);
     const [isSubTasksLimitReached, setIsSubTasksLimitReached] =
         React.useState(false);
-    const { addNewSubTask, completeMainTask } = React.useContext(TasksContext);
+    const { addNewSubTask, completeMainTask, updateTask } = React.useContext(TasksContext);
 
     function addSubTask(mainTaskId) {
         setIsShowSubTasks(true);
@@ -34,6 +35,9 @@ function MainTask({
                 createToast={createToast}
                 completeTask={() => completeMainTask(subjectId, mainTaskId)}
                 variant="Main Task"
+                currentTask={task}
+                currentTaskId={mainTaskId}
+                updateTask={updateTask}
             >
                 {children}
             </MainTaskTaskBar>

@@ -8,6 +8,7 @@ function MainTaskList({ mainTaskIds, addMainTask, isShowMainTasks, subjectId }) 
     const { createToast } = React.useContext(ToastsContext);
     const {tasks} = React.useContext(TasksContext)
     
+    
 
     return (
         <Wrapper isShowMainTasks={isShowMainTasks}>
@@ -21,6 +22,7 @@ function MainTaskList({ mainTaskIds, addMainTask, isShowMainTasks, subjectId }) 
                         subTaskIds={mainTask.subTaskIds}
                         mainTaskId = {id}
                         subjectId={subjectId}
+                        task={mainTask.task}
                     >
                         {mainTask.task}
                     </MainTask>
