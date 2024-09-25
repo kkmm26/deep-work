@@ -52,7 +52,7 @@ const SubTaskTitle = styled(Title)`
 `;
 
 const titleComponents = {
-    "Subject": SubjectTitle,
+    Subject: SubjectTitle,
     "Main Task": MainTaskTitle,
     "Sub Task": SubTaskTitle,
 };
@@ -68,30 +68,57 @@ function TaskBar({
     createToast,
     completeTask,
     currentTaskId,
-    updateTask
+    updateTask,
 }) {
     const Tag = titleComponents[variant];
     // const editTaskTitle = useEditableTitle();
     const [isEditMode, setIsEditMode] = React.useState(false);
     const [fullTextVisible, setFullTextVisible] = React.useState(false);
     const [isChevronRotated, setIsChevronRotated] = React.useState(false);
-    const [currentTask, setCurrentTask] = React.useState(getCurrentTask(variant, currentTaskId));
+    const [currentTask, setCurrentTask] = React.useState(
+        getCurrentTask(variant, currentTaskId)
+    );
+    const [isTaskUpdated, setIsTaskUpdated] = React.useState(true);
 
     const titleRef = React.useRef();
     const taskInputRef = React.useRef();
 
     const handleTitleClick = () => setFullTextVisible((prev) => !prev);
-    const handleTitleDblClick = (e) => {
+    const handleTitleDblClick = () => {
         setIsEditMode(true);
         setFullTextVisible(true);
         taskInputRef.current.focus();
-        // editTaskTitle(e);
     };
+
     React.useEffect(() => {
         if (isEditMode && taskInputRef.current) {
             taskInputRef.current.focus();
         }
-    }, [isEditMode]);
+        const handleKeydown = (e) => {
+            if (e.key === "Enter" && isEditMode) {
+                if (currentTask === "") {
+                    return;
+                }
+                updateTask(currentTaskId, currentTask, variant);
+                setIsEditMode(false);
+            }
+            if (e.key === "Escape" && isEditMode) {
+                setIsTaskUpdated(false);
+                return;
+            }
+        };
+
+        const inputRef = taskInputRef.current;
+        if (inputRef) {
+            inputRef.addEventListener("keydown", handleKeydown);
+        }
+
+        return () => {
+            if (inputRef) {
+                inputRef.removeEventListener("keydown", handleKeydown);
+            }
+        };
+    }, [isEditMode, currentTask, updateTask, currentTaskId, variant]);
 
     const handleChevronClicked = (e) => {
         e.preventDefault();
@@ -108,7 +135,10 @@ function TaskBar({
 
     function handleBlur() {
         setIsEditMode(false);
-        updateTask(currentTaskId, currentTask, variant)
+        if (currentTask === "") {
+            return;
+        }
+        isTaskUpdated && updateTask(currentTaskId, currentTask, variant);
     }
 
     return (
@@ -139,7 +169,9 @@ function TaskBar({
                     isEditMode={isEditMode}
                     type="text"
                     value={currentTask}
-                    onChange={(e)=>{setCurrentTask(e.target.value)}}
+                    onChange={(e) => {
+                        setCurrentTask(e.target.value);
+                    }}
                     onBlur={handleBlur}
                 />
             </Tag>
@@ -208,7 +240,7 @@ TaskBar.propTypes = {
     description: PropTypes.string,
     currentTaskId: PropTypes.string,
     currentTask: PropTypes.string,
-    updateTask: PropTypes.func
+    updateTask: PropTypes.func,
 };
 
 export default TaskBar;
