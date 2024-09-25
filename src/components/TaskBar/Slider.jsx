@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { COLORS } from "../../constants";
 
-function Slider({ titleRef, className, onTaskComplete }) {
+function Slider({ cureentTask, titleRef, className, onTaskComplete }) {
     let isDragging = false;
     let slider = null;
     let initialOffsetX = 0;
