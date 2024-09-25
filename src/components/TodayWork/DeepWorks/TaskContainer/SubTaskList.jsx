@@ -54,6 +54,7 @@ const Wrapper = styled.div`
         !p.isShowSubTasks &&
         css`
             opacity: 0;
+            display: none;
             height: 0;
         `}
 `;

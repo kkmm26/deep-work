@@ -58,7 +58,6 @@ const titleComponents = {
 };
 
 function TaskBar({
-    task,
     children,
     hasDesc,
     className,
