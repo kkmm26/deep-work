@@ -16,6 +16,7 @@ const Wrapper = styled.div`
     display: flex;
     gap: 5px;
     align-items: flex-start;
+    overflow: visible;
 
     &:hover button,
     &:hover ${ChevronToggleWrapper}, &:hover ${StyledSlider} {

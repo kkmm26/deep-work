@@ -25,7 +25,6 @@ const variantStyles = {
         -webkit-box-orient: vertical;
         overflow: hidden;
         word-wrap: break-word;
-        border: 3px solid red;
         ${({ fullTextVisible }) => fullTextVisible && css`
             display: block;
             word-wrap: normal;

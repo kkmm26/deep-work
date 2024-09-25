@@ -15,10 +15,7 @@ import { SHOW_POPUP } from "../../../../config.js";
 
 function TaskContainer({ subjectObj, mainTaskIds }) {
     const [isTasksLimitReached, setIsTasksLimitReached] = React.useState(false);
-    // const isShowPopUp =
-    //     typeof JSON.parse(localStorage.getItem("showPopUp")) === "boolean"
-    //         ? JSON.parse(localStorage.getItem("showPopUp"))
-    //         : true;
+
     const isShowPopUp = Object.keys(getFromStorage("showPopUp")).length
         ? getFromStorage("showPopUp").onMainTaskLimit
         : SHOW_POPUP.onMainTaskLimit;
@@ -71,9 +68,12 @@ const Wrapper = styled.section`
     flex: 1;
     min-width: 25%;
     max-width: 35%;
-    max-height: 80vh;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    /* max-height: 80vh; */
+    /* overflow-y: scroll;
+    overflow-x: hidden; */
+    margin-bottom: -20px;
+    padding-bottom: 20px;
+
     scrollbar-width: none;
 
     &::-webkit-scrollbar {
