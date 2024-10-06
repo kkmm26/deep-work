@@ -87,6 +87,8 @@ const Overlay = styled.div`
     position: fixed;
     top: 0;
     left: 0;
+    isolation: isolate;
+    z-index: 10;
 `;
 
 const Card = styled.article`

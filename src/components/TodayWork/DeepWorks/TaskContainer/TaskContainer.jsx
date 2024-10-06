@@ -25,7 +25,6 @@ function TaskContainer({ subjectObj, mainTaskIds }) {
     function addMainTask(subjectId) {
         setIsShowMainTasks(true);
         addNewMainTask(subjectId, () => setIsTasksLimitReached(true));
-        console.log(isShowPopUp);
     }
 
     function closePopUp() {

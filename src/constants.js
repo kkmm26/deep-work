@@ -8,7 +8,7 @@ export const COLORS = {
     inactiveBlack: "hsl(0, 0%, 0%, 30%)",
     hoverBlack: "hsl(0, 0%, 0%, 20%)",
 
-    background: "hsl(0, 0%, 90%, 80%)",
+    background: "hsl(0, 0%, 90%, 97%)",
     backgroundHover: "hsl(0, 0%, 85%, 100%)",
 
     mainTaskBackground: "hsl(0, 0%, 0%, 25%)",
