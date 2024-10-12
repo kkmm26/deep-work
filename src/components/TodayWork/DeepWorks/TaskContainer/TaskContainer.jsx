@@ -12,6 +12,7 @@ import {
     setInStorage,
 } from "../../../../api/db/localStorage.js";
 import { SHOW_POPUP } from "../../../../config.js";
+import { ToastsContext } from "../ToastsProvider.jsx";
 
 function TaskContainer({ subjectObj, mainTaskIds }) {
     const [isTasksLimitReached, setIsTasksLimitReached] = React.useState(false);
@@ -21,7 +22,8 @@ function TaskContainer({ subjectObj, mainTaskIds }) {
         : SHOW_POPUP.onMainTaskLimit;
 
     const [isShowMainTasks, setIsShowMainTasks] = React.useState(true);
-    const { addNewMainTask, updateTask } = React.useContext(TasksContext);
+    const { addNewMainTask, updateTask, completeSubject } = React.useContext(TasksContext);
+    const {createToast} = React.useContext(ToastsContext)
     function addMainTask(subjectId) {
         setIsShowMainTasks(true);
         addNewMainTask(subjectId, () => setIsTasksLimitReached(true));
@@ -47,6 +49,8 @@ function TaskContainer({ subjectObj, mainTaskIds }) {
                 updateTask={updateTask}
                 currentTaskId={subjectObj.id}
                 currentTask={subjectObj.task}
+                createToast={()=>createToast(subjectObj.task)}
+                completeTask={()=>completeSubject(subjectObj.id)}
         >
                 {subjectObj.task}
             </Subject>

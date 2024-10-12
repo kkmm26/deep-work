@@ -1,19 +1,28 @@
 import React from "react";
 import { getFromStorage, setInStorage } from "../../api/db/localStorage";
 import { MAIN_TASKS_ADDABLE, SUB_TASKS_ADDABLE } from "../../constants";
-
+import { parseLocalStorageItem } from "../../utils";
+import { removeSubTasks } from "../../helpers";
 
 const TASK_TYPES = {
-    "Subject": "subjects",
+    Subject: "subjects",
     "Main Task": "mainTasks",
-    "Sub Task": "subTasks"
-} 
+    "Sub Task": "subTasks",
+};
 export const TasksContext = React.createContext();
 function TasksProvider({ children }) {
     const [tasks, setTasks] = React.useState(getFromStorage("tasks"));
+    const existingTasks = React.useMemo(
+        () => parseLocalStorageItem(tasks),
+        [tasks]
+    );
+
+    function persistTasks(updatedTasks) {
+        setTasks(updatedTasks);
+        setInStorage("tasks", updatedTasks);
+    }
 
     function addNewTask(newTask) {
-        const existingTasks = JSON.parse(JSON.stringify(tasks));
         existingTasks.subjects = existingTasks.subjects || {};
         existingTasks.mainTasks = existingTasks.mainTasks || {};
         existingTasks.subTasks = existingTasks.subTasks || {};
@@ -40,16 +49,14 @@ function TasksProvider({ children }) {
                 task: newTask.subTasks[index],
             };
         });
-        setTasks(existingTasks);
-        setInStorage("tasks", existingTasks);
+        persistTasks(existingTasks);
     }
 
     function addNewMainTask(subjectId, limitReachedCb) {
-        const existingTasks = JSON.parse(JSON.stringify(tasks));
         const newId = crypto.randomUUID();
-        
+
         const currentMainTaskIds =
-        existingTasks.subjects[subjectId].mainTaskIds;
+            existingTasks.subjects[subjectId].mainTaskIds;
         if (currentMainTaskIds.length >= MAIN_TASKS_ADDABLE) {
             limitReachedCb();
             return;
@@ -60,20 +67,17 @@ function TasksProvider({ children }) {
             task: "New Main Task",
             subTaskIds: [],
         };
-        setTasks(existingTasks);
-        setInStorage("tasks", existingTasks);
+        persistTasks(existingTasks);
     }
 
-    function updateTask(currentTaskId, newTask, type){
-        const existingTasks = JSON.parse(JSON.stringify(tasks));
-        const taskType = TASK_TYPES[type]
-        existingTasks[taskType][currentTaskId].task = newTask
-        setTasks(existingTasks)
-        setInStorage("tasks", existingTasks)
+    function updateTask(currentTaskId, newTask, type) {
+        const taskType = TASK_TYPES[type];
+        existingTasks[taskType][currentTaskId].task = newTask;
+
+        persistTasks(existingTasks);
     }
 
     function addNewSubTask(mainTaskId, limitReachedCb) {
-        const existingTasks = JSON.parse(JSON.stringify(tasks));
         const newId = crypto.randomUUID();
 
         const currentSubTaskIds =
@@ -87,31 +91,41 @@ function TasksProvider({ children }) {
             id: newId,
             task: "New Sub Task",
         };
-        setTasks(existingTasks);
-        setInStorage("tasks", existingTasks);
+
+        persistTasks(existingTasks);
+    }
+
+    function completeSubject(subjectId) {
+        const mainTasksToDel = existingTasks.subjects[subjectId].mainTaskIds;
+        // console.log(mainTasksToDel);
+
+        mainTasksToDel.forEach((id) => {
+            removeSubTasks(existingTasks, id);
+            delete existingTasks.mainTasks[id];
+        });
+        delete existingTasks.subjects[subjectId];
+
+        persistTasks(existingTasks);
     }
 
     function completeMainTask(subjectId, mainTaskId) {
-        const existingTasks = JSON.parse(JSON.stringify(tasks));
+        removeSubTasks(existingTasks, mainTaskId); // delete subtasks
         existingTasks.subjects[subjectId].mainTaskIds = existingTasks.subjects[
             subjectId
         ].mainTaskIds.filter((id) => id !== mainTaskId); // delete mainTaskId
-        const subTasksToDel = existingTasks.mainTasks[mainTaskId].subTaskIds;
-        subTasksToDel.forEach((id) => delete existingTasks[id]); 
-        delete existingTasks.mainTasks[mainTaskId];
-        setTasks(existingTasks);
-        setInStorage("tasks", existingTasks);
+        delete existingTasks.mainTasks[mainTaskId]; // delete mainTask
+
+        persistTasks(existingTasks);
     }
 
     function completeSubTask(mainTaskId, subTaskId) {
-        const existingTasks = JSON.parse(JSON.stringify(tasks));
         existingTasks.mainTasks[mainTaskId].subTaskIds =
             existingTasks.mainTasks[mainTaskId].subTaskIds.filter(
                 (id) => id !== subTaskId
             );
         delete existingTasks.subTasks[subTaskId];
-        setTasks(existingTasks);
-        setInStorage("tasks", existingTasks);        
+
+        persistTasks(existingTasks);
     }
 
     const VALUES = {
@@ -122,6 +136,7 @@ function TasksProvider({ children }) {
         completeSubTask,
         completeMainTask,
         updateTask,
+        completeSubject,
     };
     return (
         <TasksContext.Provider value={VALUES}>{children}</TasksContext.Provider>

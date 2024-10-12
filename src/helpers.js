@@ -11,3 +11,7 @@ export function getCurrentTask(type, currentTaskId) {
     const taskType = TASK_TYPES[type];
     return existingTasks[taskType][currentTaskId].task 
 }
+export function removeSubTasks(existingTasks, mainTaskId) {
+    const subTasksToDel = existingTasks.mainTasks[mainTaskId].subTaskIds;
+    subTasksToDel.forEach((id) => delete existingTasks.subTasks[id]);
+}
