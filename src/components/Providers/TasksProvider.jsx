@@ -52,13 +52,12 @@ function TasksProvider({ children }) {
         persistTasks(existingTasks);
     }
 
-    function addNewMainTask(subjectId, limitReachedCb) {
+    function addNewMainTask(subjectId) {
         const newId = crypto.randomUUID();
 
         const currentMainTaskIds =
             existingTasks.subjects[subjectId].mainTaskIds;
         if (currentMainTaskIds.length >= MAIN_TASKS_ADDABLE) {
-            limitReachedCb();
             return;
         }
         currentMainTaskIds.push(newId);
@@ -77,13 +76,12 @@ function TasksProvider({ children }) {
         persistTasks(existingTasks);
     }
 
-    function addNewSubTask(mainTaskId, limitReachedCb) {
+    function addNewSubTask(mainTaskId) {
         const newId = crypto.randomUUID();
 
         const currentSubTaskIds =
             existingTasks.mainTasks[mainTaskId].subTaskIds;
         if (currentSubTaskIds.length >= SUB_TASKS_ADDABLE) {
-            limitReachedCb();
             return;
         }
         currentSubTaskIds.push(newId);

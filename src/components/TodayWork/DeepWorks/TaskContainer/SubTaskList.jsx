@@ -6,7 +6,7 @@ import { SUB_TASKS_ADDABLE } from "../../../../constants";
 import { ToastsContext } from "../ToastsProvider";
 import { TasksContext } from "../../../Providers/TasksProvider";
 
-function SubTaskList({ subTaskIds, isShowSubTasks, isSubTasksLimitReached, mainTaskId }) {
+function SubTaskList({ subTaskIds, isShowSubTasks, mainTaskId }) {
     const { createToast } = React.useContext(ToastsContext);
     const {tasks, completeSubTask, updateTask} = React.useContext(TasksContext)
     return (
@@ -28,7 +28,7 @@ function SubTaskList({ subTaskIds, isShowSubTasks, isSubTasksLimitReached, mainT
                     </SubTaskBar>
                 );
             })}
-            {isSubTasksLimitReached && (
+            {subTaskIds.length === SUB_TASKS_ADDABLE && (
                 <SubTaskWarning>
                     Whoa, that's a lot of tasks! You've maxed out your{" "}
                     {SUB_TASKS_ADDABLE} sub-tasks. Time to check some off before

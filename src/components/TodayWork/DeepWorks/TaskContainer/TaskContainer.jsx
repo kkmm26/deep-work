@@ -24,9 +24,12 @@ function TaskContainer({ subjectObj, mainTaskIds }) {
     const [isShowMainTasks, setIsShowMainTasks] = React.useState(true);
     const { addNewMainTask, updateTask, completeSubject } = React.useContext(TasksContext);
     const {createToast} = React.useContext(ToastsContext)
-    function addMainTask(subjectId) {
+    function handlePlusBtnClicked(subjectId) {
+        if(mainTaskIds.length === MAIN_TASKS_ADDABLE) {
+            setIsTasksLimitReached(true)
+        }
         setIsShowMainTasks(true);
-        addNewMainTask(subjectId, () => setIsTasksLimitReached(true));
+        addNewMainTask(subjectId);
     }
 
     function closePopUp() {
@@ -43,7 +46,7 @@ function TaskContainer({ subjectObj, mainTaskIds }) {
             )}
             <Subject
                 onChevronBtnClicked={toggleDisplayTasks}
-                onPlusBtnClicked={() => addMainTask(subjectObj.id)}
+                onPlusBtnClicked={() => handlePlusBtnClicked(subjectObj.id)}
                 hasDesc={true}
                 description={subjectObj.description}
                 updateTask={updateTask}

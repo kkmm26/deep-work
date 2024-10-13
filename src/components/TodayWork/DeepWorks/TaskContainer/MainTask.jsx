@@ -13,14 +13,11 @@ function MainTask({
     mainTaskId,
     subjectId,
 }) {
+    const { addNewSubTask, completeMainTask, updateTask, tasks } = React.useContext(TasksContext);
     const [isShowSubTasks, setIsShowSubTasks] = React.useState(true);
-    const [isSubTasksLimitReached, setIsSubTasksLimitReached] =
-        React.useState(false);
-    const { addNewSubTask, completeMainTask, updateTask } = React.useContext(TasksContext);
-
-    function addSubTask(mainTaskId) {
+    function handlePlusBtnClicked(mainTaskId) {
         setIsShowSubTasks(true);
-        addNewSubTask(mainTaskId, () => setIsSubTasksLimitReached(true));
+        addNewSubTask(mainTaskId);
     }
     function toggleDisplayTasks() {
         setIsShowSubTasks((prev) => !prev);
@@ -31,7 +28,7 @@ function MainTask({
             <MainTaskTaskBar
                 hasDesc={false}
                 onChevronBtnClicked={toggleDisplayTasks}
-                onPlusBtnClicked={() => addSubTask(mainTaskId)}
+                onPlusBtnClicked={() => handlePlusBtnClicked(mainTaskId)}
                 createToast={createToast}
                 completeTask={() => completeMainTask(subjectId, mainTaskId)}
                 variant="Main Task"
@@ -44,7 +41,6 @@ function MainTask({
             <SubTaskList
                 isShowSubTasks={isShowSubTasks}
                 subTaskIds={subTaskIds}
-                isSubTasksLimitReached={isSubTasksLimitReached}
                 mainTaskId={mainTaskId}
             />
         </Wrapper>
