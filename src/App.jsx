@@ -5,29 +5,30 @@ import TodayWork from "./components/TodayWork/TodayWork.jsx";
 import FleetingThoughts from "./components/FleetingThoughts/FleetingThoughts.jsx";
 import TimeBlock from "./components/TimeBlock/TimeBlock.jsx";
 import { COLORS, STYLES } from "./constants.js";
+import TasksProvider from "./components/Providers/TasksProvider.jsx";
+import ShallowWorksProvider from "./components/Providers/ShallowWorksProvider.jsx";
 
-const FEATURES = ["Time Block", "Today's Works", "Fleeting Thoughts"];
+// const FEATURES = ["Time Block", "Today's Works", "Fleeting Thoughts"];
+const FEATURES = ["Today's Works"];
 
 function App() {
-    const [activeFeature, setActiveFeature] = React.useState(FEATURES[1]);
+    const [activeFeature, setActiveFeature] = React.useState(FEATURES[0]);
 
-    
-
-    React.useEffect(()=> {
+    React.useEffect(() => {
         function handleKeydown(e) {
             if (e.key === "Escape") {
-                if(document.activeElement) {
-                    document.activeElement.blur()
+                if (document.activeElement) {
+                    document.activeElement.blur();
                 }
             }
         }
 
-        window.addEventListener('keydown', handleKeydown)
+        window.addEventListener("keydown", handleKeydown);
 
-        return (() => {
-            window.removeEventListener('keydown', handleKeydown)
-        })
-    })
+        return () => {
+            window.removeEventListener("keydown", handleKeydown);
+        };
+    });
 
     function handleClick(e) {
         const feature = e.target.textContent;
@@ -49,9 +50,20 @@ function App() {
             </TitleWrapper>
             <Main>
                 <FeatureWrapper>
-                    {activeFeature === FEATURES[0] && <TimeBlock />}
-                    {activeFeature === FEATURES[1] && <TodayWork />}
-                    {activeFeature === FEATURES[2] && <FleetingThoughts />}
+                    {/* {activeFeature === FEATURES[0] && <TimeBlock />}
+                    {activeFeature === FEATURES[1] && (
+                        <TasksProvider>
+                            <ShallowWorksProvider>
+                            <TodayWork />
+                            </ShallowWorksProvider>
+                        </TasksProvider>
+                    )}
+                    {activeFeature === FEATURES[2] && <FleetingThoughts />} */}
+                    <TasksProvider>
+                        <ShallowWorksProvider>
+                            <TodayWork />
+                        </ShallowWorksProvider>
+                    </TasksProvider>
                 </FeatureWrapper>
             </Main>
         </>

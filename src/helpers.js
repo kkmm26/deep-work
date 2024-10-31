@@ -7,7 +7,11 @@ const TASK_TYPES = {
 };
 
 export function getCurrentTask(type, currentTaskId) {
+    if(!currentTaskId){
+        return null
+    }
     const existingTasks = JSON.parse(JSON.stringify(getFromStorage("tasks")));
+    console.log(existingTasks);
     const taskType = TASK_TYPES[type];
     return existingTasks[taskType][currentTaskId].task 
 }

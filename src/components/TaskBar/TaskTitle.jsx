@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 import { COLORS } from "../../constants";
 
 const TaskTitle = styled.h3`
+    min-width: fit-content;
     position: relative;
     cursor: pointer;
     padding: 8px;
@@ -19,16 +20,20 @@ const TaskTitle = styled.h3`
 
 const variantStyles = {
     Subject: css`
-        max-height: 2.5rem;
-        display: -webkit-box;
+        /* max-height: 2.5rem; */
+        /* display: -webkit-box;
         -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
+        -webkit-box-orient: vertical; */
         overflow: hidden;
-        word-wrap: break-word;
+        /* word-wrap: break-word; */
         ${({ fullTextVisible }) => fullTextVisible && css`
-            display: block;
+            /* display: block;
             word-wrap: normal;
-            max-height: fit-content;
+            max-height: fit-content; */
+            -webkit-line-clamp: 10;
+            word-wrap: normal;
+            overflow: visible;
+            min-height: fit-content;
         `}
     `,
     "Main Task": css`

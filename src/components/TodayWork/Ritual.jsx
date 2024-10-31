@@ -1,5 +1,5 @@
 function Ritual(){
-    return <>Ritual</>
+    return <></>
 }
 
 export default Ritual

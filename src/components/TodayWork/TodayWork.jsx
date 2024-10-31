@@ -19,7 +19,7 @@ import PopUp from "../PopUp/PopUp.jsx";
 import { SHOW_POPUP } from "../../config.js";
 
 function TodayWork() {
-    const [currentWork, setCurrentWork] = React.useState(WORK_TYPES[1]);
+    const [currentWork, setCurrentWork] = React.useState(WORK_TYPES[0]);
     const [isFormOpen, setIsFormOpen] = React.useState(false);
     const [isSubjectLimitReached, setIsSubjectLimitReached] =
         React.useState(false);
@@ -41,19 +41,21 @@ function TodayWork() {
         setIsFormOpen(true);
         document.body.style.overflow = "hidden";
     }
-    function handlePlusBtnClick(e) {
-        const currentTasks = getFromStorage("tasks");
-        console.log(isShowPopUp);
-        if (Object.keys(currentTasks).length === 0) {
-            openForm(e);
-            return;
+    function handlePlusBtnClick(e, work) {
+        if (work === "Deep Works"){
+            const currentTasks = getFromStorage("tasks");
+            if (Object.keys(currentTasks).length === 0) {
+                openForm(e);
+                return;
+            }
+            if (Object.values(currentTasks.subjects).length < SUBJECTS_ADDABLE) {
+                openForm(e);
+            } else {
+                // setIsShowPopUp(getFromStorage("showPopUp").onSubjectLimit);
+                setIsSubjectLimitReached(true);
+            }
         }
-        if (Object.values(currentTasks.subjects).length < SUBJECTS_ADDABLE) {
-            openForm(e);
-        } else {
-            // setIsShowPopUp(getFromStorage("showPopUp").onSubjectLimit);
-            setIsSubjectLimitReached(true);
-        }
+        
     }
     function closePopUp() {
         setIsSubjectLimitReached(false);
@@ -77,7 +79,7 @@ function TodayWork() {
                                 {work}
                                 {isActive && (
                                     <PlusButton
-                                        onClick={(e) => handlePlusBtnClick(e)}
+                                        onClick={(e) => handlePlusBtnClick(e, work)}
                                         variant="Work Type"
                                     />
                                 )}
@@ -86,16 +88,15 @@ function TodayWork() {
                     );
                 })}
             </TitleWrapper>
-            <TasksProvider>
                 <SubTaskInputProvider>
                     {isFormOpen && <TaskEntryForm closeForm={closeForm} />}
                 </SubTaskInputProvider>
                 <WorkTypeWrapper>
-                    {currentWork === WORK_TYPES[0] && <Ritual />}
-                    {currentWork === WORK_TYPES[1] && <DeepWorks />}
-                    {currentWork === WORK_TYPES[2] && <ShallowWorks />}
+                    {/* {currentWork === WORK_TYPES[0] && <Ritual />} */}
+                    {/* {currentWork === WORK_TYPES[1] && <DeepWorks />} */}
+                    {/* {currentWork === WORK_TYPES[2] && <ShallowWorks />} */}
+                    <DeepWorks />
                 </WorkTypeWrapper>
-            </TasksProvider>
         </Wrapper>
     );
 }
